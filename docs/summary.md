@@ -1,13 +1,13 @@
 OBJECTIVES
 ----------
 
-###Overview
+### Overview
 1. Setup account management and (restricted) guest access
 2. Allow users to compile and run Python code
   - Access to save / load files with an account
 3. UI to manage files, navigate site, and work on code
 
-###Details
+### Details
 1. We need to develop an account management system for our main users who will have access to
 	the core functionality of running and compiling code as well as the extended features
 	of saving, loading and sharing files. The guest access is an immediate one click entry
@@ -25,13 +25,13 @@ OBJECTIVES
 KEY USERS
 ---------
 
-###Overview
+### Overview
 1. Entry level programmer
 2. Computer Science / Programming-related student
 3. Teacher's Assistant / Professors
 4. Professionals
 
-###Details
+## #Details
 1. The entry level programmer is meant to describe every type of user that has zero or
 	very limited amount of coding experience. That is, perhaps a younger audience who
 	is being introduced to coding or perhaps someone interested in a career change.
@@ -53,12 +53,12 @@ KEY USERS
 SCENARIOS
 ---------
 
-###Overview
+### Overview
 1. User wanting to learn / practice code
 2. User wanting to experiment / work on code with convenience
 3. User wanting to demo / present code
 
-###Details
+## #Details
 1. Lisa is intrigued by programming when her older brother shows her some things he has been
 	working on. She goes online to learn more but is overwhelmed by a sea of suggestions on
 	what IDE to download and how to configure them. This user needs an easier way to test the
@@ -78,13 +78,13 @@ SCENARIOS
 PRINCIPLES
 ----------
 
-###Overview
+### Overview
 1. Intuitive, easy to navigate UI
 2. Instant and simple coding
 3. Unified repository
 4. Useful for educational and presentation purposes
 
-###Details
+### Details
 1. The spacious coding environment with an easy to navigate UI is preferred over
 	unnecessary features and information that cluster the interface and confuse
 	entry level users.
