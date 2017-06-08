@@ -35,7 +35,7 @@ SCENARIOS
 3. Developer wanting to ask for feed back on their game 
 
 ### Details
-1. Adam wants to his 16 year old son a new game for his birthday.
+1. Adam wants to biy his 16 year old son a new game for his birthday.
 	He wants to find the best rated games based on genre, cost and ESRB rating.
 	Also he wants to be able to see what other people have written about the game
 
