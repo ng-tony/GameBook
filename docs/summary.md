@@ -35,7 +35,7 @@ SCENARIOS
 3. Developer wanting to ask for feed back on their game 
 
 ### Details
-1. Adam wants to biy his 16 year old son a new game for his birthday.
+1. Adam wants to buy his 16 year old son a new game for his birthday.
 	He wants to find the best rated games based on genre, cost and ESRB rating.
 	Also he wants to be able to see what other people have written about the game
 
@@ -52,21 +52,19 @@ PRINCIPLES
 ----------
 
 ### Overview
-1. Intuitive, easy to navigate UI
-2. Instant and simple coding
-3. Unified repository
-4. Useful for educational and presentation purposes
+1. Clean and Concise UI
+2. Quick Access to useful information
+3. Create a sense of community
+4. Faciliate easy communication between gamers and game developers
 
 ### Details
-1. The spacious coding environment with an easy to navigate UI is preferred over
-	unnecessary features and information that cluster the interface and confuse
-	entry level users.
+1. Few UI elements as possible, rather the majority of the website space should be dedicated
+	to providing easy to read and concise information. 
 
-2. All users must have a way to instantly begin coding without any required configuration.
+2. All users can instantaneously find important information about games with few required actions.
 
-3. The application (for registered users) has a way to allow them to access files
-	from any computer with internet, providing a repository that can be accessed
-	from anywhere. This is preferred over offline but local access.
+3. Give users a way to form groups, make friends and find other people with similar interests to theirs. Also, allow
+	users to be able to easily communicate amongst their social circle.
 
-4. The application's simple interface and sharing capabilities benefits presentation and
-	education usages. This is preferred over a more technical and customizable interface.
+4. Provide a channel that allows game developers to easily share news for their games and ask for feedback
+	about their game.
