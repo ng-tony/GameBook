@@ -11,27 +11,18 @@ KEY USERS
 ---------
 
 ### Overview
-1. Entry level programmer
-2. Computer Science / Programming-related student
-3. Teacher's Assistant / Professors
-4. Professionals
+1. Gamers
+2. Game Developer
 
 ## #Details
-1. The entry level programmer is meant to describe every type of user that has zero or
-	very limited amount of coding experience. That is, perhaps a younger audience who
-	is being introduced to coding or perhaps someone interested in a career change.
+1. Gamers describe anyone who has an interest in gaming.
+	This user may be interested in finding out what are the popular games currently,
+	what games are coming out soon and finding new games that fit their tastes.
 
-2. The programming-related student can describe anyone in the CS department here at UTM.
- 	This user may be interested in saving drafts of experimental code and furthermore, 
- 	having the option to share that code with team mates and such.
-
-3. This user is any sort of high-school / University instructor who wants to perhaps,
-	have a snippet of code accessible to students or would like to demonstrate a
-	certain concept to the class.
-
-4. Professionals encompass anyone who is working in the field of I.T. or similar
-	and would appreciate an easy, distraction free environment to use as a test bench,
-	that they can have have access to from multiple computers.
+2. Game Developer describes anyone who is producing/produced a game.
+ 	This user may be interested in promoting their game to potential customers,
+	asking gamers for potential new features to add to the game. 
+	
 
 ---
 
