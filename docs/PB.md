@@ -1,8 +1,15 @@
 
 - As an adminstrator I want to be able to add new game profiles into the database
 - As an adminstrator I want to be able to modify existing game profiles.
+- As an administrator I want to be able to moderate discussions
+- As an administrator I want to be able to remove bad users
 - As a user I want to be able to quickly find upcoming games
-- As a user I want to be able to search for games 
+- As a user I want to be able to share my preferences about games in a profile
+- As a user I want to be able to search for games
+- As a user I want to be able to find mutual friends
 - As a user I want to be find friends with similar tastes in games as me
 - As a user I want to be able to send a message to my friends
 - As a user I want a place where i can have a discussion about games
+- As a user I want to rate a game and see it's rating
+- As a game developer I want to be able to add my game to the site
+- As a game developer I want to be authenticated as developer for this game
