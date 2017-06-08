@@ -37,7 +37,7 @@
      * Message
      * History
      * Add Friend / Remove Friend
- 
+
 ## Search Results
  - Cards Result
   - Games
@@ -50,4 +50,10 @@
       * Mutual Friends
       * Picture
 
+## Login Page
+ - Modal
+ - UserName
+ - Password
+ - Save
+ - OK 
 
