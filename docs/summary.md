@@ -3,7 +3,7 @@ OBJECTIVES
 <p> Build a information/social networking site for everything related to the gaming industry. 
 For gamers, this site gives quick access to information about specific games, popular games and 
 upcoming releases. Furthermore this websites allows users to share their interests and opinions of games
-with others. For game companies/developers this site is platform through which they can promote their games
+with others. For game companies/developers this site is a platform through which they can promote their games
 as well as connect with potential buyers or current users. </p>
 ---
 
@@ -30,24 +30,21 @@ SCENARIOS
 ---------
 
 ### Overview
-1. User wanting to learn / practice code
-2. User wanting to experiment / work on code with convenience
-3. User wanting to demo / present code
+1. User wanting to find what game to buy
+2. Company wanting to share news and hold promotional events
+3. Developer wanting to ask for feed back on their game 
 
 ### Details
-1. Lisa is intrigued by programming when her older brother shows her some things he has been
-	working on. She goes online to learn more but is overwhelmed by a sea of suggestions on
-	what IDE to download and how to configure them. This user needs an easier way to test the
-	waters with coding.
+1. Adam wants to his 16 year old son a new game for his birthday.
+	He wants to find the best rated games based on genre, cost and ESRB rating.
+	Also he wants to be able to see what other people have written about the game
 
-2. Jason was in the middle of eating cereal for breakfast when he comes up with 
-	an idea to solve a problem he was working on yesterday. He needs a way to quickly 
-	experiment with the idea he has come up with.
+2. Alice is a PR representation for a large game publishers. She wants to share news
+	about their upcoming game and schedule a Q&A between the development team
+	and gamers who are interested in their new work. 
 
-3. Michael works at a tutoring institute where he is responsible for progressively teaching
-	students different programming concepts. The facility has multiple rooms with different
-	independent computers. This user needs a way to have a repository of template code
-	that he can access from any computer.
+3. David is a individual indie developer who wants to share his new game with the gaming community. He wants to
+	hear what others think about his work as well new features they want to see added on and bugs which need to be fixed.
 
 ---
 
