@@ -1,10 +1,10 @@
 OBJECTIVES
 ----------
-	Build a game information/social networking site for everything related to the gaming industry. 
-	For gamers, this site gives quick access to information about specific games, popular games and 
-	upcoming releases. Furthermore this websites allows users to share their interests and opinions of games
-	with others. For game companies/developers this site is platform through which they can promote their games
-	as well as connect with potential buyers or current users. 
+<p> Build a game information/social networking site for everything related to the gaming industry. 
+For gamers, this site gives quick access to information about specific games, popular games and 
+upcoming releases. Furthermore this websites allows users to share their interests and opinions of games
+with others. For game companies/developers this site is platform through which they can promote their games
+as well as connect with potential buyers or current users. </p>
 ---
 
 KEY USERS
