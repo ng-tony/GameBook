@@ -1,25 +1,10 @@
 OBJECTIVES
 ----------
-
-### Overview
-1. Setup account management and (restricted) guest access
-2. Allow users to compile and run Python code
-  - Access to save / load files with an account
-3. UI to manage files, navigate site, and work on code
-
-### Details
-1. We need to develop an account management system for our main users who will have access to
-	the core functionality of running and compiling code as well as the extended features
-	of saving, loading and sharing files. The guest access is an immediate one click entry
-	to the coding environment without any of the extended features.
-
-2. We need to create a coding environment that can quickly run and compile code with
-	access to core python libraries.
-
-3. We need to develop an intuitive user-interface that allows the user to easily
-	navigate the website, manage their files (registered users) and work on code in an
-	environment that is not intimidating and distraction free.
-
+	Build a game information/social networking site for everything related to the gaming industry. 
+	For gamers, this site gives quick access to information about specific games, popular games and 
+	upcoming releases. Furthermore this websites allows users to share their interests and opinions of games
+	with others. For game companies/developers this site is platform through which they can promote their games
+	as well as connect with potential buyers or current users. 
 ---
 
 KEY USERS
