@@ -19,10 +19,10 @@
  - Star rating
  - Description
  - Random Info
-  - Publisher
-  - Release Date
-  - Tags
-  - Genre
+  * Publisher
+  * Release Date
+  * Tags
+  * Genre
  - Friends who play this game
  - Reviews / Comments
  - Similar Games
@@ -34,20 +34,20 @@
  - Games List
  - Friends / Mutual Friends
  - Action Bar
-  - Message
-  - History
-  - Add Friend / Remove Friend
+  * Message
+  * History
+  * Add Friend / Remove Friend
  
 ## Search Results
  - Cards Result
   - Games
-   - Title
-   - Rating
-   - Picture
-   - Release Date
+   * Title
+   * Rating
+   * Picture
+   * Release Date
   - People
-   - Name
-   - Mutual Friends
-   - Picture
+   * Name
+   * Mutual Friends
+   * Picture
 
 
