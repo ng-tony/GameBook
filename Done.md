@@ -7,5 +7,6 @@
  4. A search system where users can find games based on a plethora of attributes such as title,genre,price,rating,release date
  5. A user profile which contains information about the user, a list of games he has liked/reviewed and posts he has made on the
      discussion board
- 6. A way to allow certain users to be "verified" as game developers which give them to request admins
+ 6. A way to allow certain users to be "verified" as game developers which give them the ability to request for their game to 
+    to be added to DB or modify their game page
  7. A discussion board where admins can make topics or new categories and users can make posts
