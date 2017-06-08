@@ -1,19 +1,19 @@
-<h1> Main Page </h1>
+## Main Page
  - News
  - Top Games
  - New Releases
  - Top Posts
 
-<h1> Top Nav Bar  </h1>
+## Top Nav Bar
  - Logo/Name
  - Login/Register or Avatar, Name, Messages
  - Forum
  - Search Bar
  
-<h1> Forum Main Page </h1>
+## Forum Main Page
  - Topics
 
-<h1> Game Profile </h1>
+## Game Profile
  - Picture
  - Title
  - Star rating
@@ -27,7 +27,7 @@
  - Reviews / Comments
  - Similar Games
 
-<h1> User Profile </h1>
+## User Profile
  - Name
  - Avatar
  - About me blurb
@@ -38,7 +38,7 @@
   - History
   - Add Friend / Remove Friend
  
-<h1> Search Results </h1>
+## Search Results
  - Cards Result
   - Games
    - Title
