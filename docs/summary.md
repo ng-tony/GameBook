@@ -14,7 +14,7 @@ KEY USERS
 1. Gamers
 2. Game Developer
 
-## #Details
+### Details
 1. Gamers describe anyone who has an interest in gaming.
 	This user may be interested in finding out what are the popular games currently,
 	what games are coming out soon and finding new games that fit their tastes.
@@ -34,7 +34,7 @@ SCENARIOS
 2. User wanting to experiment / work on code with convenience
 3. User wanting to demo / present code
 
-## #Details
+### Details
 1. Lisa is intrigued by programming when her older brother shows her some things he has been
 	working on. She goes online to learn more but is overwhelmed by a sea of suggestions on
 	what IDE to download and how to configure them. This user needs an easier way to test the
