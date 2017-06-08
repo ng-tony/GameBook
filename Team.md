@@ -2,3 +2,5 @@
 
  - Name: Shuyi Qiu
  - UTORID: qiushuyi
+ - Name: Tony Ng
+ - UTORID: ngtony2
