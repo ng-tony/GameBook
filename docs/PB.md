@@ -1,5 +1,7 @@
 
-- As an adminstrator I want to be able to add new game profiles into the database
+# Story, Priority, Estimate
+
+- As an adminstrator I want to be able to add new game profiles into the database   
 - As an adminstrator I want to be able to modify existing game profiles.
 - As an administrator I want to be able to moderate discussions
 - As an administrator I want to be able to remove bad users
