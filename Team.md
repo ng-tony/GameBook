@@ -4,3 +4,5 @@
  - UTORID: qiushuyi
  - Name: Tony Ng
  - UTORID: ngtony2
+ - Name: Christophe Perrin
+ - UTORID: perrinc1
