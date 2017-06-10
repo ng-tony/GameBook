@@ -52,7 +52,7 @@
 # Next Phase
   <p> The biggest issue we found was communication, It was rather evident early on that it was hard to get everyone together
   at the same time. Thus, our only meetings as a group were done in person after tutorial as that was when we could always
-  get everyone together. Also due to the difficulty in collabaration we split our work in a way so that as minimal interaction was required. 
+  get everyone together. Also due to the difficulty in collabaration we split our work in a way so that minimal interaction was required. 
   Overall, the the biggest lesson learned through this phase is that getting everyone together is extremely difficult and we need
   to find a way to make sure everyone is always on the same page. 
 
