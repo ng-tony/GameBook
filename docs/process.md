@@ -29,7 +29,7 @@
     would be much simpler. 
     
  # Meetings 
- - In total we had 3 meetings each one was after the tutorial
+ - In total we had 3 meetings each one was after the tutorial 
    
      ## Meeting 1:
       - introduction and exchanging of contact information
@@ -38,18 +38,22 @@
       
      ## Meeting 2:
       - Agreed that an webapp was the way to go
-      - 2 web app ideas were proposed A online scheduling or task managing app, A game information/social networking site
+      - 2 web app ideas were proposed a online scheduling or task managing app, a game information/social networking site
       - Couldn't agree which idea to use
       
      ## Meeting 3:
       - Agreed that the game site was our project
-      - Found the main objective and identified key users of our ssite
-      - Brainstormed user stories and features we want to add based on our objective and users 
-      - Based on user stories we came up with a rough version of our UI 
+      - Found the main objective and identified key users of our site
+      - Brainstormed user stories/features we want to add based on our objective and key users
+      - Based on user stories, we came up with a rough version of our UI which we drew on the board as reference
+        to create a better formatted one online. 
       
 # Next Phase
-  <p> From our product backlog we have recognized that the most important feature of our website will be the game information
-  Thus for the next our primary focus will be to implement the game database, home page and game listings. </p>
+  <p> The biggest issue we found was communication, It was rather evident early on that it was hard to get everyone together
+  at the same time. Thus, our only meetings as a group were done in person after tutorial as that was when we could always
+  get everyone together. Also due to the difficulty in collabaration we split our work in a way so that as minimal interaction was required. 
+  Overall, the the biggest lesson learned through this phase is that getting everyone together is extremely difficult and we need
+  to find a way to make sure everyone is always on the same page. 
 
 
     
