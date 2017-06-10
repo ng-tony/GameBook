@@ -15,7 +15,7 @@
 - Brainstormed user stories in our last meeting and recorded it 
 - of the stories generated, we chose the most important ones to put in our product backlog
 - from there we came up with a prioritization system based on the 
-  number of stories we collected. We decided to score our time estimation based on hours
+  number of stories we collected. It took generally 2 rounds of voting to come to a consensus. We decided to score our time estimation based on hours
 - For estimation, our group got in voice chat and for each story we first let everyone pick their priority for the story then 
   we took a rough average based on everyone opinions. The same method was used for time estimate
   
@@ -26,7 +26,8 @@
    - After a week, we had two ideas: A online scheduling or task managing app, A game information/social networking site 
       (goodreads for gamers). 
    - In the end we decided to go with the game site as we agreed that it would be easier to implement as the backend logic 
-    would be much simpler. 
+    would be much simpler.
+
     
  # Meetings 
  - In total we had 3 meetings each one was after the tutorial 
