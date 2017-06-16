@@ -10,3 +10,4 @@
  6. A way to allow certain users to be "verified" as game developers which give them the ability to request for their game to 
     to be added to DB or modify their game page
  7. A discussion board where admins can make topics or new categories and users can make posts
+ 8. A way to directly message users
