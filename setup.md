@@ -3,5 +3,5 @@ https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeac
 extension on chrome<br>
 https://utsccscc01.github.io/final-project-team-8/app/dbGUI.html to view the page
 on your commandline call npm install <br>
-call node server.js <br>
+call node app/server/server.js <br>
 
