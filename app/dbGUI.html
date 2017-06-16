@@ -1,0 +1,114 @@
+<!DOCTYPE>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <h1 style="text-align: center" , class="display-4"> Add to Database </h1>
+    <form style="margin-left : 25%">
+        <div class="form-group row">
+            <label for="title" class="col-1 col-form-label">Title</label>
+            <div class="col-5">
+                <input class="form-control" type="text" id="title-input">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="example-text-input" class="col-1 col-form-label">Publisher</label>
+            <div class="col-5">
+                <input class="form-control" type="text" id="publisher-input">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="example-text-input" class="col-1 col-form-label">Developer</label>
+            <div class="col-5">
+                <input class="form-control" type="text" id="developer-input">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="genre">Genre</label>
+            <div class="col-5">
+                <select style="margin-left: 18%" class="form-control" id="genre-input">
+                <option>Action</option>
+                <option>Adventure</option>
+                <option>RPG</option>
+                <option>FPS</option>
+                <option>Puzzle</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="example-text-input" class="col-1 col-form-label">Price</label>
+            <div class="col-5">
+                <input class="form-control" type="number" id="price-input">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="example-text-input" class="col-1 col-form-label">Release Date</label>
+            <div class="col-5">
+                <input class="form-control" type="date" id="date-input">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="exampleTextarea">Description</label>
+            <div class="col-5">
+                <textarea class="form-control" placeholder="enter game info" id="descrip-input" rows="3"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputFile">File input</label>
+            <input type="file" class="form-control-file" id="file-input" aria-describedby="fileHelp">
+        </div>
+        <button type="button" id="Submit" class="btn btn-secondary">Submit</button>
+
+    </form>
+</body>
+<style>
+    form .form-control {
+        border-color: gray
+    }
+</style>
+
+<script>
+    document.getElementById("Submit").addEventListener("click", Submit);
+    function Submit() {
+        var title = document.getElementById('title-input').value
+        var publisher = document.getElementById('publisher-input').value
+        var developer = document.getElementById('developer-input').value
+        var genre = document.getElementById('genre-input').value
+        var price = document.getElementById('price-input').value
+        var date = document.getElementById('date-input').value
+        var descrip = document.getElementById('descrip-input').value
+        var pic = document.getElementById('file-input').files[0];
+        var submit = {
+            "title": title,
+            "publisher": publisher,
+            "developer": developer,
+            "genre": genre,
+            "price": price,
+            "release_date": date,
+            "descripion": descrip,  
+            "picture": pic.name
+        }
+        console.log(pic.name);
+        axios.post('http://127.0.0.1:8081/dbGUI', submit)
+            .then(function (res) {
+                console.log("sucessfully posted");
+            })
+            .catch(function (err) {
+                console.log("failed");
+            });
+    };
+
+</script>
+
+</html>
