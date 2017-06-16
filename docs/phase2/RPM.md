@@ -22,5 +22,5 @@
 
 4. <b>Decided what technologies we would use to implement the website</b>
 
-<p>Overall the meeting went smoothly everyone was on time and communication was
-smooth and efficient.  </p>
+   <p>Overall the meeting went smoothly everyone was on time and communication was
+   smooth and efficient.  </p>
