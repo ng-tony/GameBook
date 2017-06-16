@@ -1,10 +1,7 @@
 make sure you have nodejs downloaded on your computer <br>
 https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi?hl=en make sure you have this
 extension on chrome<br>
+https://utsccscc01.github.io/final-project-team-8/app/dbGUI.html to view the page
 on your commandline call npm install <br>
-on your commandline call npm run dev <br>
-go to localhost:3000/app/dbGUI.html
-open another terminal <br>
-go to app/server <br>
 call node server.js <br>
 
