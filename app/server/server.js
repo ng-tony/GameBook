@@ -6,12 +6,12 @@ var shortid = require("shortid");
 var insertSQL =
   "INSERT OR REPLACE INTO Games(GAMEID,TITLE,PUBLISHER,DEVELOPER,GENRE,PRICE,RELEASE_DATE,DESCRIPTION,PICTURE)" +
   "VALUES(?,?,?,?,?,?,?,?,?)";
-app.post("/dbGUI", function (req, res) {
+app.post("/dbGUI", function(req, res) {
   var data = " ";
-  req.on("data", function (chunk) {
+  req.on("data", function(chunk) {
     data += chunk;
   });
-  req.on("end", function () {
+  req.on("end", function() {
     console.log("POST data received");
     res.writeHead(200, {
       "Content-Type": "text/json"
@@ -19,23 +19,32 @@ app.post("/dbGUI", function (req, res) {
     var parsed = JSON.parse(data);
     var params = [
       shortid.generate(),
-      parsed.title,
-      parsed.publisher,
-      parsed.developer,
-      parsed.genre,
+      parsed.title.trim(),
+      parsed.publisher.trim(),
+      parsed.developer.trim(),
+      parsed.genre.trim(),
       parsed.price,
       parsed.release_date,
       parsed.description,
       parsed.picture
     ];
     db.run(insertSQL, params);
-    db.all("Select * from Games", function (err, rows) {
+    db.all("Select * from Games", function(err, rows) {
       console.log(rows);
     });
     res.end();
   });
 });
-var server = app.listen(8081, function () {
+app.get("/search", function(req, res) {
+  console.log("a get request");
+  var title = req.query.title;
+  console.log(title);
+  var selectSQL = "Select * from Games where title=? COLLATE NOCASE";
+  db.all("Select * from Games where title=?", title, function(err, rows) {
+    res.send(rows);
+  });
+});
+var server = app.listen(8081, function() {
   var host = server.address().address;
   var port = server.address().port;
 
