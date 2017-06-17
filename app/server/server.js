@@ -28,10 +28,8 @@ app.post("/dbGUI", function(req, res) {
       parsed.description,
       parsed.picture
     ];
+    console.log(parsed.description);
     db.run(insertSQL, params);
-    db.all("Select * from Games", function(err, rows) {
-      console.log(rows);
-    });
     res.end();
   });
 });

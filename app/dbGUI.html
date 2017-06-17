@@ -88,6 +88,7 @@
         var price = document.getElementById('price-input').value
         var date = document.getElementById('date-input').value
         var descrip = document.getElementById('descrip-input').value
+        console.log(descrip);
         var pic = document.getElementById('file-input').files[0];
         var submit = {
             "title": title,
@@ -96,7 +97,7 @@
             "genre": genre,
             "price": price,
             "release_date": date,
-            "descripion": descrip,  
+            "description": descrip,
             "picture": pic.name
         }
         console.log(pic.name);
