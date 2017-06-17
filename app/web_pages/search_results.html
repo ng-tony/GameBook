@@ -104,7 +104,7 @@
         created() {
             console.log(this.loading);
             var self = this
-            axios.get('https://localhost:8081/search?title=' + this.$route.query.title)
+            axios.get('http://localhost:8081/search?title=' + this.$route.query.title)
                 .then(function (response) {
                     console.log(self.items);
                     console.log(response.data[5])
