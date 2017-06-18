@@ -66,19 +66,70 @@
         </div>
         <div class="form-group">
             <label for="exampleInputFile">File input</label>
-            <input type="file" class="form-control-file" id="file-input" aria-describedby="fileHelp">
+            <input type="file" onchange="previewFile()" class="form-control-file" id="file-input" aria-describedby="fileHelp">
+            <img class="img-thumbnail" id="preview" src="" height="150" alt="Image preview...">
         </div>
-        <button type="button" id="Submit" class="btn btn-secondary">Submit</button>
+        <button type="button" id="Submit" class="btn btn-primary">Submit</button>
 
     </form>
 </body>
 <style>
     form .form-control {
-        border-color: gray
+        border-color: gray;
+    }
+
+    #preview {
+        margin-top: 20px;
+        width: 300px;
+        height: 300px
     }
 </style>
 
 <script>
+    function previewFile() {
+        var preview = document.getElementById('preview')
+        var pic = document.getElementById('file-input').files[0];
+        var reader = new FileReader();
+        reader.addEventListener("load", function () {
+            preview.src = reader.result;
+        }, false);
+        if (pic) {
+            reader.readAsDataURL(pic);
+        }
+    }
+    function getBase64(file) {
+        var reader = new FileReader();
+        var content = ""
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            var file_submit = {
+                "path": file.name,
+                "message": "Upload Image",
+                "committer": {
+                    "name": "shuyi56",
+                    "email": "shuyi56@gmail.com"
+                },
+                "content": "",
+                "branch": "master"
+            }
+            var splitted = reader.result.split(',');
+            file_submit.content = splitted[1];
+            console.log(file_submit.path);
+            console.log(file_submit.message);
+            console.log(file_submit.content.length);
+            axios.put('https://api.github.com/repos/UTSCCSCC01/final-project-team-8/contents/app/web_pages/Assets/Images/' + file.name + '?access_token=c0591659a276ff80d2bc4cd4e4c854d6b257b3f2', file_submit)
+                .then(function (res) {
+                    console.log("sucessfully posted");
+                })
+                .catch(function (err) {
+                    console.log("failed");
+                });
+
+        };
+        reader.onerror = function (error) {
+            console.log('Error: ', error);
+        };
+    }
     document.getElementById("Submit").addEventListener("click", Submit);
     function Submit() {
         var title = document.getElementById('title-input').value
@@ -88,8 +139,8 @@
         var price = document.getElementById('price-input').value
         var date = document.getElementById('date-input').value
         var descrip = document.getElementById('descrip-input').value
-        console.log(descrip);
         var pic = document.getElementById('file-input').files[0];
+        var content = getBase64(pic);
         var submit = {
             "title": title,
             "publisher": publisher,
@@ -98,9 +149,9 @@
             "price": price,
             "release_date": date,
             "description": descrip,
-            "picture": pic.name
+            "picture": pic.name,
+            "content": "something"
         }
-        console.log(pic.name);
         axios.post('http://127.0.0.1:8081/dbGUI', submit)
             .then(function (res) {
                 console.log("sucessfully posted");

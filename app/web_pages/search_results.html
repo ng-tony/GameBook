@@ -29,8 +29,8 @@
 
     #main .col-2 img {
         margin-top: 20px;
-        max-height: 200px;
-        max-width: 200px;
+        max-height: 170px;
+        max-width: 170px;
     }
 
     #main .col-10 {
@@ -58,7 +58,7 @@
         <div id='main' class="card card-outline-secondary mb-3 text-center">
             <div class="row">
                 <div class="col-2">
-                    <img height="200" width="200" src="Assets/Images/zelda.jpg" class="img-thumbnail" alt="Responsive image">
+                    <img height="200" width="200" :src="image" class="img-thumbnail" alt="Responsive image">
                 </div>
                 <div class="col-10">
                     <div class="card-block">
@@ -75,13 +75,13 @@
 </script>
 <script type="text/x-template" id="site-template">
     <div class='listings' v-if="!loading">
-        <child v-for="item in items" v-bind:title="item.Title" v-bind:date="item.RELEASE_DATE" v-bind:description="item.DESCRIPTION"></child>
+        <child v-for="item in items" v-bind:image="item.PICTURE" v-bind:title="item.Title" v-bind:date="item.RELEASE_DATE" v-bind:description="item.DESCRIPTION"></child>
     </div>
 
 </script>
 <script>
     var child = Vue.component('child', {
-        props: ['title', 'description', 'date'],
+        props: ['title', 'description', 'date', 'image'],
         template: '#card-template',
         data() {
             return {
@@ -92,11 +92,10 @@
             console.log(this.$route.path);
         }
     });
-    var info = [{ Title: "something", descripton: "something else" }, { Title: "123", description: "abc" }]
     var results = Vue.component('results', {
         data: function () {
             return {
-                items: info,
+                items: [],
                 loading: false
             }
         },
@@ -107,7 +106,6 @@
             axios.get('http://localhost:8081/search?title=' + this.$route.query.title)
                 .then(function (response) {
                     console.log(self.items);
-                    console.log(response.data[5])
                     self.loading = false;
                     self.items = response.data
                 })

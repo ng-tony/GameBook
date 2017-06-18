@@ -17,6 +17,7 @@ app.post("/dbGUI", function(req, res) {
       "Content-Type": "text/json"
     });
     var parsed = JSON.parse(data);
+    console.log(parsed.content.length);
     var params = [
       shortid.generate(),
       parsed.title.trim(),
@@ -26,9 +27,9 @@ app.post("/dbGUI", function(req, res) {
       parsed.price,
       parsed.release_date,
       parsed.description,
-      parsed.picture
+      "Assets/Images/" + parsed.picture
     ];
-    console.log(parsed.description);
+    console.log("Assets/Images/" + parsed.picture);
     db.run(insertSQL, params);
     res.end();
   });
