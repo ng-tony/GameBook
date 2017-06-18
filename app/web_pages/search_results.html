@@ -58,7 +58,7 @@
         <div id='main' class="card card-outline-secondary mb-3 text-center">
             <div class="row">
                 <div class="col-2">
-                    <img height="200" width="200" :src="image" class="img-thumbnail" alt="Responsive image">
+                    <img height="200" width="200" :src="image" class="img-thumbnail" onerror="this.src='Assets/Images/zelda.jpg'" alt="Responsive image">
                 </div>
                 <div class="col-10">
                     <div class="card-block">
@@ -75,7 +75,10 @@
 </script>
 <script type="text/x-template" id="site-template">
     <div class='listings' v-if="!loading">
-        <child v-for="item in items" v-bind:image="item.PICTURE" v-bind:title="item.Title" v-bind:date="item.RELEASE_DATE" v-bind:description="item.DESCRIPTION"></child>
+        <div class="card">
+            <h3 class="card-header">Search Results for {{title}}</h3>
+            <child v-for="item in items" v-bind:image="item.PICTURE" v-bind:title="item.Title" v-bind:date="item.RELEASE_DATE" v-bind:description="item.DESCRIPTION"></child>
+        </div>
     </div>
 
 </script>
@@ -96,7 +99,8 @@
         data: function () {
             return {
                 items: [],
-                loading: false
+                loading: false,
+                title: this.$route.query.title
             }
         },
         template: "#site-template",
