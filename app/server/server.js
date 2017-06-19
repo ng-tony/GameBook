@@ -44,40 +44,32 @@ app.get("/search", function(req, res) {
   });
 });
 
-app.get("/signin", function(req, res) {
-  res.sendFile(__dirname + "/login.html");
-});
-
-
 app.post("/signin", function(req, res) {
   var data = " ";
   req.on("data", function(chunk) {
     data += chunk;
   });
-  console.log(data)
+  console.log(data);
   req.on("end", function() {
     console.log("POST data received");
     res.writeHead(200, {
       "Content-Type": "text/json"
     });
     var parsed = JSON.parse(data);
-    console.log(parsed.content.length);
-    var params = [
-      shortid.generate(),
-      parsed.username.trim(),
-      parsed.password.trim()
-    ];
-    var selectSQL = 'Select COUNT(*) as count from (Select * from User where EMAIL="' + username + '"and PASSWORD="' + password + '")';
-    this.db.all(selectSQL, function(err, rows) {
-      console.log(rows[0].count)
+    var params = [parsed.username.trim(), parsed.password.trim()];
+    var selectSQL =
+      "Select COUNT(*) as count from (Select * from User where EMAIL=? and PASSWORD=?)";
+    var loggedIn = true;
+    db.all(selectSQL, params, function(err, rows) {
+      console.log(rows[0].count);
       if (rows[0].count == 0) {
+        loggedIn = false;
         console.log("Username or password is incorrect");
-      }
-      else {
+      } else {
         console.log("Succesfully signed in");
       }
+      res.end(JSON.stringify(loggedIn));
     });
-    res.end();
   });
 });
 
