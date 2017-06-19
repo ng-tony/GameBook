@@ -43,6 +43,44 @@ app.get("/search", function(req, res) {
     res.send(rows);
   });
 });
+
+app.get("/signin", function(req, res) {
+  res.sendFile(__dirname + "/login.html");
+});
+
+
+app.post("/signin", function(req, res) {
+  var data = " ";
+  req.on("data", function(chunk) {
+    data += chunk;
+  });
+  console.log(data)
+  req.on("end", function() {
+    console.log("POST data received");
+    res.writeHead(200, {
+      "Content-Type": "text/json"
+    });
+    var parsed = JSON.parse(data);
+    console.log(parsed.content.length);
+    var params = [
+      shortid.generate(),
+      parsed.username.trim(),
+      parsed.password.trim()
+    ];
+    var selectSQL = 'Select COUNT(*) as count from (Select * from User where EMAIL="' + username + '"and PASSWORD="' + password + '")';
+    this.db.all(selectSQL, function(err, rows) {
+      console.log(rows[0].count)
+      if (rows[0].count == 0) {
+        console.log("Username or password is incorrect");
+      }
+      else {
+        console.log("Succesfully signed in");
+      }
+    });
+    res.end();
+  });
+});
+
 var server = app.listen(8081, function() {
   var host = server.address().address;
   var port = server.address().port;
