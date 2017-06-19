@@ -73,7 +73,6 @@ app.post("/signin", function(req, res) {
   });
 });
 
-<<<<<<< HEAD
 app.post("/register", function(req, res) {
   var data = " ";
   req.on("data", function(chunk) {
@@ -102,10 +101,9 @@ app.post("/register", function(req, res) {
     });
   });
 });
-=======
 app.get("/gameinfo", function(req, res) {
   console.log("get gameinfo");
-  var gameid = req.query.gameid
+  var gameid = req.query.gameid;
   console.log(gameid);
   var selectSQL = "Select * from Games where gameid=? COLLATE NOCASE";
   db.all("Select * from Games where gameid=?", gameid, function(err, rows) {
@@ -113,7 +111,6 @@ app.get("/gameinfo", function(req, res) {
   });
 });
 
->>>>>>> 251ef9d2b7966ad19e469ffd5572a76052fc9c43
 var server = app.listen(8081, function() {
   var host = server.address().address;
   var port = server.address().port;
