@@ -73,6 +73,34 @@ app.post("/signin", function(req, res) {
   });
 });
 
+app.post("/register", function(req, res) {
+  var data = " ";
+  req.on("data", function(chunk) {
+    data += chunk;
+  });
+  req.on("end", function() {
+    console.log("POST data received");
+    res.writeHead(200, {
+      "Content-Type": "text/json"
+    });
+    var parsed = JSON.parse(data);
+    var params = [parsed.username.trim(), parsed.password.trim()];
+    var selectSQL = "Select email from user where email = ?";
+    var response = "";
+    db.all(selectSQL, params[0], function(err, rows) {
+      if (rows.length != 0) {
+        response = "IN_USE";
+      } else {
+        db.run(
+          "Insert into USER (EMAIL,PASSWORD,STATUS) VALUES (?,?,'ADMIN')",
+          params
+        );
+        response = "ADDED";
+      }
+      res.end(JSON.stringify(response));
+    });
+  });
+});
 var server = app.listen(8081, function() {
   var host = server.address().address;
   var port = server.address().port;
