@@ -1,5 +1,6 @@
 var express = require("express");
 var app = express();
+var path = require('path');
 var sqlite3 = require("sqlite3").verbose();
 var db = new sqlite3.Database("GameBook.db");
 var shortid = require("shortid");
@@ -42,6 +43,13 @@ app.get("/search", function(req, res) {
   db.all("Select * from Games where title=?", title, function(err, rows) {
     res.send(rows);
   });
+});
+
+app.get("", function(req, res) {
+  console.log("a get request");
+  var title = "ok";
+  console.log(title);
+  res.sendFile(path.join(__dirname + '/../web_pages/main_page.html'));
 });
 var server = app.listen(8081, function() {
   var host = server.address().address;
