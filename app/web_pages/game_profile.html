@@ -88,14 +88,7 @@
 	}
 </style>
 
-
-<script type="text/x-template" id="profile">
-    <div v-if="!loading">
-		<child v-bind:title="item.title" v-bind:publisher="item.publisher" 
-			v-bind:developer="item.developer" v-bind:genre="item.genre" 
-			v-bind:price="item.price" v-bind:release="item.release_date"
-			v-bind:description="item.description" v-bind:picture="item.picture"> </child>
-    </div>
+<script type="text/x-template" id="info">
 	<div class="gameProfile">
 		<div class="row">
 			<div class="col col-3" id="pictureContainer">
@@ -234,7 +227,29 @@
 		</div>
 	</div>
 </script>
+
+<script type="text/x-template" id="profile">
+    <div v-if="!loading">
+		<child v-bind:title="item.title" v-bind:publisher="item.publisher" 
+			v-bind:developer="item.developer" v-bind:genre="item.genre" 
+			v-bind:price="item.price" v-bind:release="item.release_date"
+			v-bind:description="item.description" v-bind:picture="item.picture"> </child>
+    </div>	
+</script>
 <script>
+	var child = Vue.component('child', {
+        props: ['title', 'publisher', 'developer', 'genre', 'price', 'release', 'description', 'image'],
+        template: '#info',
+        data() {
+            return {
+                path: this.$route.path
+            }
+        },
+        mounted: function () {
+            console.log(this.$route.path);
+        }
+    });
+
     var results = Vue.component('results', {
         data: function () {
             return {
