@@ -2,7 +2,7 @@
   <p> priority is from a scale from 1-13 where 1 means the most important and 13 is least
       estimate is done on a scale of 1 point = 1 hour </p>
 
-- As an adminstrator I want to be able to add new game profiles into the database so that they are:   2   ,  4
+- As an adminstrator I want to be able to add new game profiles into the database:   2   ,  4
   - There is a form that accepts data for a game profile and it is saved to the database
 - As an adminstrator I want to be able to modify existing game profiles.    12          ,   2
   - There is a form that takes information from the database and accepts changes and saves to database
