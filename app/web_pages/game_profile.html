@@ -76,7 +76,7 @@
 	#pop_info {
 		margin-top: 20px;
 	}
-	#gameCard .list-group-item {
+	#gameCard .list-group-items {
 		margin-bottom: 15px
 	}
 	#sim_games {
@@ -102,13 +102,13 @@
 								Similar Games
 							</div>
 							<ul class="list-group list-group-flush">
-								<li class="list-group-item" id="info">
+								<li class="list-group-items" id="info">
 									<a href="#">game1_title</a></a>
 								</li>
-								<li class="list-group-item" id="info">
+								<li class="list-group-items" id="info">
 									<a href="#">game2_title</a></a>
 								</li>
-								<li class="list-group-item" id="info">
+								<li class="list-group-items" id="info">
 									<a href="#">game3_title</a></a>
 								</li>
 
@@ -121,7 +121,7 @@
 						<h2 class="display-6">{{ title }}</h2>
 					</div>
 					<ul class="list-group list-group-flush">
-						<li class="list-group-item" id="info">
+						<li class="list-group-items" id="info">
 							<div class="row" id="rating_info">
 								<div class="col-1 border-left-0 border-top-0 border-bottom-0">
 									<tr>
@@ -144,11 +144,11 @@
 							</div>
 						</li>
 						<h4 style="margin-left:10px">Synopsis</h4>
-						<li class="list-group-item">
+						<li class="list-group-items">
 							<p class="card-text">{{ description }}</p>
 						</li>
 						<h4 style="margin-left:10px">Information</h4>
-						<li class="list-group-item" id="information">
+						<li class="list-group-items" id="information">
 							<ul style="list-style-type:none">
 								<li><b>Genres:</b>{{ genre }}</li>
 								<li><b>Developer:</b>{{ developer }}</li>	
@@ -232,7 +232,7 @@
 
 <script type="text/x-template" id="profile">
     <div v-if="!loading">
-		<child v-bind:gameid="item.GameID" v-bind:title="item.Title" v-bind:publisher="item.Publisher" 
+		<child v-for="item in items" v-bind:gameid="item.GameID" v-bind:title="item.Title" v-bind:publisher="item.Publisher" 
 			v-bind:developer="item.Developer" v-bind:genre="item.Genre" 
 			v-bind:price="item.Price" v-bind:release="item.RELEASE_DATE"
 			v-bind:description="item.DESCRIPTION" v-bind:picture="item.PICTURE"> </child>
@@ -255,9 +255,9 @@
     var results = Vue.component('results', {
         data: function () {
             return {
-                item: [],
+                items: [],
                 loading: false,
-		gameid: this.$route.query.gameid
+				gameid: this.$route.query.gameid
             }
         },
         template: "#profile",
@@ -266,9 +266,9 @@
             var self = this
             axios.get('http://localhost:8081/gameinfo?gameid=' + this.$route.query.gameid)
                 .then(function (response) {
-                    console.log(self.item);
+                    console.log(self.items);
                     self.loading = false;
-                    self.item = response.data
+                    self.items = response.data
                 })
                 .catch(function (err) {
                     console.log("error")
