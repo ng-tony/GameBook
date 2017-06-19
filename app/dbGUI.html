@@ -86,6 +86,7 @@
 </style>
 
 <script>
+    // preview the chosen file 
     function previewFile() {
         var preview = document.getElementById('preview')
         var pic = document.getElementById('file-input').files[0];
@@ -97,7 +98,8 @@
             reader.readAsDataURL(pic);
         }
     }
-    function getBase64(file) {
+    //encode file to as base64  and then send file to DB
+    function uploadFile(file) {
         var reader = new FileReader();
         var content = ""
         reader.readAsDataURL(file);
@@ -131,6 +133,7 @@
         };
     }
     document.getElementById("Submit").addEventListener("click", Submit);
+    // when click submit send post request to local server and upload file to github
     function Submit() {
         var title = document.getElementById('title-input').value
         var publisher = document.getElementById('publisher-input').value
@@ -140,7 +143,7 @@
         var date = document.getElementById('date-input').value
         var descrip = document.getElementById('descrip-input').value
         var pic = document.getElementById('file-input').files[0];
-        var content = getBase64(pic);
+        var content = uploadFile(pic);
         var submit = {
             "title": title,
             "publisher": publisher,

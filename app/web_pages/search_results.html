@@ -28,9 +28,9 @@
     }
 
     #main .col-2 img {
-        margin-top: 20px;
-        max-height: 170px;
-        max-width: 170px;
+        margin-top: 5px;
+        height: 180px;
+        width: 180px;
     }
 
     #main .col-10 {
@@ -76,7 +76,7 @@
 <script type="text/x-template" id="site-template">
     <div class='listings' v-if="!loading">
         <div class="card">
-            <h3 class="card-header">Search Results for {{title}}</h3>
+            <h3 class="card-header">Search Results For "{{title}}"</h3>
             <child v-for="item in items" v-bind:image="item.PICTURE" v-bind:title="item.Title" v-bind:date="item.RELEASE_DATE" v-bind:description="item.DESCRIPTION"></child>
         </div>
     </div>
