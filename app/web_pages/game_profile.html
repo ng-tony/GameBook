@@ -1,0 +1,72 @@
+<html>
+<head>
+    <script src="https://unpkg.com/vue@2.3.4"></script>
+    <script src="https://unpkg.com/vue-router@2.5.3/dist/vue-router.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<div id="app">
+    <p>{{ title }}</p>
+    <p>{{ publisher }}</p>
+	<p>{{ developer }}</p>
+    <p>{{ genre }}</p>
+	<p>{{ price }}</p>
+	<p>{{ release }}</p>
+	<p>{{ description }}</p>
+	<img src="picture">
+	<router-view></router-view>
+</div>
+
+<script type="text/x-template" id="profile">
+    <div v-if="!loading">
+		<child v-for="item in items" v-bind:title="item.title" v-bind:publisher="item.publisher" 
+			v-bind:developer="item.developer" v-bind:genre="item.genre" 
+			v-bind:price="item.price" v-bind:release="item.release_date"
+			v-bind:description="item.description" v-bind:picture="item.picture"> </child>
+    </div>
+</script>
+<script>
+    var results = Vue.component('results', {
+        data: function () {
+            return {
+                items: [],
+                loading: false,
+            }
+        },
+        template: "#profile",
+        created() {
+            console.log(this.loading);
+            var self = this
+            axios.get('http://127.0.0.1:8081/search?gameid=' + this.$route.query.gameid)
+                .then(function (response) {
+                    console.log(self.items);
+                    self.loading = false;
+                    self.items = response.data
+                })
+                .catch(function (err) {
+                    console.log("error")
+                })
+            console.log(this.loading);
+        }
+    });
+
+
+    const router = new VueRouter({
+        routes: [
+            { path: '/', component: results }
+        ]
+    })
+
+    const app = new Vue({ router }).$mount('#app')
+
+</script>
+
+</html>
