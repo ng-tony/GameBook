@@ -1,18 +1,47 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
-    crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
-    crossorigin="anonymous">
+  <title>GameBook</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
-    crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
-    crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 </head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">GameBook</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li><a href="#">Forum</a></li>
+      <li><a href="#">Games</a></li>
+      <li><a href="#">About Us</a></li>
+
+      <form id ="navSearch" class="navbar-form navbar-left">
+<div class="input-group">
+    <input type="text" name ="title" id="SearchKeyword" class="form-control" placeholder="Search">
+    <div class="input-group-btn">
+      <button id = "search" class="btn btn-default" type="submit" onclick="Search()">
+        <i class="glyphicon glyphicon-search"></i>
+      </button>
+    </div>
+  </div>
+      </form>
+
+
+      <li><a href="#">My Profile</a></li>
+    </ul>
+  </div>
+</nav>
+  
+<div class="container">
+
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Sign In</button>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -44,8 +73,25 @@
   </div>
 </div>
 
+
+</div>
+
+</body>
+
+
+
+
 <script>
   document.getElementById("signin").addEventListener("click", SignIn);
+  
+  function Search() {
+  var a = document.getElementById("SearchKeyword").value;
+  var url = "https://utsccscc01.github.io/final-project-team-8/app/web_pages/search_results.html#/?title=" + a;
+  console.log(url);
+  window.location.replace(url);
+
+}
+
   function SignIn() {
     var username = document.getElementById('username').value
     var password = document.getElementById('password').value
@@ -63,7 +109,8 @@
         console.log("failed");
       });
   }
-
 </script>
 
+
 </html>
+
