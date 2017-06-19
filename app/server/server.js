@@ -73,6 +73,16 @@ app.post("/signin", function(req, res) {
   });
 });
 
+app.get("/gameinfo", function(req, res) {
+  console.log("get gameinfo");
+  var gameid = req.query.gameid
+  console.log(gameid);
+  var selectSQL = "Select * from Games where gameid=? COLLATE NOCASE";
+  db.all("Select * from Games where gameid=?", gameid, function(err, rows) {
+    res.send(rows);
+  });
+});
+
 var server = app.listen(8081, function() {
   var host = server.address().address;
   var port = server.address().port;
