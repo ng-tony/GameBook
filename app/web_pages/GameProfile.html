@@ -14,239 +14,240 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 
-<div class="gameProfile">
-    <div class="row">
-        <div class="col col-3" id="pictureContainer">
-            <div class="row">
-                <img src="Assets/Images/zelda.jpg" class="img-thumbnail" id="gameImage">
-            </div>
-            <div class="row">
-                <div class="card" id="sim_games">
-                    <div class="card-header">
-                        Similar Games
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item" id="info">
-                            <a href="#">game1_title</a></a>
-                        </li>
-                        <li class="list-group-item" id="info">
-                            <a href="#">game2_title</a></a>
-                        </li>
-                        <li class="list-group-item" id="info">
-                            <a href="#">game3_title</a></a>
-                        </li>
+<body style="margin-left:5%">
+    <div class="gameProfile">
+        <div class="row">
+            <div class="col col-3" id="pictureContainer">
+                <div class="row">
+                    <img src="Assets/Images/zelda.jpg" class="img-thumbnail" id="gameImage">
+                </div>
+                <div class="row">
+                    <div class="card" id="sim_games">
+                        <div class="card-header">
+                            Similar Games
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item" id="info">
+                                <a href="#">game1_title</a></a>
+                            </li>
+                            <li class="list-group-item" id="info">
+                                <a href="#">game2_title</a></a>
+                            </li>
+                            <li class="list-group-item" id="info">
+                                <a href="#">game3_title</a></a>
+                            </li>
 
-                    </ul>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div id="gameCard" class="card col col-7">
-            <div id="header" class="card-header">
-                <h2 class="display-6">Game Title</h2>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item" id="info">
-                    <div class="row" id="rating_info">
-                        <div class="col-1 border-left-0 border-top-0 border-bottom-0">
-                            <row>
-                                <h3>9.5</h3>
-                            </row>
-                            <row>
-                                <p style="font-size:7pt"><i>1000 users</i></p>
-                            </row>
-                        </div>
-                        <div class="col-8">
-                            <div class="row" id="pop_info">
-                                <div class="col">
-                                    <p style="font-size:20pt" class="display-4">Ranked: <b>#1000</b> </p>
-                                </div>
-                                <div class="col">
-                                    <p style="font-size:20pt" class="display-4">Popularity: <b>#1000</b> </p>
+            <div id="gameCard" class="card col col-7">
+                <div id="header" class="card-header">
+                    <h2 class="display-6">Game Title</h2>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" id="info">
+                        <div class="row" id="rating_info">
+                            <div class="col-1 border-left-0 border-top-0 border-bottom-0">
+                                <row>
+                                    <h3>9.5</h3>
+                                </row>
+                                <row>
+                                    <p style="font-size:7pt"><i>1000 users</i></p>
+                                </row>
+                            </div>
+                            <div class="col-8">
+                                <div class="row" id="pop_info">
+                                    <div class="col">
+                                        <p style="font-size:20pt" class="display-4">Ranked: <b>#1000</b> </p>
+                                    </div>
+                                    <div class="col">
+                                        <p style="font-size:20pt" class="display-4">Popularity: <b>#1000</b> </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    </li>
+                    <h4 style="margin-left:10px">Synopsis</h4>
+                    <li class="list-group-item">
+                        <p class="card-text">
+                            More than twenty years ago, the first epic fantasy novel featuring FitzChivalry Farseer and his mysterious, often maddening
+                            friend the Fool struck like a bolt of brilliant lightning. Now New York Times bestselling author
+                            Robin Hobb brings to a momentous close the third trilogy featuring these beloved characters in
+                            a novel of unsurpassed artistry that is sure to endure as o ...more
+                        </p>
+                    </li>
+                    <h4 style="margin-left:10px">Information</h4>
+                    <li class="list-group-item" id="information">
+                        <ul style="list-style-type:none">
+                            <li><b>Developer:</b> Developer</li>
+                            <li><b>Publisher:</b> Publisher</li>
+                            <li><b>Genres:</b> Genre</li>
+                            <li><b>Game Site Link:</b><a href="somewhere"> a link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <h1 style="font-size:30pt; text-align:center; margin-top: 20px;" class="display-4">Reviews</h1>
+    <div class="Reviews">
+        <div class="card">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-1" id="avatar">
+                        <div id="container">
+                            <img class="img-thumbnail" src="Assets/Images/41699326_p0.jpg">
+                        </div>
                     </div>
-                </li>
-                <h4 style="margin-left:10px">Synopsis</h4>
-                <li class="list-group-item">
-                    <p class="card-text">
-                        More than twenty years ago, the first epic fantasy novel featuring FitzChivalry Farseer and his mysterious, often maddening
-                        friend the Fool struck like a bolt of brilliant lightning. Now New York Times bestselling author
-                        Robin Hobb brings to a momentous close the third trilogy featuring these beloved characters in a
-                        novel of unsurpassed artistry that is sure to endure as o ...more
+                    <a href="somewhere">username</a>
+                    <div class="col-md-2 offset-md-8" id="review-info">
+                        <p>June,20,2017 </p>
+                        <p><i style="font-size:12pt;color:#d9d9d9">25 hours played</i></p>
+                        <p> Rating: 9 </p>
+                    </div>
+                </div>
+                <hr>
+                <div class="card-block">
+                    <p style="margin-left: 10px">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sed ligula imperdiet, lacinia arcu dictum, rutrum tellus.
+                        In mollis nec metus nec malesuada. Nunc eleifend, risus vel ultrices ullamcorper, massa massa sollicitudin
+                        lorem, id dictum risus diam sit amet eros. Mauris tincidunt ut sem sed rutrum. Sed convallis, nunc
+                        non hendrerit faucibus, orci metus placerat urna, eget tincidunt arcu arcu ut dui. Duis et purus
+                        malesuada, egestas justo vitae, aliquet dolor. Proin pharetra tellus ultricies nisl sollicitudin
+                        convallis. Duis a diam metus. Vivamus venenatis luctus leo, in feugiat lorem consectetur non. Vivamus
+                        sit amet felis semper, pulvinar quam vel, porta odio. Pellentesque tincidunt lectus non tempor posuere.
+                        Duis at sem in lectus porta iaculis.
                     </p>
-                </li>
-                <h4 style="margin-left:10px">Information</h4>
-                <li class="list-group-item" id="information">
-                    <ul style="list-style-type:none">
-                        <li><b>Developer:</b> Developer</li>
-                        <li><b>Publisher:</b> Publisher</li>
-                        <li><b>Genres:</b> Genre</li>
-                        <li><b>Game Site Link:</b><a href="somewhere"> a link</a></li>
-                    </ul>
-                </li>
-            </ul>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-<h1 style="font-size:30pt; text-align:center; margin-top: 20px;" class="display-4">Reviews</h1>
-<div class="Reviews">
-    <div class="card">
-        <div class="card-block">
-            <div class="row">
-                <div class="col-1" id="avatar">
-                    <div id="container">
-                        <img class="img-thumbnail" src="Assets/Images/41699326_p0.jpg">
+    <div class="Reviews">
+        <div class="card">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-1" id="avatar">
+                        <div id="container">
+                            <img class="img-thumbnail" src="Assets/Images/41699326_p0.jpg">
+                        </div>
+                    </div>
+                    <a href="somewhere">username</a>
+                    <div class="col-md-2 offset-md-8" id="review-info">
+                        <p>June,20,2017 </p>
+                        <p><i style="font-size:12pt;color:#d9d9d9">25 hours played</i></p>
+                        <p> Rating: 9 </p>
                     </div>
                 </div>
-                <a href="somewhere">username</a>
-                <div class="col-md-2 offset-md-8" id="review-info">
-                    <p>June,20,2017 </p>
-                    <p><i style="font-size:12pt;color:#d9d9d9">25 hours played</i></p>
-                    <p> Rating: 9 </p>
+                <hr>
+                <div class="card-block">
+                    <p style="margin-left: 10px">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sed ligula imperdiet, lacinia arcu dictum, rutrum tellus.
+                        In mollis nec metus nec malesuada. Nunc eleifend, risus vel ultrices ullamcorper, massa massa sollicitudin
+                        lorem, id dictum risus diam sit amet eros. Mauris tincidunt ut sem sed rutrum. Sed convallis, nunc
+                        non hendrerit faucibus, orci metus placerat urna, eget tincidunt arcu arcu ut dui. Duis et purus
+                        malesuada, egestas justo vitae, aliquet dolor. Proin pharetra tellus ultricies nisl sollicitudin
+                        convallis. Duis a diam metus. Vivamus venenatis luctus leo, in feugiat lorem consectetur non. Vivamus
+                        sit amet felis semper, pulvinar quam vel, porta odio. Pellentesque tincidunt lectus non tempor posuere.
+                        Duis at sem in lectus porta iaculis.
+                    </p>
                 </div>
-            </div>
-            <hr>
-            <div class="card-block">
-                <p style="margin-left: 10px">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sed ligula imperdiet, lacinia arcu dictum, rutrum tellus.
-                    In mollis nec metus nec malesuada. Nunc eleifend, risus vel ultrices ullamcorper, massa massa sollicitudin
-                    lorem, id dictum risus diam sit amet eros. Mauris tincidunt ut sem sed rutrum. Sed convallis, nunc non
-                    hendrerit faucibus, orci metus placerat urna, eget tincidunt arcu arcu ut dui. Duis et purus malesuada,
-                    egestas justo vitae, aliquet dolor. Proin pharetra tellus ultricies nisl sollicitudin convallis. Duis
-                    a diam metus. Vivamus venenatis luctus leo, in feugiat lorem consectetur non. Vivamus sit amet felis
-                    semper, pulvinar quam vel, porta odio. Pellentesque tincidunt lectus non tempor posuere. Duis at sem
-                    in lectus porta iaculis.
-                </p>
             </div>
         </div>
-    </div>
-</div>
-<div class="Reviews">
-    <div class="card">
-        <div class="card-block">
-            <div class="row">
-                <div class="col-1" id="avatar">
-                    <div id="container">
-                        <img class="img-thumbnail" src="Assets/Images/41699326_p0.jpg">
-                    </div>
-                </div>
-                <a href="somewhere">username</a>
-                <div class="col-md-2 offset-md-8" id="review-info">
-                    <p>June,20,2017 </p>
-                    <p><i style="font-size:12pt;color:#d9d9d9">25 hours played</i></p>
-                    <p> Rating: 9 </p>
-                </div>
-            </div>
-            <hr>
-            <div class="card-block">
-                <p style="margin-left: 10px">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sed ligula imperdiet, lacinia arcu dictum, rutrum tellus.
-                    In mollis nec metus nec malesuada. Nunc eleifend, risus vel ultrices ullamcorper, massa massa sollicitudin
-                    lorem, id dictum risus diam sit amet eros. Mauris tincidunt ut sem sed rutrum. Sed convallis, nunc non
-                    hendrerit faucibus, orci metus placerat urna, eget tincidunt arcu arcu ut dui. Duis et purus malesuada,
-                    egestas justo vitae, aliquet dolor. Proin pharetra tellus ultricies nisl sollicitudin convallis. Duis
-                    a diam metus. Vivamus venenatis luctus leo, in feugiat lorem consectetur non. Vivamus sit amet felis
-                    semper, pulvinar quam vel, porta odio. Pellentesque tincidunt lectus non tempor posuere. Duis at sem
-                    in lectus porta iaculis.
-                </p>
-            </div>
-        </div>
-    </div>
+</body>
 
-
-    <style>
-        .Reviews {
-            width: 89%;
-            margin-top: 20px;
-            margin-left: 20px;
-        }
+<style>
+    .Reviews {
+        width: 89%;
+        margin-top: 20px;
+        margin-left: 20px;
+    }
 
 
 
-        .Reviews .card {
-            width: 100%;
-            padding: 0;
-        }
+    .Reviews .card {
+        width: 100%;
+        padding: 0;
+    }
 
-        #review-info {
-            text-align: right;
-        }
+    #review-info {
+        text-align: right;
+    }
 
-        .Reviews .card-block {
-            padding: 0;
-        }
+    .Reviews .card-block {
+        padding: 0;
+    }
 
-        #avatar {
-            margin-left: 10px;
-            height: 100px;
-        }
-
-
-        #avatar img {
-            margin-top: 7px;
-            height: 90%;
-            width: 100%
-        }
+    #avatar {
+        margin-left: 10px;
+        height: 100px;
+    }
 
 
-        #pictureContainer {
-            height: 300px;
-        }
-
-        .gameProfile .col {
-            padding: 0;
-            vertical-align: top;
-            margin-right: 40px;
-        }
-
-        .gameProfile .col-3 {
-            margin-left: 45px;
-        }
-
-        #gameCard {
-            padding: 0;
-        }
-
-        #gameImage {
-            width: 100%;
-            height: 100%;
-        }
-
-        #review-info p {
-            margin-bottom: 5px;
-        }
-
-        #rating_info {
-            width: 100%;
-        }
-
-        #rating_info .col-1 {
-            border: 1px solid #d9d9d9;
-            text-align: center;
-        }
-
-        #rating_info .col-1 {
-            margin-right: 15px;
-        }
-
-        #pop_info {
-            margin-top: 20px;
-        }
-
-        #gameCard .list-group-item {
-            margin-bottom: 15px
-        }
+    #avatar img {
+        margin-top: 7px;
+        height: 90%;
+        width: 100%
+    }
 
 
-        #sim_games {
-            margin-top: 15px;
-            width: 100%;
-        }
+    #pictureContainer {
+        height: 300px;
+    }
 
-        #information ul {
-            padding-left: 0;
-        }
-    </style>
+    .gameProfile .col {
+        padding: 0;
+        vertical-align: top;
+        margin-right: 40px;
+    }
+
+    .gameProfile .col-3 {
+        margin-left: 45px;
+    }
+
+    #gameCard {
+        padding: 0;
+    }
+
+    #gameImage {
+        width: 100%;
+        height: 100%;
+    }
+
+    #review-info p {
+        margin-bottom: 5px;
+    }
+
+    #rating_info {
+        width: 100%;
+    }
+
+    #rating_info .col-1 {
+        border: 1px solid #d9d9d9;
+        text-align: center;
+    }
+
+    #rating_info .col-1 {
+        margin-right: 15px;
+    }
+
+    #pop_info {
+        margin-top: 20px;
+    }
+
+    #gameCard .list-group-item {
+        margin-bottom: 15px
+    }
+
+
+    #sim_games {
+        margin-top: 15px;
+        width: 100%;
+    }
+
+    #information ul {
+        padding-left: 0;
+    }
+</style>
 
 </html>
