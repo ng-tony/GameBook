@@ -264,7 +264,7 @@
         created() {
             console.log(this.loading);
             var self = this
-            axios.get('http://localhost/gameinfo?gameid=' + this.$route.query.gameid)
+            axios.get('http://localhost:8081/gameinfo?gameid=' + this.$route.query.gameid)
                 .then(function (response) {
                     console.log(self.item);
                     self.loading = false;
