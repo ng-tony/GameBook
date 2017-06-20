@@ -1,80 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <title>GameBook</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+    crossorigin="anonymous">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+    crossorigin="anonymous"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 </head>
+
 <body>
 
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">GameBook</a>
-    </div>
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
-      <li><a href="#">Forum</a></li>
-      <li><a href="#">Games</a></li>
-      <li><a href="#">About Us</a></li>
-
-      <form id ="navSearch" class="navbar-form navbar-left">
-<div class="input-group">
-    <input type="text" id="SearchKeyword" class="form-control" placeholder="Search">
-    <div class="input-group-btn">
-      <button id ="search" class="btn btn-default" type="submit" onclick="return Search()">
-        <i class="glyphicon glyphicon-search"></i>
-      </button>
-    </div>
-  </div>
+  <nav class="vnavbar navbar-toggleable-md navbar-inverse bg-inverse">
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li class="nav-item active "><a class="nav-link " href="# ">Home</a></li>
+        <li class="nav-item active "><a class="nav-link " href=" # ">Forum</a></li>
+        <li class="nav-item active "><a class="nav-link " href="# ">Games</a></li>
+        <li class="nav-item active "><a class="nav-link " href="# ">About Us</a></li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0 ">
+        <input class="form-control mr-sm-2 " type="text " placeholder="Search ">
+        <span class="glyphicon glyphicon-search form-control-feedback"></span>
+        <button class="btn btn-outline-info my-2 my-sm-0 " style="margin-right:10px" type="submit ">Search</button>
+        <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Sign In</button>
+        <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#register" data-whatever="@mdo">Sign Up</button>
       </form>
+    </div>
 
 
-      <li><a href="#">My Profile</a></li>
     </ul>
-  </div>
-</nav>
-  
-<div class="container">
+    </div>
+  </nav>
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Sign In</button>
-
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Sign In</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+  <div class="container ">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Sign In</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="recipient-name" class="form-control-label">UserName:</label>
-            <input type="text" class="form-control" id="username">
           </div>
-          <div class="form-group">
-            <label for="message-text" class="form-control-label">Password:</label>
-            <input type="password" id="password" class="form-control" id="pwd">
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="recipient-name" class="form-control-label">Username:</label>
+                <input type="text" class="form-control" id="username">
+              </div>
+              <div class="form-group">
+                <label for="message-text" class="form-control-label">Password:</label>
+                <input type="password" class="form-control" id="password">
+              </div>
+            </form>
           </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" id="signin" , class="btn btn-primary">Login</button>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Sign In</button>
+          </div>
+        </div>
       </div>
     </div>
+    <div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Sign Up</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="recipient-name" class="form-control-label">Username:</label>
+                <input type="text" class="form-control" id="reg-username">
+              </div>
+              <div class="form-group">
+                <label for="message-text" class="form-control-label">Password:</label>
+                <input type="password" class="form-control" id="reg-password">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Sign Up</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
-</div>
 
-
-</div>
 
 </body>
 
@@ -82,35 +106,53 @@
 
 
 <script>
-  document.getElementById("signin").addEventListener("click", SignIn);
-  
-  function Search() {
-  var a = document.getElementById("SearchKeyword").value;
-  var url = "https://utsccscc01.github.io/final-project-team-8/app/web_pages/search_results.html#/?title=" + a;
-  //console.log(url);
-  window.location.href = url;
-  return false;
-  
+  document.getElementById("signin ").addEventListener("click ", SignIn);
 
-}
+  function Search() {
+    var a = document.getElementById("SearchKeyword ").value;
+    var url = "https://utsccscc01.github.io/final-project-team-8/app/web_pages/search_results.html#/?title=" + a;
+    //console.log(url);
+    window.location.href = url;
+    return false;
+
+
+  }
 
   function SignIn() {
     var username = document.getElementById('username').value
     var password = document.getElementById('password').value
     var submit = {
-      "username": username,
-      "password": password
+      " username ": username,
+      "password ": password
     }
     console.log(submit);
     axios.post('http://127.0.0.1:8081/signin', submit)
       .then(function (res) {
-        console.log("sucessfully posted");
+        console.log("sucessfully posted ");
         console.log(res.data);
       })
       .catch(function (err) {
-        console.log("failed");
+        console.log("failed ");
       });
   }
+  function Register() {
+    var username = document.getElementById('reg-username').value
+    var password = document.getElementById('reg-password').value
+    var submit = {
+      " username ": username,
+      "password ": password
+    }
+    console.log(submit);
+    axios.post('http://127.0.0.1:8081/register', submit)
+      .then(function (res) {
+        console.log("sucessfully posted ");
+        console.log(res.data);
+      })
+      .catch(function (err) {
+        console.log("failed ");
+      });
+  }
+
 </script>
 
 
