@@ -84,13 +84,18 @@
 </script>
 <script>
     var child = Vue.component('child', {
-        props: ['title', 'description', 'date', 'image', 'href'],
+        props: ['title', 'description', 'date', 'image'],
         template: '#card-template',
         data() {
             return {
                 path: this.$route.path
             }
-        },        
+        },
+        computed: {
+            href () {
+              return 'https://utsccscc01.github.io/final-project-team-8/app/web_pages/game_profile.html#/?gameid=' + this.$route.query.gameid
+            }
+        },
         mounted: function () {
             console.log(this.$route.path);
         }
@@ -103,12 +108,7 @@
                 title: this.$route.query.title,
                 gameid: this.$route.query.gameid
             }
-        },
-        computed: {
-            href () {
-              return 'https://utsccscc01.github.io/final-project-team-8/app/web_pages/game_profile.html#/?gameid=' + this.$route.query.gameid
-            }
-        },
+        },        
         template: "#site-template",
         created() {
             console.log(this.loading);
