@@ -18,31 +18,31 @@
       <a class="navbar-brand" href="#">GameBook</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
-      <li><a href="#">Forum</a></li>
-      <li><a href="#">Games</a></li>
-      <li><a href="#">About Us</a></li>
-
-      <form id ="navSearch" class="navbar-form navbar-left">
-<div class="input-group">
-    <input type="text" id="SearchKeyword" class="form-control" placeholder="Search">
-    <div class="input-group-btn">
-      <button id ="search" class="btn btn-default" type="submit" onclick="return Search()">
-        <i class="glyphicon glyphicon-search"></i>
-      </button>
-    </div>
-  </div>
-      </form>
-
-
-      <li><a href="#">My Profile</a></li>
+      <li class="active"><a href="#"><span class="glyphicon glyphicon-home"></span>&nbsp&nbspHome</a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-comment"></span>&nbsp&nbspForum</a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-screenshot"></span>&nbsp&nbspGames</a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-option-vertical"></span>&nbsp&nbspAbout Us</a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp&nbspMy Profile</a></li>
     </ul>
+
+    <form id ="navSearch" class="navbar-form navbar-left">
+      <div class="input-group">
+        <input type="text" id="SearchKeyword" class="form-control" placeholder="Search">
+        <div class="input-group-btn">
+          <button id ="search" class="btn btn-default" type="submit" onclick="return Search()">
+            <i class="glyphicon glyphicon-search"></i>
+          </button>
+        </div>
+      </div>
+
+
+<button type="button" class="btn btn-default" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><span class="glyphicon glyphicon-log-in"></span>&nbsp&nbspSign In</button>
+    </form>
+
   </div>
 </nav>
   
 <div class="container">
-
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Sign In</button>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
