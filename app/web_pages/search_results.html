@@ -90,12 +90,7 @@
             return {
                 path: this.$route.path
             }
-        },
-        computed: {
-            href () {
-              return 'https://utsccscc01.github.io/final-project-team-8/app/web_pages/game_profile.html#/?gameid=' + this.$route.query.gameid
-            }
-        },
+        },        
         mounted: function () {
             console.log(this.$route.path);
         }
@@ -105,9 +100,15 @@
             return {
                 items: [],
                 loading: false,
-                title: this.$route.query.title
+                title: this.$route.query.title,
+                gameid: this.$route.query.gameid
             }
-        },        
+        },
+        computed: {
+            href () {
+              return 'https://utsccscc01.github.io/final-project-team-8/app/web_pages/game_profile.html#/?gameid=' + gameid
+            }
+        },
         template: "#site-template",
         created() {
             console.log(this.loading);
