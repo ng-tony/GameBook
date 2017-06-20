@@ -63,7 +63,7 @@
                 <div class="col-10">
                     <div class="card-block">
                         <blockquote id="info" class="card-blockquote">
-                            <a href="/" style="font-size:30pt" class="display-4">{{title}}</a>
+                            <a :href="href" style="font-size:30pt" class="display-4">{{title}}</a>
                             <p class="lead">{{description}}</p>
                             <p class="lead">Date Released: {{date}}</p>
                         </blockquote>
@@ -77,20 +77,20 @@
     <div class='listings' v-if="!loading">
         <div class="card">
             <h3 class="card-header">Search Results For "{{title}}"</h3>
-            <child v-for="item in items" v-bind:image="item.PICTURE" v-bind:title="item.Title" v-bind:date="item.RELEASE_DATE" v-bind:description="item.DESCRIPTION"></child>
+            <child v-for="item in items" v-bind:image="item.PICTURE" v-bind:title="item.Title" v-bind:date="item.RELEASE_DATE" v-bind:description="item.DESCRIPTION" v-bind:gameid="item.GameID"></child>
         </div>
     </div>
 
 </script>
 <script>
     var child = Vue.component('child', {
-        props: ['title', 'description', 'date', 'image'],
+        props: ['title', 'description', 'date', 'image', 'gameid'],
         template: '#card-template',
         data() {
             return {
                 path: this.$route.path
             }
-        },
+        },        
         mounted: function () {
             console.log(this.$route.path);
         }
@@ -100,7 +100,13 @@
             return {
                 items: [],
                 loading: false,
-                title: this.$route.query.title
+                title: this.$route.query.title,
+                gameid: this.$route.query.gameid
+            }
+        },
+        computed: {
+            href () {
+              return 'https://utsccscc01.github.io/final-project-team-8/app/web_pages/game_profile.html#/?gameid=' + gameid
             }
         },
         template: "#site-template",
