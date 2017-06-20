@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <title>GameBook</title>
   <meta charset="utf-8">
@@ -11,118 +10,87 @@
 
 
 </head>
-
 <body>
 
-  <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="#">GameBook</a>
-      </div>
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">Forum</a></li>
-        <li><a href="#">Games</a></li>
-        <li><a href="#">About Us</a></li>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">GameBook</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li><a href="#">Forum</a></li>
+      <li><a href="#">Games</a></li>
+      <li><a href="#">About Us</a></li>
 
-        <form id="navSearch" class="navbar-form navbar-left">
-          <div class="input-group">
-            <input type="text" name="title" id="SearchKeyword" class="form-control" placeholder="Search">
-            <div class="input-group-btn">
-              <button id="search" class="btn btn-default" type="submit" onclick="Search()">
+      <form id ="navSearch" class="navbar-form navbar-left">
+<div class="input-group">
+    <input type="text" id="SearchKeyword" class="form-control" placeholder="Search">
+    <div class="input-group-btn">
+      <button id ="search" class="btn btn-default" type="submit" onclick="return Search()">
         <i class="glyphicon glyphicon-search"></i>
       </button>
-            </div>
+    </div>
+  </div>
+      </form>
+
+
+      <li><a href="#">My Profile</a></li>
+    </ul>
+  </div>
+</nav>
+  
+<div class="container">
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Sign In</button>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Sign In</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="form-control-label">UserName:</label>
+            <input type="text" class="form-control" id="username">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="form-control-label">Password:</label>
+            <input type="password" id="password" class="form-control" id="pwd">
           </div>
         </form>
-
-
-        <li><a href="#">My Profile</a></li>
-      </ul>
-    </div>
-  </nav>
-
-  <div class="container">
-
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Sign In</button>
-
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Sign In</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="form-group">
-                <label for="recipient-name" class="form-control-label">UserName:</label>
-                <input type="text" class="form-control" id="username">
-              </div>
-              <div class="form-group">
-                <label for="message-text" class="form-control-label">Password:</label>
-                <input type="password" id="password" class="form-control" id="pwd">
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" id="signin" , class="btn btn-primary">Login</button>
-          </div>
-        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id="signin" , class="btn btn-primary">Login</button>
       </div>
     </div>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signup" data-whatever="@mdo">Sign Up</button>
+  </div>
+</div>
 
-    <div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Sign Up</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="form-group">
-                <label for="recipient-name" class="form-control-label">UserName:</label>
-                <input type="text" class="form-control" id="reg_username">
-              </div>
-              <div class="form-group">
-                <label for="message-text" class="form-control-label">Password:</label>
-                <input type="password" id="reg_password" class="form-control">
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" id="register" , class="btn btn-primary">Sign Up</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <script>
-      document.getElementById("signin").addEventListener("click", SignIn);
-      document.getElementById("register").addEventListener("click", Register)
 
-</div >
+</div>
 
-</body >
+</body>
 
 
 
 
-        <script>
-          document.getElementById("signin").addEventListener("click", SignIn);
-
+<script>
+  document.getElementById("signin").addEventListener("click", SignIn);
+  
   function Search() {
   var a = document.getElementById("SearchKeyword").value;
   var url = "https://utsccscc01.github.io/final-project-team-8/app/web_pages/search_results.html#/?title=" + a;
-  console.log(url);
-  window.location.replace(url);
+  //console.log(url);
+  window.location.href = url;
+  return false;
+  
 
 }
 
@@ -130,44 +98,20 @@
     var username = document.getElementById('username').value
     var password = document.getElementById('password').value
     var submit = {
-            "username": username,
+      "username": username,
       "password": password
     }
     console.log(submit);
     axios.post('http://127.0.0.1:8081/signin', submit)
       .then(function (res) {
-            console.log("sucessfully posted");
-          console.log(res.data);
+        console.log("sucessfully posted");
+        console.log(res.data);
       })
       .catch(function (err) {
-            console.log("failed");
+        console.log("failed");
       });
   }
-<<<<<<< HEAD
-      function Register() {
-        var username = document.getElementById('reg_username').value
-        var password = document.getElementById('reg_password').value
-        var submit = {
-          "username": username,
-          "password": password
-        }
-        console.log(submit);
-        axios.post('http://127.0.0.1:8081/register', submit)
-          .then(function (res) {
-            console.log("sucessfully posted");
-            console.log(res.data);
-          })
-          .catch(function (err) {
-            console.log("failed");
-          });
-
-
-      }
-
-=======
->>>>>>> 69f894e780fcae2167550c1bf57cbe64c0450e08
-
-    </script>
+</script>
 
 
 </html>
