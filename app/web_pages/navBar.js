@@ -2,6 +2,9 @@ Vue.component("navbar", {
   props: ["name"],
   data() {
     return {
+      title: "",
+      url:
+        "https://utsccscc01.github.io/final-project-team-8/app/web_pages/search_results.html#/?title=",
       username: "",
       password: "",
       reg_username: "",
@@ -12,15 +15,15 @@ Vue.component("navbar", {
     <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse"> 
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-        <li class="nav-item active "><a class=" nav-item nav-link " href="# "><i class="fa fa-gamepad" style="font-size:48px;" aria-hidden="true"></i></a></li>
+        <li class="nav-item active "><a class=" nav-item nav-link " href="https://utsccscc01.github.io/final-project-team-8/app/web_pages/main_page.html"><i class="fa fa-gamepad" style="font-size:48px;" aria-hidden="true"></i></a></li>
         <li style = "font-size:20pt;margin-left:20px; margin-top:10px" class="nav-item active "><a class=" nav-item nav-link " href=" # ">Forum</a></li>
         <li style = "font-size:20pt;margin-left:20px;margin-top:10px" class="nav-item active "><a class=" nav-item nav-link " href="# ">Games</a></li>
         <li style = "font-size:20pt;margin-left:20px;margin-top:10px" class="nav-item active "><a class=" nav-item nav-link " href="# ">About Us</a></li>
       </ul>
-      <form class="form-inline pull-xs-right">
+      <form class="form-inline pull-xs-right" v-bind:action="url + title">
         <div class="input-group">
-        <input class="form-control" type="text " placeholder="Search ">
-        <button class="btn btn-secondary-outline btn-sm" style = "margin-right:10px;background-color:#f2f2f2" type="submit"><i class="fa fa-search"></i></button>
+        <input class="form-control"  v-model ="title" id = "title" type="text " placeholder="Search ">
+        <button class="btn btn-secondary-outline" type="submit" style = "margin-right:10px;background-color:#f2f2f2"><i class="fa fa-search"></i></button>
         </div>
         <div class="btn-group btn-group">
         <a class="btn btn-secondary"  style = "margin-left: 15px" href="#"><i class="fa fa-user fa-fw"></i> </a>
@@ -95,8 +98,8 @@ Vue.component("navbar", {
   methods: {
     SignIn: function() {
       const submit = {
-        "username ": username,
-        "password ": password
+        username: this.username,
+        password: this.password
       };
       console.log(submit);
       axios
@@ -111,11 +114,11 @@ Vue.component("navbar", {
     },
     Register: function() {
       const submit = {
-        "username ": reg_username,
-        "password ": reg_password
+        username: this.reg_username,
+        password: this.reg_password
       };
       console.log(submit);
-      /*      axios
+      axios
         .post("http://127.0.0.1:8081/register", submit)
         .then(function(res) {
           console.log("sucessfully posted ");
@@ -123,7 +126,7 @@ Vue.component("navbar", {
         })
         .catch(function(err) {
           console.log("failed ");
-        });*/
+        });
     }
   }
 });

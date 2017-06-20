@@ -1,6 +1,6 @@
 var express = require("express");
 var app = express();
-var path = require('path');
+var path = require("path");
 var sqlite3 = require("sqlite3").verbose();
 var db = new sqlite3.Database("GameBook.db");
 var shortid = require("shortid");
@@ -40,7 +40,10 @@ app.get("/search", function(req, res) {
   var title = req.query.title;
   console.log(title);
   var selectSQL = "Select * from Games where title=? COLLATE NOCASE";
-  db.all("Select * from Games where title=?", title, function(err, rows) {
+  db.all("Select * from Games where title=? COLLATE NOCASE", title, function(
+    err,
+    rows
+  ) {
     res.send(rows);
   });
 });
@@ -49,7 +52,7 @@ app.get("", function(req, res) {
   console.log("a get request");
   var title = "ok";
   console.log(title);
-  res.sendFile(path.join(__dirname + '/../web_pages/main_page.html'));
+  res.sendFile(path.join(__dirname + "/../web_pages/main_page.html"));
 });
 
 app.post("/signin", function(req, res) {
