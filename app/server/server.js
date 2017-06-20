@@ -51,6 +51,75 @@ app.get("", function(req, res) {
   console.log(title);
   res.sendFile(path.join(__dirname + '/../web_pages/main_page.html'));
 });
+
+app.post("/signin", function(req, res) {
+  var data = " ";
+  req.on("data", function(chunk) {
+    data += chunk;
+  });
+  console.log(data);
+  req.on("end", function() {
+    console.log("POST data received");
+    res.writeHead(200, {
+      "Content-Type": "text/json"
+    });
+    var parsed = JSON.parse(data);
+    var params = [parsed.username.trim(), parsed.password.trim()];
+    var selectSQL =
+      "Select COUNT(*) as count from (Select * from User where EMAIL=? and PASSWORD=?)";
+    var loggedIn = true;
+    db.all(selectSQL, params, function(err, rows) {
+      console.log(rows[0].count);
+      if (rows[0].count == 0) {
+        loggedIn = false;
+        console.log("Username or password is incorrect");
+      } else {
+        console.log("Succesfully signed in");
+      }
+      res.end(JSON.stringify(loggedIn));
+    });
+  });
+});
+
+app.post("/register", function(req, res) {
+  var data = " ";
+  req.on("data", function(chunk) {
+    data += chunk;
+  });
+  req.on("end", function() {
+    console.log("POST data received");
+    res.writeHead(200, {
+      "Content-Type": "text/json"
+    });
+    var parsed = JSON.parse(data);
+    var params = [parsed.username.trim(), parsed.password.trim()];
+    var selectSQL = "Select email from user where email = ?";
+    var response = "";
+    db.all(selectSQL, params[0], function(err, rows) {
+      if (rows.length != 0) {
+        response = "IN_USE";
+      } else {
+        db.run(
+          "Insert into USER (EMAIL,PASSWORD,STATUS) VALUES (?,?,'ADMIN')",
+          params
+        );
+        response = "ADDED";
+      }
+      res.end(JSON.stringify(response));
+    });
+  });
+});
+
+app.get("/gameinfo", function(req, res) {
+  console.log("get gameinfo");
+  var gameid = req.query.gameid;
+  console.log(gameid);
+  var selectSQL = "Select * from Games where gameid=? COLLATE NOCASE";
+  db.all("Select * from Games where gameid=?", gameid, function(err, rows) {
+    res.send(rows);
+  });
+});
+
 var server = app.listen(8081, function() {
   var host = server.address().address;
   var port = server.address().port;
