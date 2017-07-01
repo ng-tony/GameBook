@@ -8,7 +8,10 @@ Vue.component("navbar", {
       username: "",
       password: "",
       reg_username: "",
-      reg_password: ""
+      reg_password: "",
+      signedIn: false,
+      success: false,
+      warning: false
     };
   },
   template: `<div class = "container" style = "width:100%;padding:0">
@@ -29,10 +32,19 @@ Vue.component("navbar", {
         <a class="btn btn-secondary"  style = "margin-left: 15px" href="#"><i class="fa fa-user fa-fw"></i> </a>
         <a class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" href="#">
         </a>
-        <div class="dropdown-menu dropdown-menu-right" style = "margin-top:10px">
-          <button data-toggle="modal" data-target="#exampleModal" class="dropdown-item" style = "margin-bottom:10px" type="button">Login</button>
-          <button data-toggle="modal" data-target="#register"class="dropdown-item" type="button">Sign Up</button>
-        </div>        
+        <template v-if="signedIn">
+          <div class="dropdown-menu dropdown-menu-right" style = "margin-top:10px">
+            <button data-toggle="modal" data-target="#exampleModal" class="dropdown-item" style = "margin-bottom:10px" type="button">My Profile</button>
+            <button data-toggle="modal" data-target="#register"class="dropdown-item" type="button">Friends</button>
+            <button style = "margin-top: 10px" v-on:click = "logOut" class="dropdown-item" type="button">Log Out</button>
+          </div> 
+        </template>
+        <template v-else>
+          <div class="dropdown-menu dropdown-menu-right" style = "margin-top:10px">
+            <button data-toggle="modal" data-target="#exampleModal" class="dropdown-item" style = "margin-bottom:10px" type="button">Sign In</button>
+            <button data-toggle="modal" data-target="#register"class="dropdown-item" type="button">Sign Up</button>
+          </div>
+        </template>       
         </div>        
       </form>
     </div>
@@ -42,11 +54,13 @@ Vue.component("navbar", {
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Sign In</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" v-on:click ="Reset" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
           </div>
           <div class="modal-body">
+            <p v-show= "warning" class ="text-warning">Wrong Password or UserName</p>
+            <p v-show= "success" class ="text-success">Successfully Logged In</p>
             <form>
               <div class="form-group">
                 <label for="recipient-name" class="form-control-label">Username:</label>
@@ -59,7 +73,7 @@ Vue.component("navbar", {
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" v-on:click ="Reset" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="button" v-on:click="SignIn"class="btn btn-primary">Sign In</button>
           </div>
         </div>
@@ -70,11 +84,13 @@ Vue.component("navbar", {
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Sign Up</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" v-on:click ="Reset" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
           </div>
           <div class="modal-body">
+            <p v-if= "warning" class ="text-danger">Illegal Password or UserName or UserName already in use</p>
+            <p v-if= "success" class ="text-success">Successfully Registered</p>
             <form>
               <div class="form-group">
                 <label for="recipient-name" class="form-control-label">Username:</label>
@@ -87,7 +103,7 @@ Vue.component("navbar", {
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button"  v-on:click ="Reset" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="button" v-on:click="Register" class="btn btn-primary">Sign Up</button>
           </div>
         </div>
@@ -95,18 +111,36 @@ Vue.component("navbar", {
     </div>
   
   </div>`,
+  mounted: function() {
+    this.$nextTick(function() {
+      console.log(sessionStorage.getItem("signedIn"));
+      this.signedIn = sessionStorage.getItem("signedIn");
+    });
+  },
   methods: {
+    Reset: function() {
+      this.warning = false;
+      this.success = false;
+    },
     SignIn: function() {
       const submit = {
         username: this.username,
         password: this.password
       };
       console.log(submit);
+      const self = this;
       axios
         .post("http://127.0.0.1:8081/signin", submit)
         .then(function(res) {
           console.log("sucessfully posted ");
           console.log(res.data);
+          sessionStorage.setItem("signedIn", res.data);
+          if (res.data == false) {
+            self.warning = true;
+          } else {
+            self.success = true;
+            self.signedIn = true;
+          }
         })
         .catch(function(err) {
           console.log("failed ");
@@ -117,16 +151,32 @@ Vue.component("navbar", {
         username: this.reg_username,
         password: this.reg_password
       };
-      console.log(submit);
-      axios
-        .post("http://127.0.0.1:8081/register", submit)
-        .then(function(res) {
-          console.log("sucessfully posted ");
-          console.log(res.data);
-        })
-        .catch(function(err) {
-          console.log("failed ");
-        });
+      if (submit.username == "" || submit.password == "") {
+        this.warning = true;
+      } else {
+        console.log(submit);
+        var self = this;
+        axios
+          .post("http://127.0.0.1:8081/register", submit)
+          .then(function(res) {
+            console.log("sucessfully posted ");
+            console.log(res.data);
+            console.log(res.data == "IN_USE");
+            if (res.data == "IN_USE") {
+              console.log("here");
+              self.warning = true;
+            } else {
+              self.success = true;
+            }
+          })
+          .catch(function(err) {
+            console.log("failed ");
+          });
+      }
+    },
+    logOut: function(){
+      this.signedIn = false;
+      sessionStorage.setItem("signedIn", false);
     }
   }
 });
