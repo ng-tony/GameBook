@@ -46,20 +46,29 @@ CREATE TABLE User(
 INSERT INTO User VALUES('someEmail','password','user','assets/profile/default.png');
 INSERT INTO User VALUES('anotherEmail','password','user','assets/profile/default.png');
 INSERT INTO User VALUES('abc','123','ADMIN','assets/profile/default.png');
-CREATE TABLE Review(
-    userID CHAR(64),
-    gameID CHAR(64),
-    review_text TEXT,   
-    timestamp DATETIME,
-    PRIMARY KEY(userID,gameID),
-    FOREIGN KEY(userID) REFERENCES User(EMAIL),
-    FOREIGN KEY(gameID) REFERENCES Games(GameID)
-);
 CREATE TABLE Friends(
     user char(64),
     friend char(64),
     PRIMARY KEY(user,friend)
     FOREIGN KEY(user) REFERENCES User(EMAIL)
     FOREIGN KEY(friend) REFERENCES User(EMAIL)
+);
+CREATE TABLE Likes(
+    userID CHAR(64),
+    gameID CHAR(64), 
+    timestamp DATETIME,
+    PRIMARY KEY(userID,gameID),
+    FOREIGN KEY(userID) REFERENCES User(EMAIL),
+    FOREIGN KEY(gameID) REFERENCES Games(GameID)
+);
+CREATE TABLE Review(
+    userID CHAR(64),
+    gameID CHAR(64),
+    review_text TEXT,   
+    time_stamp DATETIME,
+    rating DOUBLE,
+    PRIMARY KEY(userID,gameID),
+    FOREIGN KEY(userID) REFERENCES User(EMAIL),
+    FOREIGN KEY(gameID) REFERENCES Games(GameID)
 );
 COMMIT;
