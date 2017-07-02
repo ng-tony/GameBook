@@ -42,10 +42,13 @@ CREATE TABLE User(
    PASSWORD       TEXT    NOT NULL,
    STATUS         TEXT     NOT NULL,
    PICTURE        CHAR(50) DEFAULT 'assets/profile/default.png'
-);
-INSERT INTO User VALUES('someEmail','password','user','assets/profile/default.png');
-INSERT INTO User VALUES('anotherEmail','password','user','assets/profile/default.png');
-INSERT INTO User VALUES('abc','123','ADMIN','assets/profile/default.png');
+, username char(64));
+INSERT INTO User VALUES('someEmail','password','user','assets/profile/default.png',NULL);
+INSERT INTO User VALUES('anotherEmail','password','user','assets/profile/default.png',NULL);
+INSERT INTO User VALUES('abc','123','ADMIN','assets/profile/default.png',NULL);
+INSERT INTO User VALUES('','','ADMIN','assets/profile/default.png',NULL);
+INSERT INTO User VALUES('abcd','123','ADMIN','assets/profile/default.png',NULL);
+INSERT INTO User VALUES('abc32','123','ADMIN','assets/profile/default.png',NULL);
 CREATE TABLE Friends(
     user char(64),
     friend char(64),
@@ -62,13 +65,11 @@ CREATE TABLE Likes(
     FOREIGN KEY(gameID) REFERENCES Games(GameID)
 );
 CREATE TABLE Review(
-    userID CHAR(64),
-    gameID CHAR(64),
+    userID CHAR(64),FOREIGN KEY(userID) REFERENCES User(EMAIL),
+    gameID CHAR(64),FOREIGN KEY(gameID) REFERENCES Games(GameID),
     review_text TEXT,   
-    time_stamp DATETIME,
+    time_stamp DATE,
     rating DOUBLE,
-    PRIMARY KEY(userID,gameID),
-    FOREIGN KEY(userID) REFERENCES User(EMAIL),
-    FOREIGN KEY(gameID) REFERENCES Games(GameID)
+    PRIMARY KEY(userID,gameID)
 );
 COMMIT;
