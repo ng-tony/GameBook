@@ -123,6 +123,7 @@ Vue.component("navbar", {
       this.success = false;
     },
     SignIn: function() {
+      this.Reset();
       const submit = {
         username: this.username,
         password: this.password
