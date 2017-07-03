@@ -218,9 +218,12 @@ function removeFriend(user) {
 
 function acceptFriendRequest(user) {
   var currentUser; // Will need to get the current User's email 
-  var params = [currentUser, user.trim()];
+  var params = [user.trim(), currentUser];
   var updateSQL = "Update Friends set status='Accepted' where user=? and friend=?";
   db.run(updateSQL, params);
+  params = [currentUser, user.trim()];
+  var insertSQL = "Insert into Friends (user, friend, status) values (?,?,'Accepted')";
+  db.run(insertSQL, params);
   var response = user + " is now your friend.";
   return response;
 }
