@@ -180,11 +180,21 @@ function addSearch(user) {
       else {
         var currentUser; // Will need to get the current User's email
         var params = [currentUser, user.trim()];
-        selectSQL = "Select user from Friends where user=? and friend=?";
+        selectSQL = "Select * from Friends where user=? and friend=?";
         db.all(selectSQL, params, function(err, rows) {
           if (rows.length > 0) {
-            var response = "Already friends.";
-            console.log(response);
+            rows.forEach(function (row) {
+              console.log(status);
+              var status = row.status;
+              if (status == "Pending") {
+                var response = "Friend request awaiting approval.";
+                console.log(response);
+              }
+              if (status == "Accepted") {
+                var response = "Already friends.";
+                console.log(response); 
+              }
+            })
           }
           // add friend to database with "pending" status
           else {
