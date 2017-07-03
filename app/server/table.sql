@@ -1,0 +1,1 @@
+Alter Table USER ADD Column username char(64) NOT NULL

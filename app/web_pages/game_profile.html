@@ -195,68 +195,7 @@
 			</div>
 		</div>
 		<h1 style="font-size:30pt; text-align:center; margin-top: 20px;" class="display-4">Reviews</h1>
-		<div class="Reviews">
-			<div class="card">
-				<div class="card-block">
-					<div class="row">
-						<div class="col-1" id="avatar">
-							<div id="container">
-								<img class="img-thumbnail" src="Assets/Images/41699326_p0.jpg">
-							</div>
-						</div>
-						<a href="somewhere">username</a>
-						<div class="col-md-2 offset-md-8" id="review-info">
-							<p>June,20,2017 </p>
-							<p><i style="font-size:12pt;color:#d9d9d9">25 hours played</i></p>
-							<p> Rating: 9 </p>
-						</div>
-					</div>
-					<hr>
-					<div class="card-block">
-						<p style="margin-left: 10px">
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sed ligula imperdiet, lacinia arcu dictum, rutrum tellus.
-							In mollis nec metus nec malesuada. Nunc eleifend, risus vel ultrices ullamcorper, massa massa sollicitudin lorem,
-							id dictum risus diam sit amet eros. Mauris tincidunt ut sem sed rutrum. Sed convallis, nunc non hendrerit faucibus,
-							orci metus placerat urna, eget tincidunt arcu arcu ut dui. Duis et purus malesuada, egestas justo vitae, aliquet dolor.
-							Proin pharetra tellus ultricies nisl sollicitudin convallis. Duis a diam metus. Vivamus venenatis luctus leo, in feugiat
-							lorem consectetur non. Vivamus sit amet felis semper, pulvinar quam vel, porta odio. Pellentesque tincidunt lectus
-							non tempor posuere. Duis at sem in lectus porta iaculis.
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="Reviews">
-			<div class="card">
-				<div class="card-block">
-					<div class="row">
-						<div class="col-1" id="avatar">
-							<div id="container">
-								<img class="img-thumbnail" src="Assets/Images/41699326_p0.jpg">
-							</div>
-						</div>
-						<a href="somewhere">username</a>
-						<div class="col-md-2 offset-md-8" id="review-info">
-							<p>June,20,2017 </p>
-							<p><i style="font-size:12pt;color:#d9d9d9">25 hours played</i></p>
-							<p> Rating: 9 </p>
-						</div>
-					</div>
-					<hr>
-					<div class="card-block">
-						<p style="margin-left: 10px">
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sed ligula imperdiet, lacinia arcu dictum, rutrum tellus.
-							In mollis nec metus nec malesuada. Nunc eleifend, risus vel ultrices ullamcorper, massa massa sollicitudin lorem,
-							id dictum risus diam sit amet eros. Mauris tincidunt ut sem sed rutrum. Sed convallis, nunc non hendrerit faucibus,
-							orci metus placerat urna, eget tincidunt arcu arcu ut dui. Duis et purus malesuada, egestas justo vitae, aliquet dolor.
-							Proin pharetra tellus ultricies nisl sollicitudin convallis. Duis a diam metus. Vivamus venenatis luctus leo, in feugiat
-							lorem consectetur non. Vivamus sit amet felis semper, pulvinar quam vel, porta odio. Pellentesque tincidunt lectus
-							non tempor posuere. Duis at sem in lectus porta iaculis.
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
+		<review></review>
 	</div>
 </script>
 
@@ -267,7 +206,47 @@
 		 v-bind:picture="item.PICTURE"> </child>
 	</div>
 </script>
+<script type="text/x-template" id="review">
+	<div class="Reviews">
+		<div class="card">
+			<div class="card-block">
+				<div class="row">
+					<div class="col-1" id="avatar">
+						<div id="container">
+							<img class="img-thumbnail" src="Assets/Images/41699326_p0.jpg">
+						</div>
+					</div>
+					<a href="somewhere">username</a>
+					<div class="col-md-2 offset-md-8" id="review-info">
+						<p>June,20,2017 </p>
+						<p><i style="font-size:12pt;color:#d9d9d9">25 hours played</i></p>
+						<p> Rating: 9 </p>
+					</div>
+				</div>
+				<hr>
+				<div class="card-block">
+					<p style="margin-left: 10px">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sed ligula imperdiet, lacinia arcu dictum, rutrum tellus.
+						In mollis nec metus nec malesuada. Nunc eleifend, risus vel ultrices ullamcorper, massa massa sollicitudin lorem, id
+						dictum risus diam sit amet eros. Mauris tincidunt ut sem sed rutrum. Sed convallis, nunc non hendrerit faucibus, orci
+						metus placerat urna, eget tincidunt arcu arcu ut dui. Duis et purus malesuada, egestas justo vitae, aliquet dolor.
+						Proin pharetra tellus ultricies nisl sollicitudin convallis. Duis a diam metus. Vivamus venenatis luctus leo, in feugiat
+						lorem consectetur non. Vivamus sit amet felis semper, pulvinar quam vel, porta odio. Pellentesque tincidunt lectus
+						non tempor posuere. Duis at sem in lectus porta iaculis.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+
 <script>
+
+	var review = Vue.component('review', {
+		props: ['username', 'date', 'rating', 'description'],
+		template: '#review',
+
+	});
 	var child = Vue.component('child', {
 		props: ['gameid', 'title', 'publisher', 'developer', 'genre', 'price', 'release', 'description', 'picture'],
 		template: '#info',
