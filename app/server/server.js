@@ -157,6 +157,15 @@ app.get("/gameinfo", function(req, res) {
   });
 });
 
+app.get("/games/top", function(req, res) {
+	console.log("getting top games");
+	var limit = req.query.limit;
+	var selectSQL = "select * from games join total_likes on games.gameID = total_likes.gameID limit ?";
+	db.all(selectSQL, limit, function(err, rows){
+		res.send(rows);
+	});
+});
+
 var server = app.listen(8081, function() {
   var host = server.address().address;
   var port = server.address().port;
