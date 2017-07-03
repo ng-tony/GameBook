@@ -35,6 +35,42 @@ app.post("/dbGUI", function(req, res) {
     res.end();
   });
 });
+app.post("/addReview", function(req, res) {
+  const addReview = "INSERT or REPLACE into review values(?,?,?,?,?)"
+  var data = " ";
+  req.on("data", function(chunk) {
+    data += chunk;
+  });
+  req.on("end", function() {
+    console.log("POST data received");
+    res.writeHead(200, {
+      "Content-Type": "text/json"
+    });
+    var parsed = JSON.parse(data);
+    var params = [
+      parsed.user.trim(),
+      parsed.game.trim(),
+      parsed.text.trim(),
+      parsed.date.trim(),
+      parsed.rating.trim(),
+    ];
+    console.log(params);
+    db.run(addReview,params);
+    res.end();
+  });
+});
+app.get("/listReviews", function(req, res) {
+  console.log("a get request");
+  var id = req.query.gameid;
+  console.log(id);
+  var selectSQL = "Select * from review where gameID=? COLLATE NOCASE";
+  db.all(selectSQL, id, function(
+    err,
+    rows
+  ) {
+    res.send(rows);
+  });
+});
 app.get("/search", function(req, res) {
   console.log("a get request");
   var title = req.query.title;
