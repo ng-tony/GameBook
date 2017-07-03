@@ -121,7 +121,17 @@
         },
         methods: {
             search: function () {
-                this.$message.error('No such user found');
+                //this.$message.error('No such user found');
+                var friend = document.getElementById("search").value;
+                var currUser = sessionStorage.getItem("username");
+                var submit = {"currUser" : currUser, "friend" : friend};
+                axios.post('http://127.0.0.1:8081/add_friend', submit) 
+                    .then(function (res) {
+                        console.log(res);
+                    })
+                    .catch(function (err) {
+                        console.log("failed");
+                    });
             },
             submit: function () {
                 dialogVisible = false
