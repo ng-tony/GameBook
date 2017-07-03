@@ -52,7 +52,7 @@ app.post("/addReview", function(req, res) {
       parsed.game.trim(),
       parsed.text.trim(),
       parsed.date.trim(),
-      parsed.rating.trim(),
+      parsed.rating,
     ];
     console.log(params);
     db.run(addReview,params);
@@ -153,8 +153,8 @@ app.get("/gameinfo", function(req, res) {
   console.log("get gameinfo");
   var gameid = req.query.gameid;
   console.log(gameid);
-  var selectSQL = "Select * from Games where gameid=? COLLATE NOCASE";
-  db.all("Select * from Games where gameid=?", gameid, function(err, rows) {
+  var selectSQL = "Select * from Games join Ratings on Games.gameID = Ratings.ID where gameid=? COLLATE NOCASE";
+  db.all(selectSQL, gameid, function(err, rows) {
     res.send(rows);
   });
 });

@@ -49,14 +49,7 @@ INSERT INTO User VALUES('abc','123','ADMIN','assets/profile/default.png',NULL);
 INSERT INTO User VALUES('','','ADMIN','assets/profile/default.png',NULL);
 INSERT INTO User VALUES('abcd','123','ADMIN','assets/profile/default.png',NULL);
 INSERT INTO User VALUES('abc32','123','ADMIN','assets/profile/default.png',NULL);
-CREATE TABLE Friends(
-    user char(64),
-    friend char(64),
-    status char(64),
-    PRIMARY KEY(user,friend)
-    FOREIGN KEY(user) REFERENCES User(EMAIL)
-    FOREIGN KEY(friend) REFERENCES User(EMAIL)
-);
+INSERT INTO User VALUES('abc@gmail.com','123','ADMIN','assets/profile/default.png','USER');
 CREATE TABLE Likes(
     userID CHAR(64),
     gameID CHAR(64), 
@@ -65,12 +58,45 @@ CREATE TABLE Likes(
     FOREIGN KEY(userID) REFERENCES User(EMAIL),
     FOREIGN KEY(gameID) REFERENCES Games(GameID)
 );
+INSERT INTO Likes VALUES('abc','Bk2BsrNQ-','2017-03-20 05:45:20');
+INSERT INTO Likes VALUES('abc32','Bk2BsrNQ-','2017-03-20 07:45:20');
+INSERT INTO Likes VALUES('abc@gmail.com','Bk2BsrNQ-','2017-03-20 09:45:20');
+INSERT INTO Likes VALUES('abc','ByEe8HE7W','2017-03-20 05:45:20');
+INSERT INTO Likes VALUES('abc32','ByEe8HE7W','2017-03-20 07:45:20');
+INSERT INTO Likes VALUES('abc@gmail.com','ByEe8HE7W','2017-03-20 09:45:20');
+INSERT INTO Likes VALUES('abcd','ByEe8HE7W','2017-03-20 05:45:20');
 CREATE TABLE Review(
-    userID CHAR(64),FOREIGN KEY(userID) REFERENCES User(EMAIL),
-    gameID CHAR(64),FOREIGN KEY(gameID) REFERENCES Games(GameID),
+    userID CHAR(64),
+    gameID CHAR(64),
     review_text TEXT,   
     time_stamp DATE,
     rating DOUBLE,
-    PRIMARY KEY(userID,gameID)
+    PRIMARY KEY(userID,gameID),
+    FOREIGN KEY(userID) REFERENCES User(EMAIL),
+    FOREIGN KEY(gameID) REFERENCES Games(GameID)
 );
-COMMIT;
+INSERT INTO Review VALUES('abc32','ByEe8HE7W','a new review made by me','2017-07-02 06:50:50',8.0);
+INSERT INTO Review VALUES('abc@gmail.com','SkWXPMV7W','a new review made by me','2017-07-02 06:50:50',2.0);
+INSERT INTO Review VALUES('abc','ByEe8HE7W','and again','7/2/2017 22:55:37',5.0);
+INSERT INTO Review VALUES('abc@gmail.com','ByEe8HE7W','A new Review','7/3/2017 13:51:33',3.0);
+CREATE TABLE IF NOT EXISTS "Friends" (
+	`user`	char(64),
+	`friend`	char(64),
+	`status`	char(64),
+	PRIMARY KEY(`user`,`friend`),
+	FOREIGN KEY(`user`) REFERENCES `User`(`EMAIL`),
+	FOREIGN KEY(`friend`) REFERENCES `User`(`EMAIL`)
+);
+CREATE VIEW Ratings AS select games.gameID as ID,round(avg(rating),1) as rating from games join review on games.gameID = review.gameID 
+    group by games.gameID
+    order by rating DESC;
+CREATE VIEW total_likes as 
+    select games.gameID, count(*) as x from likes join games on games.gameID = likes.gameID
+        group by games.gameID
+        order by x DESC;
+CREATE VIEW popularity as
+select gameID, x, (select count(*) from total_likes b  where a.x <= b.x) as ranking
+from total_likes a0|Title|TEXT|0||0
+1|rating||0||0
+Friends      Likes        Review       popularity 
+Games        Ratings      User         total_likes
