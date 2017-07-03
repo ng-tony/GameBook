@@ -213,7 +213,7 @@
 	<div v-if="!loading">
 		<child v-for="item in items" v-bind:gameid="item.GameID" v-bind:title="item.Title" v-bind:publisher="item.Publisher" v-bind:developer="item.Developer"
 		 v-bind:genre="item.Genre" v-bind:price="item.Price" v-bind:release="item.RELEASE_DATE" v-bind:description="item.DESCRIPTION"
-		 v-bind:picture="item.PICTURE" v-bind:rating = "item.rating"> </child>
+		 v-bind:picture="item.PICTURE" v-bind:rating="item.rating"> </child>
 	</div>
 </script>
 <script type="text/x-template" id="addReview">
@@ -289,15 +289,12 @@
 						[d.getHours(),
 						d.getMinutes(),
 						d.getSeconds()].join(':');
-
-
 				var submit = {
 					"rating": this.user_rating,
 					"date": dformat,
 					"text": this.text,
 					"user": sessionStorage.getItem("username"),
 					"game": this.gameid
-
 				}
 				console.log(submit);
 				axios.post('http://127.0.0.1:8081/addReview', submit)
@@ -308,13 +305,9 @@
 					.catch(function (err) {
 						console.log("failed");
 					});
-
-
 			},
 		}
-
 	});
-
 	var review = Vue.component('review', {
 		props: ['username', 'date', 'rating', 'text'],
 		template: '#review',
@@ -338,10 +331,9 @@
 					console.log("error")
 				})
 		}
-
 	});
 	var child = Vue.component('child', {
-		props: ['gameid', 'title', 'publisher','rating','developer', 'genre', 'price', 'release', 'description', 'picture'],
+		props: ['gameid', 'title', 'publisher', 'rating', 'developer', 'genre', 'price', 'release', 'description', 'picture'],
 		template: '#info',
 		data() {
 			return {
@@ -352,7 +344,6 @@
 			console.log(this.$route.path);
 		}
 	});
-
 	var results = Vue.component('results', {
 		data: function () {
 			return {
@@ -377,8 +368,6 @@
 			console.log(this.loading);
 		}
 	});
-
-
 	const router = new VueRouter({
 		routes: [
 			{ path: '/', component: results },
@@ -386,7 +375,6 @@
 			{ path: '/', component: reviewList }
 		]
 	})
-
 	const app = new Vue({ router }).$mount('#app')
 
 </script>
@@ -397,7 +385,7 @@
 			alert("Handler for .click() called.");
 		});
 	});
-
 </script>
 -->
+
 </html>

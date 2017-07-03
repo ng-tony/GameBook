@@ -1,0 +1,130 @@
+<html>
+
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://unpkg.com/vue@2.3.4"></script>
+    <script src="https://unpkg.com/vue-router@2.5.3/dist/vue-router.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://use.fontawesome.com/d63932d1c4.js"></script>
+    <script src="navBar.js"></script>
+    <!-- import CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css">
+    <!-- import JavaScript -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+        <div id="navbar">
+            <navbar></navbar>
+        </div>
+        <el-tabs v-model="activeName" @tab-click="handleClick">
+            <el-tab-pane label="My Friends" name="first">
+                <myFriends></myFriends>
+            </el-tab-pane>
+            <el-tab-pane label="Add Friends" name="second">
+                <addFriends></addFriends>
+            </el-tab-pane>
+            <el-tab-pane label="Pending Requests" name="third">
+                <Pending></Pending>
+                <Pending></Pending>
+                <Pending></Pending>
+                <Pending></Pending>
+            </el-tab-pane>
+        </el-tabs>
+    </div>
+</body>
+<script type="text/x-template" id="myFriends">
+    <div>
+        this is a list of my friends
+    </div>
+</script>
+<script type="text/x-template" id="pending-card">
+    <div class="user">
+        <div class="card">
+            <div class="row">
+                <div class="col-sm-1" id="avatar">
+                    <div id="container" style="width:100">
+                        <img class="img-thumbnail" src="Assets/Images/41699326_p0.jpg">
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <a href="somewhere">this will be the username</a>
+                </div>
+                <div class="col-sm-3" id="review-info">
+                    <el-form ref="form" :model="form" label-width="120px">
+                        <el-form-item>
+                            <el-button type="success">Accept</el-button>
+                            <el-button type="danger">Reject</el-button>
+                        </el-form-item>
+                    </el-form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/x-template" id="addFriends">
+    <div>
+        <el-input id="search" placeholder="find a friend" icon="search" v-model="user" :on-icon-click="search">
+        </el-input>
+    </div>
+</script>
+<script type="text/x-template" id="Pending">
+    <div>
+        <pending-card></pending-card>
+    </div>
+</script>
+<script>
+    Vue.component('myfriends', {
+        template: '#myFriends'
+    })
+    Vue.component('addfriends', {
+        template: '#addFriends',
+        data() {
+            return {
+                user: ""
+            }
+        },
+        methods: {
+            search: function () {
+                alert("clicked")
+            }
+
+        }
+    })
+    Vue.component('Pending', {
+        template: '#Pending'
+    })
+    Vue.component('pending-card', {
+        template: '#pending-card'
+    })
+
+
+    new Vue({
+        el: '#app',
+        data: function () {
+            return { visible: false }
+        }
+    })
+
+</script>
+
+<style>
+    #search {
+        width: 25%;
+    }
+</style>
+
+
+</html>
