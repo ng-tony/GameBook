@@ -46,81 +46,12 @@
 </body>
 <script type="text/x-template" id="myFriends">
     <div>
-        <div class="row">
-            <div class="col-sm-2">
-                <friend-card>
-                </friend-card>
-            </div>
-            <div class="col-sm-2">
-                <friend-card>
-                </friend-card>
-            </div>
-            <div class="col-sm-2">
-                <friend-card>
-                </friend-card>
-            </div>
-            <div class="col-sm-2">
-                <friend-card>
-                </friend-card>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-2">
-                <friend-card>
-                </friend-card>
-            </div>
-            <div class="col-sm-2">
-                <friend-card>
-                </friend-card>
-            </div>
-            <div class="col-sm-2">
-                <friend-card>
-                </friend-card>
-            </div>
-            <div class="col-sm-2">
-                <friend-card>
-                </friend-card>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-2">
-                <friend-card>
-                </friend-card>
-            </div>
-            <div class="col-sm-2">
-                <friend-card>
-                </friend-card>
-            </div>
-            <div class="col-sm-2">
-                <friend-card>
-                </friend-card>
-            </div>
-            <div class="col-sm-2">
-                <friend-card>
-                </friend-card>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-2">
-                <friend-card>
-                </friend-card>
-            </div>
-            <div class="col-sm-2">
-                <friend-card>
-                </friend-card>
-            </div>
-            <div class="col-sm-2">
-                <friend-card>
-                </friend-card>
-            </div>
-            <div class="col-sm-2">
-                <friend-card>
-                </friend-card>
-            </div>
+        <div v-for="n in 4" class="row">
+            <friend-card v-for="n in 7"></friend-card>
         </div>
 </script>
 <script type="text/x-template" id="friend-card">
-    <div class="friend" style="margin-left:50px">
+    <div class="friend" style="margin-left:50px; margin-right:50px">
         <a href="">
             <img style="height:170px; width:160px" class="img-thumbnail" src="Assets/Images/41699326_p0.jpg">
         </a>
