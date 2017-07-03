@@ -165,3 +165,62 @@ var server = app.listen(8081, function() {
 
   console.log("Example app listening at http://%s:%s", host, port);
 });
+
+
+// add a user by username(email)
+function addSearch(user) {
+  // check if user exists
+  var selectSQL = "Select email from User where email=?";
+  db.all(selectSQL, user.trim(), function(err, rows) {
+      if (rows.length == 0) {
+        var response = "User does not exist";
+        console.log(response);
+      }
+      // check if friendship already exists
+      else {
+        var currentUser; // Will need to get the current User's email
+        var params = [currentUser, user.trim()];
+        selectSQL = "Select user from Friends where user=? and friend=?";
+        db.all(selectSQL, params, function(err, rows) {
+          if (rows.length > 0) {
+            var response = "Already friends.";
+            console.log(response);
+          }
+          // add friend to database with "pending" status
+          else {
+            var response = requestFromProfile(user);
+            console.log(response);
+          }
+        });
+      }
+    });
+}
+
+// add a user as a friend from that friend's profile
+function requestFromProfile(user) {
+  var currentUser; // Will need to get the current User's email
+  var params = [currentUser, user.trim()]
+  var insertSQL = "Insert into Friends (user, friend, status) values (?,?,'Pending')";
+  db.run(insertSQL, params);
+  var response = "Friend request sent to " + user;
+  return response;
+}
+
+function removeFriend(user) {
+  var currentUser; // Will need to get the current User's email 
+  var params = [currentUser, user.trim()];
+  var deleteSQL = "Delete from Friends where user=? and friend=?";
+  db.run(deleteSQL, params);
+  var response = user + " is no longer your friend.";
+  return response;
+
+}
+
+function acceptFriendRequest(user) {
+  var currentUser; // Will need to get the current User's email 
+  var params = [currentUser, user.trim()];
+  var updateSQL = "Update Friends set status='Accepted' where user=? and friend=?";
+  db.run(updateSQL, params);
+  var response = user + " is now your friend.";
+  return response;
+}
