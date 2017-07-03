@@ -1,6 +1,7 @@
 <html>
 
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script src="https://unpkg.com/vue@2.3.4"></script>
 	<script src="https://unpkg.com/vue-router@2.5.3/dist/vue-router.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
@@ -28,7 +29,6 @@
 	.Reviews {
 		width: 89%;
 		margin-top: 20px;
-		margin-left: 20px;
 	}
 
 	.Reviews .card {
@@ -113,6 +113,15 @@
 		padding-left: 0;
 	}
 
+	#exampleTextarea {
+		width: 50%;
+	}
+
+	#write_review {
+		margin-left: 20%;
+		font-size: 16pt;
+	}
+
 	ul {
 		list-style-type: none;
 	}
@@ -154,7 +163,7 @@
 							<div class="row" id="rating_info">
 								<div class="col-2 border-left-0 border-top-0 border-bottom-0">
 									<tr>
-										<h3>9.5</h3>
+										<h3>{{rating}}</h3>
 									</tr>
 									<tr>
 										<p style="font-size:7pt"><i>1000 users</i></p>
@@ -186,7 +195,7 @@
 								<li><b>Developer:</b>{{ developer }}</li>
 								<li><b>Publisher:</b>{{ publisher }}</li>
 								<li><b>Release Date:</b>{{ release }}</li>
-								<li><b>Price:</b>{{ price }}</li>
+								<li><b>Price:</b>${{ price }}</li>
 								<li><b>Game Site Link:</b><a href="somewhere"> a link</a></li>
 							</ul>
 						</li>
@@ -195,7 +204,8 @@
 			</div>
 		</div>
 		<h1 style="font-size:30pt; text-align:center; margin-top: 20px;" class="display-4">Reviews</h1>
-		<review></review>
+		<addReview></addReview>
+		<reviewList></reviewList>
 	</div>
 </script>
 
@@ -203,7 +213,24 @@
 	<div v-if="!loading">
 		<child v-for="item in items" v-bind:gameid="item.GameID" v-bind:title="item.Title" v-bind:publisher="item.Publisher" v-bind:developer="item.Developer"
 		 v-bind:genre="item.Genre" v-bind:price="item.Price" v-bind:release="item.RELEASE_DATE" v-bind:description="item.DESCRIPTION"
-		 v-bind:picture="item.PICTURE"> </child>
+		 v-bind:picture="item.PICTURE" v-bind:rating = "item.rating"> </child>
+	</div>
+</script>
+<script type="text/x-template" id="addReview">
+	<div class="container">
+		<button class="btn btn-outline-primary float-right" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
+		 aria-controls="collapseExample" style="margin-bottom:50px">
+    Write a Review
+		</button>
+		<div class="collapse" id="collapseExample">
+			<div class="form-group" id='write_review'>
+				<p><b>rating</b></p>
+				<input v-model="user_rating" style="height:50px;font-size:15pt;text-align:center" type="number" min="1" max="10"></input>
+				<p style="margin-top:30px" for="exampleTextarea"><b>write your review </b></p>
+				<textarea v-model="text" class="form-control" id="exampleTextarea" rows="6"></textarea>
+				<button class="btn btn-primary" id="reviewButton" v-on:click="addReview"> submit </button>
+			</div>
+		</div>
 	</div>
 </script>
 <script type="text/x-template" id="review">
@@ -211,28 +238,24 @@
 		<div class="card">
 			<div class="card-block">
 				<div class="row">
-					<div class="col-1" id="avatar">
+					<div class="col-sm-2" id="avatar">
 						<div id="container">
 							<img class="img-thumbnail" src="Assets/Images/41699326_p0.jpg">
 						</div>
 					</div>
-					<a href="somewhere">username</a>
-					<div class="col-md-2 offset-md-8" id="review-info">
-						<p>June,20,2017 </p>
+					<div class="col-sm-2">
+						<a href="somewhere">{{username}}</a>
+					</div>
+					<div class="col-sm-3 offset-md-4" id="review-info">
+						<p> {{date}} </p>
 						<p><i style="font-size:12pt;color:#d9d9d9">25 hours played</i></p>
-						<p> Rating: 9 </p>
+						<p> Rating: {{rating}} </p>
 					</div>
 				</div>
 				<hr>
 				<div class="card-block">
 					<p style="margin-left: 10px">
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sed ligula imperdiet, lacinia arcu dictum, rutrum tellus.
-						In mollis nec metus nec malesuada. Nunc eleifend, risus vel ultrices ullamcorper, massa massa sollicitudin lorem, id
-						dictum risus diam sit amet eros. Mauris tincidunt ut sem sed rutrum. Sed convallis, nunc non hendrerit faucibus, orci
-						metus placerat urna, eget tincidunt arcu arcu ut dui. Duis et purus malesuada, egestas justo vitae, aliquet dolor.
-						Proin pharetra tellus ultricies nisl sollicitudin convallis. Duis a diam metus. Vivamus venenatis luctus leo, in feugiat
-						lorem consectetur non. Vivamus sit amet felis semper, pulvinar quam vel, porta odio. Pellentesque tincidunt lectus
-						non tempor posuere. Duis at sem in lectus porta iaculis.
+						{{text}}
 					</p>
 				</div>
 			</div>
@@ -240,15 +263,85 @@
 	</div>
 </script>
 
+<script type="text/x-template" id="reviewList">
+	<div class="container">
+		<review v-for="review in reviews" v-bind:username="review.userID" v-bind:date="review.time_stamp" v-bind:rating="review.rating"
+		 v-bind:text="review.review_text"></review>
+	</div>
+</script>
+
 <script>
+	var addReview = Vue.component('addReview', {
+		template: '#addReview',
+		data() {
+			return {
+				user_rating: 0.0,
+				text: "",
+				gameid: this.$route.query.gameid
+			}
+		},
+		methods: {
+			addReview: function () {
+				var d = new Date,
+					dformat = [d.getMonth() + 1,
+					d.getDate(),
+					d.getFullYear()].join('/') + ' ' +
+						[d.getHours(),
+						d.getMinutes(),
+						d.getSeconds()].join(':');
+
+
+				var submit = {
+					"rating": this.user_rating,
+					"date": dformat,
+					"text": this.text,
+					"user": sessionStorage.getItem("username"),
+					"game": this.gameid
+
+				}
+				console.log(submit);
+				axios.post('http://127.0.0.1:8081/addReview', submit)
+					.then(function (res) {
+						console.log("sucessfully posted");
+						window.location.reload();
+					})
+					.catch(function (err) {
+						console.log("failed");
+					});
+
+
+			},
+		}
+
+	});
 
 	var review = Vue.component('review', {
-		props: ['username', 'date', 'rating', 'description'],
+		props: ['username', 'date', 'rating', 'text'],
 		template: '#review',
+	});
+	var reviewList = Vue.component('reviewList', {
+		template: '#reviewList',
+		data() {
+			return {
+				gameID: this.$route.query.gameid,
+				reviews: []
+			}
+		},
+		created() {
+			var self = this
+			axios.get('http://localhost:8081/listReviews?gameid=' + this.$route.query.gameid)
+				.then(function (response) {
+					console.log(response);
+					self.reviews = response.data;
+				})
+				.catch(function (err) {
+					console.log("error")
+				})
+		}
 
 	});
 	var child = Vue.component('child', {
-		props: ['gameid', 'title', 'publisher', 'developer', 'genre', 'price', 'release', 'description', 'picture'],
+		props: ['gameid', 'title', 'publisher','rating','developer', 'genre', 'price', 'release', 'description', 'picture'],
 		template: '#info',
 		data() {
 			return {
@@ -288,7 +381,9 @@
 
 	const router = new VueRouter({
 		routes: [
-			{ path: '/', component: results }
+			{ path: '/', component: results },
+			{ path: '/', component: addReview },
+			{ path: '/', component: reviewList }
 		]
 	})
 
@@ -296,4 +391,13 @@
 
 </script>
 
+<!--<script> for future use in case i need to add jquery
+	$(document).ready(function () {
+		$("#reviewButton").click(function () {
+			alert("Handler for .click() called.");
+		});
+	});
+
+</script>
+-->
 </html>

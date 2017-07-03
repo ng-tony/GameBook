@@ -24,11 +24,11 @@ Vue.component("navbar", {
         <li style = "font-size:20pt;margin-left:20px;margin-top:10px" class="nav-item active "><a class=" nav-item nav-link " href="# ">About Us</a></li>
       </ul>
       <form class="form-inline pull-xs-right" v-bind:action="url + title">
-        <div class="input-group">
-        <input class="form-control"  v-model ="title" id = "title" type="text " placeholder="Search ">
+        <div class="input-group" style = "margin-top:25px">
+        <input class="form-cont rol"  v-model ="title" id = "title" type="text " placeholder="Search ">
         <button class="btn btn-secondary-outline" type="submit" style = "margin-right:10px;background-color:#f2f2f2"><i class="fa fa-search"></i></button>
         </div>
-        <div class="btn-group btn-group">
+        <div class="btn-group btn-group" style = "margin-top:25px">
         <a class="btn btn-secondary"  style = "margin-left: 15px" href="#"><i class="fa fa-user fa-fw"></i> </a>
         <a class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" href="#">
         </a>
@@ -123,6 +123,7 @@ Vue.component("navbar", {
       this.success = false;
     },
     SignIn: function() {
+      this.Reset();
       const submit = {
         username: this.username,
         password: this.password
@@ -135,6 +136,7 @@ Vue.component("navbar", {
           console.log("sucessfully posted ");
           console.log(res.data);
           sessionStorage.setItem("signedIn", res.data);
+          sessionStorage.setItem("username", self.username)
           if (res.data == false) {
             self.warning = true;
           } else {

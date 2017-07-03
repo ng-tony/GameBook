@@ -35,6 +35,42 @@ app.post("/dbGUI", function(req, res) {
     res.end();
   });
 });
+app.post("/addReview", function(req, res) {
+  const addReview = "INSERT or REPLACE into review values(?,?,?,?,?)"
+  var data = " ";
+  req.on("data", function(chunk) {
+    data += chunk;
+  });
+  req.on("end", function() {
+    console.log("POST data received");
+    res.writeHead(200, {
+      "Content-Type": "text/json"
+    });
+    var parsed = JSON.parse(data);
+    var params = [
+      parsed.user.trim(),
+      parsed.game.trim(),
+      parsed.text.trim(),
+      parsed.date.trim(),
+      parsed.rating,
+    ];
+    console.log(params);
+    db.run(addReview,params);
+    res.end();
+  });
+});
+app.get("/listReviews", function(req, res) {
+  console.log("a get request");
+  var id = req.query.gameid;
+  console.log(id);
+  var selectSQL = "Select * from review where gameID=? COLLATE NOCASE";
+  db.all(selectSQL, id, function(
+    err,
+    rows
+  ) {
+    res.send(rows);
+  });
+});
 app.get("/search", function(req, res) {
   console.log("a get request");
   var title = req.query.title;
@@ -117,8 +153,8 @@ app.get("/gameinfo", function(req, res) {
   console.log("get gameinfo");
   var gameid = req.query.gameid;
   console.log(gameid);
-  var selectSQL = "Select * from Games where gameid=? COLLATE NOCASE";
-  db.all("Select * from Games where gameid=?", gameid, function(err, rows) {
+  var selectSQL = "Select * from Games join Ratings on Games.gameID = Ratings.ID where gameid=? COLLATE NOCASE";
+  db.all(selectSQL, gameid, function(err, rows) {
     res.send(rows);
   });
 });
@@ -129,3 +165,75 @@ var server = app.listen(8081, function() {
 
   console.log("Example app listening at http://%s:%s", host, port);
 });
+
+
+// add a user by username(email)
+function addSearch(user) {
+  // check if user exists
+  var selectSQL = "Select email from User where email=?";
+  db.all(selectSQL, user.trim(), function(err, rows) {
+      if (rows.length == 0) {
+        var response = "User does not exist";
+        console.log(response);
+      }
+      // check if friendship already exists
+      else {
+        var currentUser; // Will need to get the current User's email
+        var params = [currentUser, user.trim()];
+        selectSQL = "Select * from Friends where user=? and friend=?";
+        db.all(selectSQL, params, function(err, rows) {
+          if (rows.length > 0) {
+            rows.forEach(function (row) {
+              console.log(status);
+              var status = row.status;
+              if (status == "Pending") {
+                var response = "Friend request awaiting approval.";
+                console.log(response);
+              }
+              if (status == "Accepted") {
+                var response = "Already friends.";
+                console.log(response); 
+              }
+            })
+          }
+          // add friend to database with "pending" status
+          else {
+            var response = requestFromProfile(user);
+            console.log(response);
+          }
+        });
+      }
+    });
+}
+
+// add a user as a friend from that friend's profile
+function requestFromProfile(user) {
+  var currentUser; // Will need to get the current User's email
+  var params = [currentUser, user.trim()]
+  var insertSQL = "Insert into Friends (user, friend, status) values (?,?,'Pending')";
+  db.run(insertSQL, params);
+  var response = "Friend request sent to " + user;
+  return response;
+}
+
+function removeFriend(user) {
+  var currentUser; // Will need to get the current User's email 
+  var params = [currentUser, user.trim()];
+  var deleteSQL = "Delete from Friends where user=? and friend=?";
+  db.run(deleteSQL, params);
+  var response = user + " is no longer your friend.";
+  return response;
+
+}
+
+function acceptFriendRequest(user) {
+  var currentUser; // Will need to get the current User's email 
+  var params = [user.trim(), currentUser];
+  var updateSQL = "Update Friends set status='Accepted' where user=? and friend=?";
+  db.run(updateSQL, params);
+  params = [currentUser, user.trim()];
+  var insertSQL = "Insert into Friends (user, friend, status) values (?,?,'Accepted')";
+  db.run(insertSQL, params);
+  var response = user + " is now your friend.";
+  return response;
+}
