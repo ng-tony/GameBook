@@ -52,6 +52,7 @@ INSERT INTO User VALUES('abc32','123','ADMIN','assets/profile/default.png',NULL)
 CREATE TABLE Friends(
     user char(64),
     friend char(64),
+    status char(64),
     PRIMARY KEY(user,friend)
     FOREIGN KEY(user) REFERENCES User(EMAIL)
     FOREIGN KEY(friend) REFERENCES User(EMAIL)
