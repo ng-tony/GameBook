@@ -80,7 +80,7 @@
 <script type="text/x-template" id="site-template">
     <div class='listings' v-if="!loading">
         <div class="card">
-            <h3 class="card-header">Top Rated Games"{{title}}"</h3>
+            <h3 class="card-header">Top Rated Games</h3>
             <child v-for="item in items" v-bind:image="item.PICTURE" v-bind:title="item.Title" v-bind:date="item.RELEASE_DATE" v-bind:description="item.DESCRIPTION"
                 v-bind:gameid="item.GameID"></child>
         </div>
