@@ -80,7 +80,7 @@
 <script type="text/x-template" id="site-template">
     <div class='listings' v-if="!loading">
         <div class="card">
-            <h3 class="card-header">Search Results For "{{title}}"</h3>
+            <h3 class="card-header">Top Rated Games"{{title}}"</h3>
             <child v-for="item in items" v-bind:image="item.PICTURE" v-bind:title="item.Title" v-bind:date="item.RELEASE_DATE" v-bind:description="item.DESCRIPTION"
                 v-bind:gameid="item.GameID"></child>
         </div>
@@ -112,7 +112,7 @@
         created() {
             console.log(this.loading);
             var self = this
-            axios.get('http://localhost:8081/search?title=' + this.$route.query.title)
+            axios.get('http://localhost:8081/games/top?limit=100')
                 .then(function (response) {
                     console.log(self.items);
                     self.loading = false;
