@@ -37,11 +37,11 @@
         width: 180px;
     }
 
-    #main .col-10 {
+    #main .col-9 {
         text-align: left;
     }
 
-    #main .col-10 .card-block {
+    #main .col-9 .card-block {
         width: 100%;
         height: 100%;
     }
@@ -60,16 +60,30 @@
     <div>
         <div id='main' class="card card-outline-secondary mb-3 text-center">
             <div class="row">
+				
                 <div class="col-2">
                     <img height="200" width="200" :src="image" class="img-thumbnail" onerror="this.src='Assets/Images/zelda.jpg'" alt="Responsive image">
                 </div>
-                <div class="col-10">
+				<div class="col-1">
+						<h1 style="font-size:60; position:relative; top: 50%; transform: translateY(-50%); text-align:left;" >{{rank}}.</h1>
+				</div>
+                <div class="col-7">
+				
                     <div class="card-block">
                         <blockquote id="info" class="card-blockquote">
                             <a :href="'https://utsccscc01.github.io/final-project-team-8/app/web_pages/game_profile.html#/?gameid=' + gameid" style="font-size:30pt"
                                 class="display-4">{{title}}</a>
                             <p class="lead">{{description}}</p>
                             <p class="lead">Date Released: {{date}}</p>
+                        </blockquote>
+                    </div>
+                </div>
+				 <div class="col-2">
+				
+                    <div class="card-block">
+                        <blockquote id="info" class="card-blockquote">
+                            <div style="font-size:30pt"
+                                class="display-4">{{ratingthing}}</div>
                         </blockquote>
                     </div>
                 </div>
@@ -80,8 +94,22 @@
 <script type="text/x-template" id="site-template">
     <div class='listings' v-if="!loading">
         <div class="card">
-            <h3 class="card-header">Top Rated Games</h3>
-            <child v-for="item in items" v-bind:image="item.PICTURE" v-bind:title="item.Title" v-bind:date="item.RELEASE_DATE" v-bind:description="item.DESCRIPTION"
+            
+			
+			<div class="card-header">
+			<div class="form-group" style="margin-bottom:0px">
+			<label><h3>Most Popular Games</h3></label>
+			<div class="pull-right">
+			<label for="sortBy" class="col-form-label" style="padding-right:10px;">Sorted By:</label>
+			<select class="form-control pull-right" id="sortByDD" style="width:280px" v-model="sortBy" v-on:change=changeSortBy()>
+				<option>Rating</option>
+				<option>Likes</option>
+			</select>
+			</div>
+			</div>
+			</div>
+			
+            <child v-for="item in items" v-bind:image="item.PICTURE" v-bind:title="item.Title" v-bind:date="item.RELEASE_DATE" v-bind:description="item.DESCRIPTION" v-bind:rank="item.rank" v-bind:ratingthing="item.ratingthing"
                 v-bind:gameid="item.GameID"></child>
         </div>
     </div>
@@ -89,7 +117,7 @@
 </script>
 <script>
     var child = Vue.component('child', {
-        props: ['title', 'description', 'date', 'image', 'gameid'],
+        props: ['title', 'description', 'date', 'image', 'gameid', 'rank', 'ratingthing'],
         template: '#card-template',
         data() {
             return {
@@ -100,29 +128,103 @@
             console.log(this.$route.path);
         }
     });
+	var likesUrl = 'http://localhost:8081/games/top/likes?limit=100';
+	var ratingUrl = 'http://localhost:8081/games/top/rating?limit=100';
     var results = Vue.component('results', {
         data: function () {
             return {
                 items: [],
                 loading: false,
-                title: this.$route.query.title
+                title: this.$route.query.title,
+				sortBy: "Rating",
+				ratingItems:[],
+				likesItems:[],
             }
         },
         template: "#site-template",
         created() {
             console.log(this.loading);
             var self = this
-            axios.get('http://localhost:8081/games/top?limit=100')
+            /*axios.get(likesUrl)
                 .then(function (response) {
+					console.log("hello1")
                     console.log(self.items);
                     self.loading = false;
                     self.items = response.data
+					console.log(self.items);
+					console.log("hello2")
+					for(var i = 0; i < self.items.length; i++){
+						console.log(self.items[i]);
+						self.items[i].rank = i+1;
+						self.items[i].ratingthing = self.items[i].x;
+					}
+                })
+                .catch(function (err) {
+                    console.log("error")
+                })*/
+			axios.get(likesUrl)
+                .then(function (response) {
+					console.log("hello1")
+                    console.log(self.items);
+                    self.likesItems = response.data
+					console.log(self.likesItems);
+					console.log("hello2")
+					for(var i = 0; i < self.likesItems.length; i++){
+						console.log(self.likesItems[i]);
+						self.likesItems[i].rank = i+1;
+						self.likesItems[i].ratingthing = self.likesItems[i].x;
+					}
+					
+					
+                })
+                .catch(function (err) {
+                    console.log("error")
+                })
+			axios.get(ratingUrl)
+                .then(function (response) {
+					console.log("hello1")
+                    console.log(self.items);
+                    self.ratingItems = response.data
+					console.log(self.ratingItems);
+					console.log("hello2")
+					for(var i = 0; i < self.ratingItems.length; i++){
+						console.log(self.ratingItems[i]);
+						self.ratingItems[i].rank = i+1;
+						self.ratingItems[i].ratingthing = self.ratingItems[i]["round(avg(rating),1)"];
+					}
+					self.loading = false;
+					self.items = self.ratingItems;
                 })
                 .catch(function (err) {
                     console.log("error")
                 })
             console.log(this.loading);
-        }
+        },
+		methods: {
+			changeSortBy: function () {
+				var self = this
+				console.log(self.sortBy);
+				console.log(self.ratingItems);
+				console.log(self.likesItems);
+				console.log(self.items);
+				
+				if(self.sortBy == "Rating"){
+					console.log("sorting by rating");
+					self.items = self.ratingItems;
+				}
+				else if(self.sortBy == "Likes"){
+				console.log("sorting by likes");
+					self.items = self.likesItems;
+				}
+				/*if
+				this.message = 'updated'
+				console.log(this.$el.textContent) // => 'not updated'
+				this.$nextTick(function () {
+					console.log(this.$el.textContent) // => 'updated'*/
+			}
+
+
+		}
     });
     const router = new VueRouter({
         routes: [

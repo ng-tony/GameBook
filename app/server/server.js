@@ -159,7 +159,16 @@ app.get("/gameinfo", function(req, res) {
   });
 });
 
-app.get("/games/top", function(req, res) {
+app.get("/games/top/rating", function(req, res) {
+	console.log("getting top games");
+	var limit = req.query.limit;
+	var selectSQL = 'select * from games join Ratings on games.Title = Ratings.Title order by "round(avg(rating),1)" desc limit ?';
+	db.all(selectSQL, limit, function(err, rows){
+		res.send(rows);
+	});
+});
+
+app.get("/games/top/likes", function(req, res) {
 	console.log("getting top games");
 	var limit = req.query.limit;
 	var selectSQL = "select * from games join total_likes on games.gameID = total_likes.gameID limit ?";
