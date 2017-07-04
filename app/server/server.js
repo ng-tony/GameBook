@@ -162,7 +162,7 @@ app.get("/userinfo", function(req, res) {
   console.log(email);
   var selectSQL =      
     "select EMAIL, STATUS, PICTURE, username from User where email=?";
-  db.all(selectSQL, gameid, function(err, rows) {
+  db.all(selectSQL, email, function(err, rows) {
     res.send(rows);
   });
 });
