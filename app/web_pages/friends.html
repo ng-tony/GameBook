@@ -166,10 +166,23 @@
         props: ['username'],
         methods: {
             accept: function () {
+                var currUser = sessionStorage.getItem("username");
+                var submit = { "currUser": currUser, "friend": friend };
+                const self = this;
+                axios.post('http://127.0.0.1:8081/accept_friend', submit)
+                    .then(function (res) {
+                        window.location.reload()
+                    })
 
             },
             decline: function () {
-
+                var currUser = sessionStorage.getItem("username");
+                var submit = { "currUser": currUser, "friend": friend };
+                const self = this;
+                axios.post('http://127.0.0.1:8081/accept_friend', submit)
+                    .then(function (res) {
+                        window.location.reload()
+                    })
             }
         }
     })

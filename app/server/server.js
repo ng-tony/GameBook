@@ -181,12 +181,13 @@ app.get("/getFriends", function(req, res) {
 });
 
 app.get("/games/top", function(req, res) {
-	console.log("getting top games");
-	var limit = req.query.limit;
-	var selectSQL = "select * from games join total_likes on games.gameID = total_likes.gameID limit ?";
-	db.all(selectSQL, limit, function(err, rows){
-		res.send(rows);
-	});
+  console.log("getting top games");
+  var limit = req.query.limit;
+  var selectSQL =
+    "select * from games join total_likes on games.gameID = total_likes.gameID limit ?";
+  db.all(selectSQL, limit, function(err, rows) {
+    res.send(rows);
+  });
 });
 
 var server = app.listen(8081, function() {
@@ -242,6 +243,37 @@ app.post("/add_friend", function(req, res) {
   });
 });
 
+app.post("/accept_friend", function(req, res) {
+  var data = " ";
+  req.on("data", function(chunk) {
+    data += chunk;
+  });
+  req.on("end", function() {
+    console.log("POST data received");
+    res.writeHead(200, {
+      "Content-Type": "text/json"
+    });
+    var parsed = JSON.parse(data);
+    acceptFriendRequest(parsed.currUser, parsed.friend);
+    res.end();
+  });
+});
+app.post("/reject_friend", function(req, res) {
+  var data = " ";
+  req.on("data", function(chunk) {
+    data += chunk;
+  });
+  req.on("end", function() {
+    console.log("POST data received");
+    res.writeHead(200, {
+      "Content-Type": "text/json"
+    });
+    var parsed = JSON.parse(data);
+    declineFriendRequest(parsed.currUser, parsed.friend);
+    res.end();
+  });
+});
+
 // add a user as a friend from that friend's profile
 function requestFromProfile(currentUser, friend) {
   var params = [currentUser, friend.trim()];
@@ -277,21 +309,24 @@ function acceptFriendRequest(currentUser, friend) {
 
 function declineFriendRequest(currentUser, friend) {
   var params = [currentUser.trim(), friend.trim()];
-  var deleteSQL = "Delete from Friends where user=? and friend=? and status='Pending'";
+  var deleteSQL =
+    "Delete from Friends where user=? and friend=? and status='Pending'";
   db.run(deleteSQL, params);
   response = "Declined friend request from" + friend.trim();
   return response;
 }
 
 function getFriends(currentUser) {
-  var selectSQL = "Select friend from Friends where user=? and status='Accepted'";
+  var selectSQL =
+    "Select friend from Friends where user=? and status='Accepted'";
   db.all(selectSQL, currentUser.trim(), function(err, rows) {
     //res.send(rows);
-  }); 
+  });
 }
 
 function getPendingFriends(currentUser) {
-  var selectSQL = "Select friend from Friends where user=? and status='Pending'";
+  var selectSQL =
+    "Select friend from Friends where user=? and status='Pending'";
   db.all(selectSQL, currentUser.trim(), function(err, rows) {
     //res.send(rows);
   });
