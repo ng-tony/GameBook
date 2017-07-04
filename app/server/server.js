@@ -156,6 +156,16 @@ app.get("/gameinfo", function(req, res) {
     res.send(rows);
   });
 });
+app.get("/userinfo", function(req, res) {
+  console.log("get userinfo");
+  var email = req.query.email;
+  console.log(email);
+  var selectSQL =      
+    "select EMAIL, STATUS, PICTURE, username from User where email=?";
+  db.all(selectSQL, gameid, function(err, rows) {
+    res.send(rows);
+  });
+});
 app.get("/search_user", function(req, res) {
   var user = req.query.user;
   console.log(user);
