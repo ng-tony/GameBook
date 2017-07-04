@@ -161,7 +161,7 @@ app.get("/userinfo", function(req, res) {
   var email = req.query.email;
   console.log(email);
   var selectSQL =      
-    "select EMAIL, STATUS, PICTURE, username from User where email=?";
+    "select EMAIL, DESCRIPTION, PICTURE, username from User where email=?";
   db.all(selectSQL, email, function(err, rows) {
     res.send(rows);
   });
