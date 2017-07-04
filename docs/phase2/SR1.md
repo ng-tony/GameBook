@@ -21,33 +21,24 @@ These tasks are accurately represented as our existing user story in our phase 3
 
 # Meeting Overview:
 
+In the retrospective, the GameBook team reflected on the progress of our project and thought of ways o improve. All memebers were present for this meeting.
 
-In this retrospective, the GRACE team reflected on their successes and errors in Sprint 1. The entire team was present for the meeting.
+## Goods
 
-Initially, the team adjusted the product backlog to match their evolving vision of GRACE REPL's codebase. Providing account login and register functionalities- tasks we had hoped to complete in sprint 1- were largely unfinished. As such, the user story regarding these features remains as it was before in our product backlog. However, in sprint 1 our team devised new ideas for design (such as our CRC implementation) upon exposure to technology new to the team like the MEAN stack, and the compilex library. As an example, we discovered that implementing code sharing would likely be more difficult than we had planned due to our planned DAO CRC design, and we increased the size of the accompanying user story 
-accordingly.
+The team had accomplished the majority of the task that were aimed for in this sprint. The core of the codebase seems to be set in place. Frontend code and backend code have been somewhat integrated and there are results to be shown for it. Work was split evenly and members worked together to inherit each other's skill and to get work complete.
 
-As a result, the product backlog received an overhaul. Though user story content did not change, their size and importance were reworked to accommodate our new vision for the code's structure. All revised rankings were reached through group consensus at the meeting.
+## Bads
 
-Our aforementioned CRC model employs the DAO design pattern. Because of our experiences in sprint 1, we realized how querying MongoDB would interface with Object Oriented design; the group unanimously agreed upon this revision to our CRC design in light of this.
+We realized that we had allocated too much work for ourselves in this sprint. We were unable to complete our sprint goals, and had left one task basically untouched. Time management was also a detriment, while we got a lot of work completed, a lot of our work was completed near the end of the sprint. One of the contributing reasons was lack of communication, where members in the team did not ask for help when they were stuck.
 
-In our reflection, we identified several strengths of our developmental approach which we agreed to continue. These include:
-- Staying in our designated subgroups for completing tasks
-- Employ pair programming within subgroups
-- Keeping consistent communication while coding with the entire team
-- Ensuring every team member shares the same coding environment
-- Holding regular verification demos upon milestones
-- Ensuring product maintains a consistent vision
+## Improvement
 
-Our approach to sprint 1 was not without weakness, and we agreed to implement practices to circumvent these issues. For example, to gain a better visualisation of our code, we agreed to divide our user stories into concrete, micro-scale tasks beforehand. Furthermore, we wanted to employ regular code completion. Rather than allowing work to accumulate towards the end of the sprint, we will ensure that work is completed on digestible time intervals.
+We believed that it would be great for our team to communicate more clearly and openly about our current work in order to make better use of the resources that we have. We also decided that our use of Git and Pivotal Tracker was limited and could be greatly increased. For example branches were not used too well and lot's of commits were placed into the master branch directly. Pivotal tracker and it's tracking tags were unused because team members found the tool unfamiliar and often forgot to do so.
 
-Indeed, the major practice that we agreed to eliminate was the buildup of tasks as well. The group reached a unanimous decision not to leave work towards the end of the sprint cycle and instead break up the bulk of it across the entire timeframe. 
+Since many of us were unfamiliar with the technologies that we had decided to use in this project, naturally there was a large learning curve, and as we progress through the project we expect for our knowledge to improve and for trivial problems to become nonexistant. In the meantime communication is important so we can take the expertise of one member to solve problems that less experience members encounter.
 
-Some of the group's worst experiences stemmed from the aforementioned task buildup. In consequence, most of our team were unable to sleep prior to classes the day after the sprint. The other chief reason for our work experiences was the adaptation to new technology. The subgroup working on the account management user story was unable to implement MongoDB in time, and as such our user story implementation
-was not finished in time for sprint 1.
+We decided that it was benificial to compartmentalize our stories into smaller tasks in the beginning of our sprint, which will help alleviate communication issues and it allows for an easier guidelines to follow, to prevent the feeling of overwhelmingness.
 
-Conversely, our best experiences included the completion of the compiler- seeing the working results was obviously satisfying for all involved. The design document, notably the system architecture diagram was very helpful in understanding the technologies available to us and how they interact. Finally, finishing our initial CRC model provided us one of our best experiences in sprint 1 as well. After that was designed, our group envisioned our code base with a much greater clarity than before, and it was a fun experience coding with it on hand. 
+# Meeting Conclusion
 
-# Meeting Conclusion:
-
-GRACE's first SCRUM meeting was a successful gathering where our team members were able to find our bearings again. We noted our past mistakes and attempted to ensure we would not repeat them in the future. 
+The meeting was productive and we garnered a lot of ideas about the direction of our project. We noted our good points, our mistakes and thought of ideas to remdy the former and accentuate the latter.
