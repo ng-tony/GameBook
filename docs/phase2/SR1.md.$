@@ -21,8 +21,18 @@ These tasks are accurately represented as our existing user story in our phase 3
 
 # Meeting Overview:
 
+In the retrospective, the GameBook team reflected on the progress of our project and thought of ways o improve. All memebers were present for this meeting.
 
-In this retrospective, the GRACE team reflected on their successes and errors in Sprint 1. The entire team was present for the meeting.
+##Goods
+
+The team had accomplished the majority of the task that were aimed for in this sprint. The core of the codebase seems to be set in place. Frontend code and backend code have been somewhat integrated and there are results to be shown for it. Work was split evenly and members worked together to inherit each other's skill and to get work complete.
+
+##Bads
+
+We realized that we had allocated too much work for ourselves in this sprint. We were unable to complete our sprint goals, and had left one task basically untouched. 
+##Improvement
+
+We found that 
 
 Initially, the team adjusted the product backlog to match their evolving vision of GRACE REPL's codebase. Providing account login and register functionalities- tasks we had hoped to complete in sprint 1- were largely unfinished. As such, the user story regarding these features remains as it was before in our product backlog. However, in sprint 1 our team devised new ideas for design (such as our CRC implementation) upon exposure to technology new to the team like the MEAN stack, and the compilex library. As an example, we discovered that implementing code sharing would likely be more difficult than we had planned due to our planned DAO CRC design, and we increased the size of the accompanying user story 
 accordingly.

@@ -183,7 +183,7 @@ app.get("/getFriends", function(req, res) {
 app.get("/games/top/rating", function(req, res) {
 	console.log("getting top games");
 	var limit = req.query.limit;
-	var selectSQL = 'select * from games join Ratings on games.Title = Ratings.Title order by "round(avg(rating),1)" desc limit ?';
+	var selectSQL = 'select * from games join Ratings on games.Title = Ratings.Title order by "rating" desc limit ?';
 	db.all(selectSQL, limit, function(err, rows){
 		res.send(rows);
 	});
