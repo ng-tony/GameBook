@@ -283,3 +283,25 @@ function acceptFriendRequest(currentUser, friend) {
   var response = user + " is now your friend.";
   return response;
 }
+
+function declineFriendRequest(currentUser, friend) {
+  var params = [currentUser.trim(), friend.trim()];
+  var deleteSQL = "Delete from Friends where user=? and friend=? and status='Pending'";
+  db.run(deleteSQL, params);
+  response = "Declined friend request from" + friend.trim();
+  return response;
+}
+
+function getFriends(currentUser) {
+  var selectSQL = "Select friend from Friends where user=? and status='Accepted'";
+  db.all(selectSQL, currentUser.trim(), function(err, rows) {
+    //res.send(rows);
+  }); 
+}
+
+function getPendingFriends(currentUser) {
+  var selectSQL = "Select friend from Friends where user=? and status='Pending'";
+  db.all(selectSQL, currentUser.trim(), function(err, rows) {
+    //res.send(rows);
+  });
+}
