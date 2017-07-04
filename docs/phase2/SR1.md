@@ -23,15 +23,15 @@ These tasks are accurately represented as our existing user story in our phase 3
 
 In the retrospective, the GameBook team reflected on the progress of our project and thought of ways o improve. All memebers were present for this meeting.
 
-##Goods
+## Goods
 
 The team had accomplished the majority of the task that were aimed for in this sprint. The core of the codebase seems to be set in place. Frontend code and backend code have been somewhat integrated and there are results to be shown for it. Work was split evenly and members worked together to inherit each other's skill and to get work complete.
 
-##Bads
+## Bads
 
 We realized that we had allocated too much work for ourselves in this sprint. We were unable to complete our sprint goals, and had left one task basically untouched. Time management was also a detriment, while we got a lot of work completed, a lot of our work was completed near the end of the sprint. One of the contributing reasons was lack of communication, where members in the team did not ask for help when they were stuck.
 
-##Improvement
+## Improvement
 
 We believed that it would be great for our team to communicate more clearly and openly about our current work in order to make better use of the resources that we have. We also decided that our use of Git and Pivotal Tracker was limited and could be greatly increased. For example branches were not used too well and lot's of commits were placed into the master branch directly. Pivotal tracker and it's tracking tags were unused because team members found the tool unfamiliar and often forgot to do so.
 
