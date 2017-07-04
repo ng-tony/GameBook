@@ -8,7 +8,7 @@ new Vue({
 	created() {
 			console.log(this.loading);
 			var self = this
-			axios.get('http://localhost:8081/games/top?limit=3')
+			axios.get('http://localhost:8081/games/top/likes?limit=3')
 				.then(function (response) {
 					console.log("hello");
 					self.loading = false;
