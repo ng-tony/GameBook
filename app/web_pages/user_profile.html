@@ -188,7 +188,7 @@
 
 <script type="text/x-template" id="profile">
 	<div v-if="!loading">
-		<child v-for="item in items" v-bind:email="item.EMAIL" v-bind:status="item.description" 
+		<child v-for="item in items" v-bind:email="item.EMAIL" v-bind:description="item.DESCRIPTION" 
 		v-bind:picture="item.PICTURE" v-bind:username="item.username"></child>
 	</div>
 </script>
