@@ -28,9 +28,9 @@
         <div id="navbar">
             <navbar></navbar>
         </div>
-        <el-tabs v-model="activeName" @tab-click="handleClick">
+        <el-tabs v-model="activeName">
             <el-tab-pane label="My Friends" name="first">
-                <myFriends></myFriends>
+                <myFriends v-bind:friend="friends"></myFriends>
             </el-tab-pane>
             <el-tab-pane label="Add Friends" name="second">
                 <addFriends></addFriends>
@@ -45,9 +45,9 @@
 </body>
 <script type="text/x-template" id="myFriends">
     <div>
-        <div v-for="n in 4" class="row">
-            <friend-card v-for="n in 6"></friend-card>
-        </div>
+        <friend-card v-for="f in friend" v-bind:username="f.friend">
+        </friend-card>
+    </div>
 </script>
 <script type="text/x-template" id="friend-card">
     <div class="friend" style="margin-left:50px; margin-right:50px">
@@ -55,7 +55,8 @@
             <img style="height:170px; width:160px" class="img-thumbnail" src="Assets/Images/41699326_p0.jpg">
         </a>
         <a href=" ">
-            <p><b>username </p></b> </a>
+            <p><b>{{username}}</b></p>
+        </a>
         <p style="margin-top:-15">3 minutes ago</p>
     </div>
 </script>
@@ -74,8 +75,8 @@
                 <div class="col-sm-3" id="review-info">
                     <el-form ref="form" :model="form" label-width="120px">
                         <el-form-item>
-                            <el-button type="success">Accept</el-button>
-                            <el-button type="danger">Reject</el-button>
+                            <el-button type="success" @click="accept">Accept</el-button>
+                            <el-button type="danger" @click="reject">Reject</el-button>
                         </el-form-item>
                     </el-form>
                 </div>
@@ -106,9 +107,11 @@
 </script>
 <script>
     Vue.component('myfriends', {
+        props: ['friend'],
         template: '#myFriends'
     })
     Vue.component('friend-card', {
+        props: ['username'],
         template: '#friend-card'
     })
     Vue.component('addfriends', {
@@ -167,20 +170,22 @@
         methods: {
             accept: function () {
                 var currUser = sessionStorage.getItem("username");
-                var submit = { "currUser": currUser, "friend": friend };
+                var submit = { "currUser": currUser, "friend": this.username };
                 const self = this;
                 axios.post('http://127.0.0.1:8081/accept_friend', submit)
                     .then(function (res) {
+                        console.log("accepted");
                         window.location.reload()
                     })
 
             },
             decline: function () {
                 var currUser = sessionStorage.getItem("username");
-                var submit = { "currUser": currUser, "friend": friend };
+                var submit = { "currUser": currUser, "friend": this.username };
                 const self = this;
-                axios.post('http://127.0.0.1:8081/accept_friend', submit)
+                axios.post('http://127.0.0.1:8081/reject_friend', submit)
                     .then(function (res) {
+                        console.log(object);
                         window.location.reload()
                     })
             }
@@ -191,7 +196,7 @@
     new Vue({
         el: '#app',
         data: function () {
-            return { visible: false, pending: [], friends: [] }
+            return { activeName: 'first', visible: false, pending: [], friends: [] }
         },
         created() {
             var self = this
@@ -199,11 +204,12 @@
                 .then(function (response) {
                     console.log("my friends are ", response.data);
                     for (i = 0; i < response.data.length; i++) {
-                        if (response.data[i].status = "Pending") {
+                        if (response.data[i].status == "Pending") {
                             self.pending.push(response.data[i])
                         }
                         else {
                             self.friends.push(response.data[i])
+                            console.log(self.friends);
                         }
                     }
                     console.log(self.friends);

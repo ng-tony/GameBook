@@ -175,7 +175,7 @@ app.get("/getFriends", function(req, res) {
   console.log(user);
   var selectSQL = "select * from Friends where user = ?";
   db.all(selectSQL, user, function(err, rows) {
-    console.log(rows);
+    console.log("THE ROWS: ", rows);
     res.send(rows);
   });
 });
@@ -300,21 +300,17 @@ function removeFriend(currentUser, friend) {
   db.run(deleteSQL, params);
   params = [friend.trim(), currentUser];
   db.run(deleteSQL, params);
-  var response = friend + " is no longer your friend.";
-  return response;
 }
 
 function acceptFriendRequest(currentUser, friend) {
   var params = [friend.trim(), currentUser];
+  console.log("PARAMETERS: ", params);
   var updateSQL =
     "Update Friends set status='Accepted' where user=? and friend=?";
   db.run(updateSQL, params);
-  params = [currentUser, friend.trim()];
-  var insertSQL =
-    "Insert into Friends (user, friend, status) values (?,?,'Accepted')";
-  db.run(insertSQL, params);
-  var response = user + " is now your friend.";
-  return response;
+  var new_params = [currentUser, friend.trim()];
+  console.log("NEW PARAMS:", new_params);
+  db.run(updateSQL, new_params);
 }
 
 function declineFriendRequest(currentUser, friend) {
