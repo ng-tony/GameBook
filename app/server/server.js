@@ -180,7 +180,17 @@ app.get("/getFriends", function(req, res) {
   });
 });
 
-app.get("/games/top", function(req, res) {
+app.get("/games/top/rating", function(req, res) {
+  console.log("getting top games");
+  var limit = req.query.limit;
+  var selectSQL =
+    "select * from games join Ratings on games.GameID = Ratings.ID order by rating desc limit ?";
+  db.all(selectSQL, limit, function(err, rows) {
+    res.send(rows);
+  });
+});
+
+app.get("/games/top/likes", function(req, res) {
   console.log("getting top games");
   var limit = req.query.limit;
   var selectSQL =
