@@ -166,6 +166,15 @@ app.get("/userinfo", function(req, res) {
     res.send(rows);
   });
 });
+app.get("/user_reviews", function(req, res) {
+  console.log("get userreviews");
+  var email = req.query.email;
+  console.log(email);
+  var selectSQL = "Select * from review where userID=?";
+  db.all(selectSQL, email, function(err, rows) {
+    res.send(rows);
+  });
+});
 app.get("/search_user", function(req, res) {
   var user = req.query.user;
   console.log(user);

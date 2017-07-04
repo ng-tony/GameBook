@@ -63,7 +63,7 @@
 	.userBottom .col-6 {
 		padding: 0;
 	}
-
+	
 	#gameCard {
 		padding: 0;
 	}
@@ -129,7 +129,7 @@
 					<div class="card-header">
 						Games List
 					</div>
-					<gameList></gameList>
+					<ratingList></ratingList>
 				</div>
 				<div class="card col-2">
 					<div class="card-header">
@@ -196,7 +196,59 @@
 	</div>
 </script>
 
+<script type="text/x-template" id="rating">
+	<div class="Ratings">
+		<div class="card">
+			<div class="card-block">
+				<div class="row">
+					<div class="col-sm-2">
+						<a href="somewhere">{{game}}</a>
+					</div>
+					<div class="col-sm-3 offset-md-5">
+						<p> {{date}} </p>						
+					</div>
+					<div>
+						<p> Rating: {{rating}} </p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+
+<script type="text/x-template" id="ratingList">
+	<div class="container">
+		<rating v-for="rating in ratings" v-bind:game="rating.gameID" v-bind:date="rating.time_stamp" v-bind:rating="rating.rating"
+		 v-bind:text="rating.review_text"></rating>
+	</div>
+</script>
+
 <script>
+	var rating = Vue.component('rating', {
+		props: ['game', 'date', 'rating', 'text'],
+		template: '#rating',
+	});
+	var ratingList = Vue.component('ratingList', {
+		template: '#ratingList',
+		data() {
+			return {
+				email: this.$route.query.email,
+				ratings: []
+			}
+		},
+		created() {
+			var self = this
+			axios.get('http://localhost:8081/user_reviews?email=' + this.$route.query.email)
+				.then(function (response) {
+					console.log(response);
+					self.ratings = response.data;
+				})
+				.catch(function (err) {
+					console.log("error")
+				})
+		}
+	});
+
 	var child = Vue.component('child', {
 		props: ['email', 'description', 'picture', 'username'],
 		template: '#info',
@@ -238,7 +290,8 @@
 
 	const router = new VueRouter({
 		routes: [
-			{ path: '/', component: results }
+			{ path: '/', component: results },
+			{ path: '/', component: ratingList }
 		]
 	})
 
