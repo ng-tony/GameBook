@@ -136,7 +136,7 @@ Vue.component("navbar", {
           console.log("sucessfully posted ");
           console.log(res.data);
           sessionStorage.setItem("signedIn", res.data);
-          sessionStorage.setItem("username", self.username)
+          sessionStorage.setItem("username", self.username);
           if (res.data == false) {
             self.warning = true;
           } else {
@@ -176,7 +176,7 @@ Vue.component("navbar", {
           });
       }
     },
-    logOut: function(){
+    logOut: function() {
       this.signedIn = false;
       sessionStorage.setItem("signedIn", false);
     }

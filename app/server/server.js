@@ -156,6 +156,29 @@ app.get("/gameinfo", function(req, res) {
     res.send(rows);
   });
 });
+app.get("/search_user", function(req, res) {
+  var user = req.query.user;
+  console.log(user);
+  var selectSQL = "select email from User where email = ?";
+  db.all(selectSQL, user, function(err, rows) {
+    if (rows.length == 0) {
+      console.log("not found");
+      res.send(false);
+    } else {
+      console.log("found");
+      res.send(true);
+    }
+  });
+});
+app.get("/getFriends", function(req, res) {
+  var user = req.query.user;
+  console.log(user);
+  var selectSQL = "select * from Friends where user = ?";
+  db.all(selectSQL, user, function(err, rows) {
+    console.log(rows);
+    res.send(rows);
+  });
+});
 
 var server = app.listen(8081, function() {
   var host = server.address().address;
@@ -164,8 +187,7 @@ var server = app.listen(8081, function() {
   console.log("Example app listening at http://%s:%s", host, port);
 });
 
-
-app.post("/add_friend") {
+app.post("/add_friend", function(req, res) {
   var data = " ";
   req.on("data", function(chunk) {
     data += chunk;
@@ -214,7 +236,8 @@ app.post("/add_friend") {
 // add a user as a friend from that friend's profile
 function requestFromProfile(currentUser, friend) {
   var params = [currentUser, friend.trim()];
-  var insertSQL = "Insert into Friends (user, friend, status) values (?,?,'Pending')";
+  var insertSQL =
+    "Insert into Friends (user, friend, status) values (?,?,'Pending')";
   db.run(insertSQL, params);
   var response = "Friend request sent to " + friend;
   return response;
@@ -232,12 +255,13 @@ function removeFriend(currentUser, friend) {
 
 function acceptFriendRequest(currentUser, friend) {
   var params = [friend.trim(), currentUser];
-  var updateSQL = "Update Friends set status='Accepted' where user=? and friend=?";
+  var updateSQL =
+    "Update Friends set status='Accepted' where user=? and friend=?";
   db.run(updateSQL, params);
   params = [currentUser, friend.trim()];
-  var insertSQL = "Insert into Friends (user, friend, status) values (?,?,'Accepted')";
+  var insertSQL =
+    "Insert into Friends (user, friend, status) values (?,?,'Accepted')";
   db.run(insertSQL, params);
   var response = user + " is now your friend.";
   return response;
 }
-

@@ -36,10 +36,9 @@
                 <addFriends></addFriends>
             </el-tab-pane>
             <el-tab-pane label="Pending Requests" name="third">
-                <Pending></Pending>
-                <Pending></Pending>
-                <Pending></Pending>
-                <Pending></Pending>
+                <div>
+                    <Pending v-bind:pending="pending"></Pending>
+                </div>
             </el-tab-pane>
         </el-tabs>
     </div>
@@ -47,7 +46,7 @@
 <script type="text/x-template" id="myFriends">
     <div>
         <div v-for="n in 4" class="row">
-            <friend-card v-for="n in 7"></friend-card>
+            <friend-card v-for="n in 6"></friend-card>
         </div>
 </script>
 <script type="text/x-template" id="friend-card">
@@ -70,7 +69,7 @@
                     </div>
                 </div>
                 <div class="col-sm-2">
-                    <a href="somewhere">this will be the username</a>
+                    <a href="somewhere">{{username}}</a>
                 </div>
                 <div class="col-sm-3" id="review-info">
                     <el-form ref="form" :model="form" label-width="120px">
@@ -87,9 +86,9 @@
 </script>
 <script type="text/x-template" id="addFriends">
     <div>
-        <el-input id="search" placeholder="find a friend" @click="dialogVisible = true" icon="search" v-model="user" :on-icon-click="search">
+        <el-input id="search" placeholder="find a friend" icon="search" v-model="user" :on-icon-click="search">
         </el-input>
-        <el-dialog title="Add Friend" :visible.sync="dialogVisible" size="tiny" :before-close="handleClose">
+        <el-dialog title="Add Friend" :visible.sync="dialogVisible" size="tiny">
             <span>Are you sure you want to add user {{user}}</span>
             <span slot="footer" class="dialog-footer">
             <el-button @click="dialogVisible = false">Cancel</el-button>
@@ -101,7 +100,8 @@
 </script>
 <script type="text/x-template" id="Pending">
     <div>
-        <pending-card></pending-card>
+        <pending-card v-for="p in pending" v-bind:username="p.friend">
+        </pending-card>
     </div>
 </script>
 <script>
@@ -121,13 +121,16 @@
         },
         methods: {
             search: function () {
-                //this.$message.error('No such user found');
-                var friend = document.getElementById("search").value;
-                var currUser = sessionStorage.getItem("username");
-                var submit = {"currUser" : currUser, "friend" : friend};
-                axios.post('http://127.0.0.1:8081/add_friend', submit) 
+                var self = this
+                axios.get('http://127.0.0.1:8081/search_user?user=' + this.user)
                     .then(function (res) {
-                        console.log(res);
+                        console.log(res.data);
+                        if (res.data == true) {
+                            self.dialogVisible = true;
+                        }
+                        else {
+                            self.$message.error("user could not be found")
+                        }
                     })
                     .catch(function (err) {
                         console.log("failed");
@@ -135,27 +138,69 @@
             },
             submit: function () {
                 dialogVisible = false
-                this.$message({
-                    message: 'Congrats, this is a success message.',
-                    type: 'success'
-                });
+                const friend = this.user;
+                var currUser = sessionStorage.getItem("username");
+                var submit = { "currUser": currUser, "friend": friend };
+                const self = this;
+                axios.post('http://127.0.0.1:8081/add_friend', submit)
+                    .then(function (res) {
+                        console.log(res);
+                        self.$message({
+                            message: 'Friend Request Sent',
+                            type: 'success'
+                        });
+                    })
+                    .catch(function (err) {
+                        console.log("failed");
+                    });
             }
 
         },
     })
     Vue.component('Pending', {
+        props: ['pending'],
         template: '#Pending'
     })
     Vue.component('pending-card', {
-        template: '#pending-card'
+        template: '#pending-card',
+        props: ['username'],
+        methods: {
+            accept: function () {
+
+            },
+            decline: function () {
+
+            }
+        }
     })
 
 
     new Vue({
         el: '#app',
         data: function () {
-            return { visible: false }
+            return { visible: false, pending: [], friends: [] }
+        },
+        created() {
+            var self = this
+            axios.get('http://localhost:8081/getFriends?user=' + sessionStorage.getItem("username"))
+                .then(function (response) {
+                    console.log("my friends are ", response.data);
+                    for (i = 0; i < response.data.length; i++) {
+                        if (response.data[i].status = "Pending") {
+                            self.pending.push(response.data[i])
+                        }
+                        else {
+                            self.friends.push(response.data[i])
+                        }
+                    }
+                    console.log(self.friends);
+
+                })
+                .catch(function (err) {
+                    console.log("error")
+                })
         }
+
     })
 
 </script>
