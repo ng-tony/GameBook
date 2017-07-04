@@ -219,7 +219,7 @@
 		created() {
 			console.log(this.loading);
 			var self = this
-			axios.get('http://localhost:8081/search_user?email=' + this.$route.query.email)
+			axios.get('http://localhost:8081/userinfo?email=' + this.$route.query.email)
 				.then(function (response) {
 					console.log(self.items);
 					self.loading = false;
