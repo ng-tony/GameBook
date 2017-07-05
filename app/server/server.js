@@ -160,7 +160,7 @@ app.get("/userinfo", function(req, res) {
   console.log("get userinfo");
   var email = req.query.email;
   console.log(email);
-  var selectSQL =      
+  var selectSQL =
     "select EMAIL, DESCRIPTION, PICTURE, username from User where email=?";
   db.all(selectSQL, email, function(err, rows) {
     res.send(rows);
@@ -263,7 +263,7 @@ app.post("/add_friend", function(req, res) {
             });
           } else {
             // add friend to database with "pending" status
-            var response = requestFromProfile(params[0], params[1]);
+            var response = requestFromProfile(params[1], params[0]);
             res.end(JSON.stringify(response));
           }
         });
@@ -309,8 +309,7 @@ function requestFromProfile(currentUser, friend) {
   var insertSQL =
     "Insert into Friends (user, friend, status) values (?,?,'Pending')";
   db.run(insertSQL, params);
-  var response = "Friend request sent to " + friend;
-  return response;
+  return "requested";
 }
 
 function removeFriend(currentUser, friend) {
@@ -326,9 +325,10 @@ function acceptFriendRequest(currentUser, friend) {
   console.log("PARAMETERS: ", params);
   var updateSQL =
     "Update Friends set status='Accepted' where user=? and friend=?";
-  db.run(updateSQL, params);
+  var insertSQL = "Insert into Friends values(?,?,'Accepted')";
   var new_params = [currentUser, friend.trim()];
   console.log("NEW PARAMS:", new_params);
+  db.run(insertSQL, params);
   db.run(updateSQL, new_params);
 }
 

@@ -9,7 +9,7 @@ Vue.component("navbar", {
       password: "",
       reg_username: "",
       reg_password: "",
-      signedIn: false,
+      signedIn: sessionStorage.getItem("signedIn"),
       success: false,
       warning: false,
       userURL:
@@ -42,7 +42,7 @@ Vue.component("navbar", {
             <button style = "margin-top: 10px" v-on:click = "logOut" class="dropdown-item" type="button">Log Out</button>
           </div> 
         </template>
-        <template v-else>
+        <template v-if = "!signedIn">
           <div class="dropdown-menu dropdown-menu-right" style = "margin-top:10px">
             <button data-toggle="modal" data-target="#exampleModal" class="dropdown-item" style = "margin-bottom:10px" type="button">Sign In</button>
             <button data-toggle="modal" data-target="#register"class="dropdown-item" type="button">Sign Up</button>
@@ -116,7 +116,7 @@ Vue.component("navbar", {
   </div>`,
   mounted: function() {
     this.$nextTick(function() {
-      console.log(sessionStorage.getItem("signedIn"));
+      console.log("SIGNED IN", sessionStorage.getItem("signedIn"));
       this.signedIn = sessionStorage.getItem("signedIn");
     });
   },
@@ -138,14 +138,15 @@ Vue.component("navbar", {
         .then(function(res) {
           console.log("sucessfully posted ");
           console.log(res.data);
-          sessionStorage.setItem("signedIn", res.data);
-          sessionStorage.setItem("username", self.username);
           if (res.data == false) {
             self.warning = true;
           } else {
+            sessionStorage.setItem("signedIn", res.data);
+            sessionStorage.setItem("username", self.username);
             self.success = true;
             self.signedIn = true;
           }
+          window.location.reload();
         })
         .catch(function(err) {
           console.log("failed ");
