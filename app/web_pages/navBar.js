@@ -3,8 +3,7 @@ Vue.component("navbar", {
   data() {
     return {
       title: "",
-      url:
-        "https://utsccscc01.github.io/final-project-team-8/app/web_pages/search_results.html#/?title=",
+      url: "https://utsccscc01.github.io/final-project-team-8/app/web_pages/search_results.html#/?title=",
       username: "",
       password: "",
       reg_username: "",
@@ -12,8 +11,7 @@ Vue.component("navbar", {
       signedIn: sessionStorage.getItem("signedIn"),
       success: false,
       warning: false,
-      userURL:
-        "https://utsccscc01.github.io/final-project-team-8/app/web_pages/user_profile.html#/?email=" +
+      userURL: "https://utsccscc01.github.io/final-project-team-8/app/web_pages/user_profile.html#/?email=" +
         sessionStorage.getItem("username")
     };
   },
@@ -118,6 +116,7 @@ Vue.component("navbar", {
     this.$nextTick(function() {
       console.log("SIGNED IN", sessionStorage.getItem("signedIn"));
       this.signedIn = sessionStorage.getItem("signedIn");
+      this.$forceUpdate();
     });
   },
   methods: {
@@ -140,13 +139,14 @@ Vue.component("navbar", {
           console.log(res.data);
           if (res.data == false) {
             self.warning = true;
+            self.signedIn = false;
           } else {
             sessionStorage.setItem("signedIn", res.data);
             sessionStorage.setItem("username", self.username);
             self.success = true;
             self.signedIn = true;
+            window.location.reload();
           }
-          window.location.reload();
         })
         .catch(function(err) {
           console.log("failed ");
@@ -183,6 +183,7 @@ Vue.component("navbar", {
     logOut: function() {
       this.signedIn = false;
       sessionStorage.setItem("signedIn", false);
+      this.$forceUpdate();
     }
   }
 });
