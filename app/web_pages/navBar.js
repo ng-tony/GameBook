@@ -11,7 +11,10 @@ Vue.component("navbar", {
       reg_password: "",
       signedIn: false,
       success: false,
-      warning: false
+      warning: false,
+      userURL:
+        "https://utsccscc01.github.io/final-project-team-8/app/web_pages/user_profile.html#/?email=" +
+        sessionStorage.getItem("username")
     };
   },
   template: `<div class = "container" style = "width:100%;padding:0">
@@ -34,8 +37,8 @@ Vue.component("navbar", {
         </a>
         <template v-if="signedIn">
           <div class="dropdown-menu dropdown-menu-right" style = "margin-top:10px">
-            <button data-toggle="modal" data-target="#exampleModal" class="dropdown-item" style = "margin-bottom:10px" type="button">My Profile</button>
-            <button data-toggle="modal" data-target="#register"class="dropdown-item" type="button">Friends</button>
+            <a class="dropdown-item" v-bind:href = "userURL" style = "margin-bottom:15px">My Profile</a>
+            <a class="dropdown-item" href = "https://utsccscc01.github.io/final-project-team-8/app/web_pages/friends.html">Friends</a>
             <button style = "margin-top: 10px" v-on:click = "logOut" class="dropdown-item" type="button">Log Out</button>
           </div> 
         </template>
