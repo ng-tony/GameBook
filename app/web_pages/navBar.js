@@ -8,7 +8,7 @@ Vue.component("navbar", {
       password: "",
       reg_username: "",
       reg_password: "",
-      signedIn: sessionStorage.getItem("signedIn"),
+      signedIn: false,
       success: false,
       warning: false,
       userURL: "https://utsccscc01.github.io/final-project-team-8/app/web_pages/user_profile.html#/?email=" +
@@ -112,12 +112,14 @@ Vue.component("navbar", {
     </div>
   
   </div>`,
-  mounted: function() {
-    this.$nextTick(function() {
-      console.log("SIGNED IN", sessionStorage.getItem("signedIn"));
-      this.signedIn = sessionStorage.getItem("signedIn");
-      this.$forceUpdate();
-    });
+  created: function() {
+    this.signedIn = sessionStorage.getItem("signedIn");
+    console.log("right here");
+    console.log(this.signedIn, "SIGNED IN");
+    const sign = this.signedIn;
+    if (sign == "false") {
+      this.logOut();
+    }
   },
   methods: {
     Reset: function() {
