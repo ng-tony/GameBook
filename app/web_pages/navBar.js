@@ -3,7 +3,8 @@ Vue.component("navbar", {
   data() {
     return {
       title: "",
-      url: "https://utsccscc01.github.io/final-project-team-8/app/web_pages/search_results.html#/?title=",
+      url:
+        "https://utsccscc01.github.io/final-project-team-8/app/web_pages/search_results.html#/?title=",
       username: "",
       password: "",
       reg_username: "",
@@ -11,7 +12,8 @@ Vue.component("navbar", {
       signedIn: false,
       success: false,
       warning: false,
-      userURL: "https://utsccscc01.github.io/final-project-team-8/app/web_pages/user_profile.html#/?email=" +
+      userURL:
+        "https://utsccscc01.github.io/final-project-team-8/app/web_pages/user_profile.html#/?email=" +
         sessionStorage.getItem("username")
     };
   },
@@ -185,7 +187,8 @@ Vue.component("navbar", {
     logOut: function() {
       this.signedIn = false;
       sessionStorage.setItem("signedIn", false);
-      this.$forceUpdate();
+      window.location.href =
+        "https://utsccscc01.github.io/final-project-team-8/app/web_pages/main_page.html";
     }
   }
 });
