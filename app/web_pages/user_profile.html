@@ -1,0 +1,432 @@
+<html>
+
+<head>
+	<script src="https://unpkg.com/vue@2.3.4"></script>
+	<script src="https://unpkg.com/vue-router@2.5.3/dist/vue-router.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+	 crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+	 crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+	 crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+	 crossorigin="anonymous"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="https://use.fontawesome.com/d63932d1c4.js"></script>
+	<script src="navBar.js"></script>
+	<!-- import CSS -->
+	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css">
+	<!-- import JavaScript -->
+	<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+</head>
+
+<div id="app">
+	<div id="navbar">
+		<navbar></navbar>
+	</div>
+	<router-view></router-view>
+</div>
+
+<style>
+	.avatar-uploader .el-upload {
+		border: 1px dashed #d9d9d9;
+		border-radius: 6px;
+		cursor: pointer;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.avatar-uploader .el-upload:hover {
+		border-color: #20a0ff;
+	}
+
+	.avatar-uploader-icon {
+		font-size: 28px;
+		color: #8c939d;
+		width: 178px;
+		height: 178px;
+		line-height: 178px;
+		text-align: center;
+	}
+
+	.avatar {
+		width: 178px;
+		height: 178px;
+		display: block;
+	}
+
+	#avatar {
+		margin-left: 10px;
+		height: 100px;
+	}
+
+	#avatar img {
+		margin-top: 7px;
+		height: 90%;
+		width: 100%
+	}
+
+	#pictureContainer {
+		height: 300px;
+	}
+
+	.userTop .col {
+		padding: 0;
+		vertical-align: top;
+		margin-right: 40px;
+	}
+
+	.userTop .col-3 {
+		margin-left: 50px;
+	}
+
+	.userBottom .col {
+		vertical-align: top;
+		margin-right: 32px;
+	}
+
+	.userBottom .col-2 {
+		padding: 0;
+		margin-left: 32px;
+	}
+
+	.userBottom .col-6 {
+		padding: 0;
+	}
+
+	#gameCard {
+		padding: 0;
+	}
+
+	#gameImage {
+		width: 100%;
+		height: 100%;
+	}
+
+	#userCard .list-group-items {
+		margin-bottom: 15px
+	}
+
+	ul {
+		list-style-type: none;
+	}
+</style>
+
+<script type="text/x-template" id="info">
+	<div style="width:1600px; margin:20 auto;">
+		<div class="userTop">
+			<div class="row">
+				<div class="col col-3" id="pictureContainer">
+					<div class="row">
+						<img v-bind:src="picture" class="img-thumbnail" id="gameImage">
+					</div>
+				</div>
+				<div id="gameCard" class="card col col-7">
+					<router-link to="/settings" v-show="currentUser" class="btn btn-primary btn-md" style="width:150px;position: absolute; right: 0;">
+						<i class="fa fa-cog "></i> Settings</router-link>
+					<div id="header" class="card-header" style="border-color:black">
+						<h2 style="margin-left:25px" class="display-6">{{ username }}</h2>
+						<ul class="list-group list-group-flush" style="margin-top:30px">
+							<li class="list-group-items">
+								<p class="card-text" style="margin:5px 5px">{{ description }}</p>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="userBottom">
+				<div class="row">
+					<div id="friendsList" class="card col col-2">
+						<div class="card" id="sim_games">
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item" id="info" style="height:15%;">
+									<a href="friends.html">Add Friend</a></a>
+								</li>
+							</ul>
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item" id="info" style="height:15%;">
+									<a href="#">History</a></a>
+								</li>
+							</ul>
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item" id="info" style="height:15%;">
+									<a href="#">Send Message</a></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="card col-6">
+						<div class="card-header">
+							Games List
+						</div>
+						<ratingList></ratingList>
+					</div>
+					<div class="card col-2">
+						<div class="card-header">
+							Mutual Friends
+						</div>
+						<div class="mutualFriends">
+							<div class="card" id="mutual_friends">
+								<div class="card-block">
+									<div class="row">
+										<div class="col-sm-5" id="avatar">
+											<div id="container">
+												<img class="img-thumbnail" src="Assets/Images/41699326_p0.jpg">
+											</div>
+										</div>
+										<div class="col-sm-2">
+											<a href="somewhere">bob1488</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="mutualFriends">
+							<div class="card" id="mutual_friends">
+								<div class="card-block">
+									<div class="row">
+										<div class="col-sm-5" id="avatar">
+											<div id="container">
+												<img class="img-thumbnail" src="Assets/Images/41699326_p0.jpg">
+											</div>
+										</div>
+										<div class="col-sm-5">
+											<a href="somewhere">bob1489</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="mutualFriends">
+							<div class="card" id="mutual_friends">
+								<div class="card-block">
+									<div class="row">
+										<div class="col-sm-5" id="avatar">
+											<div id="container">
+												<img class="img-thumbnail" src="Assets/Images/41699326_p0.jpg">
+											</div>
+										</div>
+										<div class="col-sm-2">
+											<a href="somewhere">bob1490</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</script>
+
+<script type="text/x-template" id="profile">
+	<div v-if="!loading">
+		<child v-for="item in items" v-bind:email="item.EMAIL" v-bind:description="item.DESCRIPTION" v-bind:picture="item.PICTURE"
+		 v-bind:username="item.username"></child>
+	</div>
+</script>
+
+<script type="text/x-template" id="rating">
+	<div class="Ratings">
+		<div class="card">
+			<div class="card-block">
+				<div class="row">
+					<div class="col-sm-2">
+						<a :href="'game_profile.html#/?gameid=' + game">{{title}}</a>
+					</div>
+					<div class="col-sm-3 offset-md-5">
+						<p> {{date}} </p>
+					</div>
+					<div>
+						<p> Rating: {{rating}} </p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+
+<script type="text/x-template" id="ratingList">
+	<div class="container" style="margin-right:20;padding:0">
+		<rating v-for="rating in ratings" v-bind:title="rating.Title" v-bind:game="rating.gameID" v-bind:date="rating.time_stamp"
+		 v-bind:rating="rating.rating" v-bind:text="rating.review_text"></rating>
+	</div>
+</script>
+
+<script type="text/x-template" id="settings">
+	<div class="settings" style="margin-left:100px;width:70%;margin-top:30px">
+		<h5>Profile Settings</h5>
+		<hr style="background-color:#a6a6a6">
+		<div class="row" style="height:150; margin-left:6px">
+			<div class="form-group">
+				<label for="exampleInputFile">File input</label>
+				<input style="margin-right:25px" type="file" onchange="previewFile()" class="form-control-file" id="file-input" aria-describedby="fileHelp">
+			</div>
+			<img class="img-thumbnail" id="preview" src="" height="150" width="150" alt="Image preview...">
+		</div>
+		<div class="form-group">
+			<label for="exampleInputFile">Description</label>
+			<el-input type="textarea" :rows="5" placeholder="Please input" v-model="descrip">
+			</el-input>
+		</div>
+		<div class="form-group">
+			<label for="exampleInputFile">Username</label>
+			<el-input :rows="5" placeholder="Please input" v-model="username">
+			</el-input>
+		</div>
+		<h5>Account Settings</h5>
+		<hr style="background-color:#a6a6a6">
+		<div class="form-group">
+			<label for="exampleInputFile">Email</label>
+			<el-input placeholder="Please input" v-model="email">
+			</el-input>
+		</div>
+		<div class="form-group">
+			<label for="exampleInputFile">Password</label>
+			<el-input type="password" placeholder="Please input" v-model="password">
+			</el-input>
+		</div>
+		<el-button type="primary">Submit</el-button>
+	</div>
+</script>
+
+<script>
+	function previewFile() {
+		var preview = document.getElementById('preview')
+		var pic = document.getElementById('file-input').files[0];
+		var reader = new FileReader();
+		reader.addEventListener("load", function () {
+			preview.src = reader.result;
+		}, false);
+		if (pic) {
+			reader.readAsDataURL(pic);
+		}
+	}
+
+</script>
+
+<script>
+	var rating = Vue.component('rating', {
+		props: ['game', 'date', 'rating', 'text', 'title'],
+		template: '#rating',
+	});
+	var ratingList = Vue.component('ratingList', {
+		template: '#ratingList',
+		data() {
+			return {
+				email: this.$route.query.email,
+				ratings: []
+			}
+		},
+		created() {
+			var self = this
+			axios.get('http://localhost:8081/user_reviews?email=' + this.$route.query.email)
+				.then(function (response) {
+					console.log(response);
+					self.ratings = response.data;
+				})
+				.catch(function (err) {
+					console.log("error ")
+				})
+		}
+	});
+
+	var child = Vue.component('child', {
+		props: ['email', 'description', 'picture', 'username'],
+		template: '#info',
+		data() {
+			return {
+				path: this.$route.path,
+				currentUser: false
+			}
+		},
+		created: function () {
+			console.log(this.$route.path);
+			console.log(sessionStorage.getItem("username "), this.$route.query.email);
+			if (this.$route.query.email == sessionStorage.getItem("username ")) {
+				this.currentUser = true;
+			}
+		}
+	});
+
+	var results = Vue.component('results', {
+		data: function () {
+			return {
+				items: [],
+				loading: false,
+				email: this.$route.query.email
+			}
+		},
+		template: "#profile ",
+		created() {
+			console.log(this.loading);
+			var self = this
+			axios.get('http://localhost:8081/userinfo?email=' + this.$route.query.email)
+				.then(function (response) {
+					console.log(self.items);
+					self.loading = false;
+					self.items = response.data
+				})
+				.catch(function (err) {
+					console.log("error ")
+				})
+			console.log(this.loading);
+		}
+	});
+	const settings = Vue.component('settings', {
+		data: function () {
+			return {
+				items: [],
+				loading: false,
+				email: "",
+				password: "",
+				username: "",
+				descrip: "",
+				imageUrl: ''
+
+			}
+		},
+		template: "#settings ",
+		methods: {
+			handleAvatarSuccess(res, file) {
+				reader.addEventListener("load ", function () {
+					console.log("here ");
+					imageUrl = reader.result;
+				}, false);
+				if (file) {
+					reader.readAsDataURL(file);
+				}
+			},
+			beforeAvatarUpload(file) {
+				const isJPG = file.type === 'image/jpeg';
+				const isPNG = file.type === 'image/png';
+				console.log(isPNG);
+				const isLt2M = file.size / 1024 / 1024 < 2;
+
+				if (!isJPG && !isPNG) {
+					this.$message.error('Avatar picture must be JPG format!');
+				}
+				if (!isLt2M) {
+					this.$message.error('Avatar picture size can not exceed 2MB!');
+				}
+				return isJPG && isLt2M;
+			}
+		}
+	});
+
+
+	const router = new VueRouter({
+		routes: [
+			{ path: '/', component: results },
+			{ path: '/', component: ratingList },
+			{ path: '/settings', component: settings },
+		]
+	})
+
+	const app = new Vue({ router }).$mount('#app')
+
+</script>
+
+</html>

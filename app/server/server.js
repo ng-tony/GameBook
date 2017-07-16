@@ -156,6 +156,27 @@ app.get("/gameinfo", function(req, res) {
     res.send(rows);
   });
 });
+app.get("/userinfo", function(req, res) {
+  console.log("get userinfo");
+  var email = req.query.email;
+  console.log(email);
+  var selectSQL =
+    "select EMAIL, DESCRIPTION, PICTURE, username from User where email=?";
+  db.all(selectSQL, email, function(err, rows) {
+    res.send(rows);
+  });
+});
+app.get("/user_reviews", function(req, res) {
+  console.log("get userreviews");
+  var email = req.query.email;
+  console.log(email);
+  var selectSQL =
+    "Select * from review join games on games.GameID = review.gameID where review.userID = ?";
+  db.all(selectSQL, email, function(err, rows) {
+    console.log(rows);
+    res.send(rows);
+  });
+});
 app.get("/search_user", function(req, res) {
   var user = req.query.user;
   console.log(user);
@@ -175,7 +196,7 @@ app.get("/getFriends", function(req, res) {
   console.log(user);
   var selectSQL = "select * from Friends where user = ?";
   db.all(selectSQL, user, function(err, rows) {
-    console.log(rows);
+    console.log("THE ROWS: ", rows);
     res.send(rows);
   });
 });
@@ -244,7 +265,7 @@ app.post("/add_friend", function(req, res) {
             });
           } else {
             // add friend to database with "pending" status
-            var response = requestFromProfile(params[0], params[1]);
+            var response = requestFromProfile(params[1], params[0]);
             res.end(JSON.stringify(response));
           }
         });
@@ -290,8 +311,7 @@ function requestFromProfile(currentUser, friend) {
   var insertSQL =
     "Insert into Friends (user, friend, status) values (?,?,'Pending')";
   db.run(insertSQL, params);
-  var response = "Friend request sent to " + friend;
-  return response;
+  return "requested";
 }
 
 function removeFriend(currentUser, friend) {
@@ -300,21 +320,18 @@ function removeFriend(currentUser, friend) {
   db.run(deleteSQL, params);
   params = [friend.trim(), currentUser];
   db.run(deleteSQL, params);
-  var response = friend + " is no longer your friend.";
-  return response;
 }
 
 function acceptFriendRequest(currentUser, friend) {
   var params = [friend.trim(), currentUser];
+  console.log("PARAMETERS: ", params);
   var updateSQL =
     "Update Friends set status='Accepted' where user=? and friend=?";
-  db.run(updateSQL, params);
-  params = [currentUser, friend.trim()];
-  var insertSQL =
-    "Insert into Friends (user, friend, status) values (?,?,'Accepted')";
+  var insertSQL = "Insert into Friends values(?,?,'Accepted')";
+  var new_params = [currentUser, friend.trim()];
+  console.log("NEW PARAMS:", new_params);
   db.run(insertSQL, params);
-  var response = user + " is now your friend.";
-  return response;
+  db.run(updateSQL, new_params);
 }
 
 function declineFriendRequest(currentUser, friend) {

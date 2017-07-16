@@ -11,7 +11,10 @@ Vue.component("navbar", {
       reg_password: "",
       signedIn: false,
       success: false,
-      warning: false
+      warning: false,
+      userURL:
+        "https://utsccscc01.github.io/final-project-team-8/app/web_pages/user_profile.html#/?email=" +
+        sessionStorage.getItem("username")
     };
   },
   template: `<div class = "container" style = "width:100%;padding:0">
@@ -34,12 +37,12 @@ Vue.component("navbar", {
         </a>
         <template v-if="signedIn">
           <div class="dropdown-menu dropdown-menu-right" style = "margin-top:10px">
-            <button data-toggle="modal" data-target="#exampleModal" class="dropdown-item" style = "margin-bottom:10px" type="button">My Profile</button>
-            <button data-toggle="modal" data-target="#register"class="dropdown-item" type="button">Friends</button>
+            <a class="dropdown-item" v-bind:href = "userURL" style = "margin-bottom:15px">My Profile</a>
+            <a class="dropdown-item" href = "https://utsccscc01.github.io/final-project-team-8/app/web_pages/friends.html">Friends</a>
             <button style = "margin-top: 10px" v-on:click = "logOut" class="dropdown-item" type="button">Log Out</button>
           </div> 
         </template>
-        <template v-else>
+        <template v-if = "!signedIn">
           <div class="dropdown-menu dropdown-menu-right" style = "margin-top:10px">
             <button data-toggle="modal" data-target="#exampleModal" class="dropdown-item" style = "margin-bottom:10px" type="button">Sign In</button>
             <button data-toggle="modal" data-target="#register"class="dropdown-item" type="button">Sign Up</button>
@@ -111,11 +114,14 @@ Vue.component("navbar", {
     </div>
   
   </div>`,
-  mounted: function() {
-    this.$nextTick(function() {
-      console.log(sessionStorage.getItem("signedIn"));
-      this.signedIn = sessionStorage.getItem("signedIn");
-    });
+  created: function() {
+    this.signedIn = sessionStorage.getItem("signedIn");
+    console.log("right here");
+    console.log(this.signedIn, "SIGNED IN");
+    const sign = this.signedIn;
+    if (sign == "false") {
+      this.logOut();
+    }
   },
   methods: {
     Reset: function() {
@@ -135,13 +141,15 @@ Vue.component("navbar", {
         .then(function(res) {
           console.log("sucessfully posted ");
           console.log(res.data);
-          sessionStorage.setItem("signedIn", res.data);
-          sessionStorage.setItem("username", self.username);
           if (res.data == false) {
             self.warning = true;
+            self.signedIn = false;
           } else {
+            sessionStorage.setItem("signedIn", res.data);
+            sessionStorage.setItem("username", self.username);
             self.success = true;
             self.signedIn = true;
+            window.location.reload();
           }
         })
         .catch(function(err) {
@@ -179,6 +187,8 @@ Vue.component("navbar", {
     logOut: function() {
       this.signedIn = false;
       sessionStorage.setItem("signedIn", false);
+      window.location.href =
+        "https://utsccscc01.github.io/final-project-team-8/app/web_pages/main_page.html";
     }
   }
 });
