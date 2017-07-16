@@ -186,7 +186,7 @@ Vue.component("navbar", {
     },
     logOut: function() {
       this.signedIn = false;
-      sessionStorage.setItem("signedIn", false);
+      sessionStorage.setItem("sign  edIn", false);
       window.location.href =
         "https://utsccscc01.github.io/final-project-team-8/app/web_pages/main_page.html";
     }
