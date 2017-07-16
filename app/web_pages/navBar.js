@@ -149,7 +149,8 @@ Vue.component("navbar", {
             sessionStorage.setItem("username", self.username);
             self.success = true;
             self.signedIn = true;
-            window.location.reload();
+            window.location.href =
+              "https://utsccscc01.github.io/final-project-team-8/app/web_pages/main_page.html";
           }
         })
         .catch(function(err) {
