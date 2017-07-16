@@ -49,7 +49,7 @@
 	.userTop .col-3 {
 		margin-left: 50px;
 	}
-	
+
 	.userBottom .col {
 		vertical-align: top;
 		margin-right: 32px;
@@ -59,11 +59,11 @@
 		padding: 0;
 		margin-left: 32px;
 	}
-	
+
 	.userBottom .col-6 {
 		padding: 0;
 	}
-	
+
 	#gameCard {
 		padding: 0;
 	}
@@ -71,7 +71,7 @@
 	#gameImage {
 		width: 100%;
 		height: 100%;
-	}	
+	}
 
 	#userCard .list-group-items {
 		margin-bottom: 15px
@@ -92,107 +92,108 @@
 					</div>
 				</div>
 				<div id="gameCard" class="card col col-7">
+					<a v-show="currentUser" class="btn btn-primary btn-md" style="width:150px;position: absolute; right: 0;" href="#">
+  							<i class="fa fa-cog "></i> Settings</a>
 					<div id="header" class="card-header" style="border-color:black">
-						<h2 class="display-6">{{ username }}</h2>
-					</div>					
-					<ul class="list-group list-group-flush">
-						<li class="list-group-items">
-							<p class="card-text" style="margin:5px 5px">{{ description }}</p>
-						</li>						
-					</ul>
-				</div>
-			</div>
-		</div>
-		<br>
-		<div class="userBottom">
-			<div class="row">
-				<div id="friendsList" class="card col col-2">				
-					<div class="card" id="sim_games">
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item" id="info" style="height:15%;">
-								<a href="#">Add Friend</a></a>
-							</li>							
+						<h2 style="margin-left:25px" class="display-6">{{ username }}</h2>
+						<ul class="list-group list-group-flush" style="margin-top:30px">
+							<li class="list-group-items">
+								<p class="card-text" style="margin:5px 5px">{{ description }}</p>
+							</li>
 						</ul>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item" id="info" style="height:15%;">
-								<a href="#">History</a></a>
-							</li>							
-						</ul>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item" id="info" style="height:15%;">
-								<a href="#">Send Message</a></a>
-							</li>							
-						</ul>
-					</div>
-				</div>
-				<div class="card col-6">
-					<div class="card-header">
-						Games List
-					</div>
-					<ratingList></ratingList>
-				</div>
-				<div class="card col-2">
-					<div class="card-header">
-						Mutual Friends
-					</div>
-					<div class="mutualFriends">
-						<div class="card" id="mutual_friends">
-							<div class="card-block">
-								<div class="row">
-									<div class="col-sm-5" id="avatar">
-										<div id="container">
-											<img class="img-thumbnail" src="Assets/Images/41699326_p0.jpg">
-										</div>
-									</div>
-									<div class="col-sm-2">
-										<a href="somewhere">bob1488</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="mutualFriends">
-						<div class="card" id="mutual_friends">
-							<div class="card-block">
-								<div class="row">
-									<div class="col-sm-5" id="avatar">
-										<div id="container">
-											<img class="img-thumbnail" src="Assets/Images/41699326_p0.jpg">
-										</div>
-									</div>
-									<div class="col-sm-5">
-										<a href="somewhere">bob1489</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="mutualFriends">
-						<div class="card" id="mutual_friends">
-							<div class="card-block">
-								<div class="row">
-									<div class="col-sm-5" id="avatar">
-										<div id="container">
-											<img class="img-thumbnail" src="Assets/Images/41699326_p0.jpg">
-										</div>
-									</div>
-									<div class="col-sm-2">
-										<a href="somewhere">bob1490</a>
-									</div>
-								</div>
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>
+			<br>
+			<div class="userBottom">
+				<div class="row">
+					<div id="friendsList" class="card col col-2">
+						<div class="card" id="sim_games">
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item" id="info" style="height:15%;">
+									<a href="friends.html">Add Friend</a></a>
+								</li>
+							</ul>
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item" id="info" style="height:15%;">
+									<a href="#">History</a></a>
+								</li>
+							</ul>
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item" id="info" style="height:15%;">
+									<a href="#">Send Message</a></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="card col-6">
+						<div class="card-header">
+							Games List
+						</div>
+						<ratingList></ratingList>
+					</div>
+					<div class="card col-2">
+						<div class="card-header">
+							Mutual Friends
+						</div>
+						<div class="mutualFriends">
+							<div class="card" id="mutual_friends">
+								<div class="card-block">
+									<div class="row">
+										<div class="col-sm-5" id="avatar">
+											<div id="container">
+												<img class="img-thumbnail" src="Assets/Images/41699326_p0.jpg">
+											</div>
+										</div>
+										<div class="col-sm-2">
+											<a href="somewhere">bob1488</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="mutualFriends">
+							<div class="card" id="mutual_friends">
+								<div class="card-block">
+									<div class="row">
+										<div class="col-sm-5" id="avatar">
+											<div id="container">
+												<img class="img-thumbnail" src="Assets/Images/41699326_p0.jpg">
+											</div>
+										</div>
+										<div class="col-sm-5">
+											<a href="somewhere">bob1489</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="mutualFriends">
+							<div class="card" id="mutual_friends">
+								<div class="card-block">
+									<div class="row">
+										<div class="col-sm-5" id="avatar">
+											<div id="container">
+												<img class="img-thumbnail" src="Assets/Images/41699326_p0.jpg">
+											</div>
+										</div>
+										<div class="col-sm-2">
+											<a href="somewhere">bob1490</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>
 </script>
 
 <script type="text/x-template" id="profile">
 	<div v-if="!loading">
-		<child v-for="item in items" v-bind:email="item.EMAIL" v-bind:description="item.DESCRIPTION" 
-		v-bind:picture="item.PICTURE" v-bind:username="item.username"></child>
+		<child v-for="item in items" v-bind:email="item.EMAIL" v-bind:description="item.DESCRIPTION" v-bind:picture="item.PICTURE"
+		 v-bind:username="item.username"></child>
 	</div>
 </script>
 
@@ -202,10 +203,10 @@
 			<div class="card-block">
 				<div class="row">
 					<div class="col-sm-2">
-						<a :href="'game_profile.html#/?gameid=' + game">{{game}}</a>
+						<a :href="'game_profile.html#/?gameid=' + game">{{title}}</a>
 					</div>
 					<div class="col-sm-3 offset-md-5">
-						<p> {{date}} </p>						
+						<p> {{date}} </p>
 					</div>
 					<div>
 						<p> Rating: {{rating}} </p>
@@ -217,15 +218,15 @@
 </script>
 
 <script type="text/x-template" id="ratingList">
-	<div class="container">
-		<rating v-for="rating in ratings" v-bind:game="rating.gameID" v-bind:date="rating.time_stamp" v-bind:rating="rating.rating"
-		 v-bind:text="rating.review_text"></rating>
+	<div class="container" style="margin-right:20;padding:0">
+		<rating v-for="rating in ratings" v-bind:title="rating.Title" v-bind:game="rating.gameID" v-bind:date="rating.time_stamp"
+		 v-bind:rating="rating.rating" v-bind:text="rating.review_text"></rating>
 	</div>
 </script>
 
 <script>
 	var rating = Vue.component('rating', {
-		props: ['game', 'date', 'rating', 'text'],
+		props: ['game', 'date', 'rating', 'text', 'title'],
 		template: '#rating',
 	});
 	var ratingList = Vue.component('ratingList', {
@@ -254,11 +255,16 @@
 		template: '#info',
 		data() {
 			return {
-				path: this.$route.path
+				path: this.$route.path,
+				currentUser: false
 			}
 		},
-		mounted: function () {
+		created: function () {
 			console.log(this.$route.path);
+			console.log(sessionStorage.getItem("username"), this.$route.query.email);
+			if (this.$route.query.email == sessionStorage.getItem("username")) {
+				this.currentUser = true;
+			}
 		}
 	});
 

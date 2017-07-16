@@ -170,8 +170,10 @@ app.get("/user_reviews", function(req, res) {
   console.log("get userreviews");
   var email = req.query.email;
   console.log(email);
-  var selectSQL = "Select * from review where userID=?";
+  var selectSQL =
+    "Select * from review join games on games.GameID = review.gameID where review.userID = ?";
   db.all(selectSQL, email, function(err, rows) {
+    console.log(rows);
     res.send(rows);
   });
 });
