@@ -14,6 +14,10 @@
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script src="https://use.fontawesome.com/d63932d1c4.js"></script>
 	<script src="navBar.js"></script>
+	<!-- import CSS -->
+	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css">
+	<!-- import JavaScript -->
+	<script src="https://unpkg.com/element-ui/lib/index.js"></script>
 
 </head>
 
@@ -25,6 +29,33 @@
 </div>
 
 <style>
+	.avatar-uploader .el-upload {
+		border: 1px dashed #d9d9d9;
+		border-radius: 6px;
+		cursor: pointer;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.avatar-uploader .el-upload:hover {
+		border-color: #20a0ff;
+	}
+
+	.avatar-uploader-icon {
+		font-size: 28px;
+		color: #8c939d;
+		width: 178px;
+		height: 178px;
+		line-height: 178px;
+		text-align: center;
+	}
+
+	.avatar {
+		width: 178px;
+		height: 178px;
+		display: block;
+	}
+
 	#avatar {
 		margin-left: 10px;
 		height: 100px;
@@ -92,8 +123,8 @@
 					</div>
 				</div>
 				<div id="gameCard" class="card col col-7">
-					<a v-show="currentUser" class="btn btn-primary btn-md" style="width:150px;position: absolute; right: 0;" href="#">
-  							<i class="fa fa-cog "></i> Settings</a>
+					<router-link to="/settings" v-show="currentUser" class="btn btn-primary btn-md" style="width:150px;position: absolute; right: 0;">
+						<i class="fa fa-cog "></i> Settings</router-link>
 					<div id="header" class="card-header" style="border-color:black">
 						<h2 style="margin-left:25px" class="display-6">{{ username }}</h2>
 						<ul class="list-group list-group-flush" style="margin-top:30px">
@@ -224,6 +255,58 @@
 	</div>
 </script>
 
+<script type="text/x-template" id="settings">
+	<div class="settings" style="margin-left:100px;width:70%;margin-top:30px">
+		<h5>Profile Settings</h5>
+		<hr style="background-color:#a6a6a6">
+		<div class="row" style="height:150; margin-left:6px">
+			<div class="form-group">
+				<label for="exampleInputFile">File input</label>
+				<input style="margin-right:25px" type="file" onchange="previewFile()" class="form-control-file" id="file-input" aria-describedby="fileHelp">
+			</div>
+			<img class="img-thumbnail" id="preview" src="" height="150" width="150" alt="Image preview...">
+		</div>
+		<div class="form-group">
+			<label for="exampleInputFile">Description</label>
+			<el-input type="textarea" :rows="5" placeholder="Please input" v-model="descrip">
+			</el-input>
+		</div>
+		<div class="form-group">
+			<label for="exampleInputFile">Username</label>
+			<el-input :rows="5" placeholder="Please input" v-model="username">
+			</el-input>
+		</div>
+		<h5>Account Settings</h5>
+		<hr style="background-color:#a6a6a6">
+		<div class="form-group">
+			<label for="exampleInputFile">Email</label>
+			<el-input placeholder="Please input" v-model="email">
+			</el-input>
+		</div>
+		<div class="form-group">
+			<label for="exampleInputFile">Password</label>
+			<el-input type="password" placeholder="Please input" v-model="password">
+			</el-input>
+		</div>
+		<el-button type="primary">Submit</el-button>
+	</div>
+</script>
+
+<script>
+	function previewFile() {
+		var preview = document.getElementById('preview')
+		var pic = document.getElementById('file-input').files[0];
+		var reader = new FileReader();
+		reader.addEventListener("load", function () {
+			preview.src = reader.result;
+		}, false);
+		if (pic) {
+			reader.readAsDataURL(pic);
+		}
+	}
+
+</script>
+
 <script>
 	var rating = Vue.component('rating', {
 		props: ['game', 'date', 'rating', 'text', 'title'],
@@ -245,7 +328,7 @@
 					self.ratings = response.data;
 				})
 				.catch(function (err) {
-					console.log("error")
+					console.log("error ")
 				})
 		}
 	});
@@ -261,8 +344,8 @@
 		},
 		created: function () {
 			console.log(this.$route.path);
-			console.log(sessionStorage.getItem("username"), this.$route.query.email);
-			if (this.$route.query.email == sessionStorage.getItem("username")) {
+			console.log(sessionStorage.getItem("username "), this.$route.query.email);
+			if (this.$route.query.email == sessionStorage.getItem("username ")) {
 				this.currentUser = true;
 			}
 		}
@@ -276,7 +359,7 @@
 				email: this.$route.query.email
 			}
 		},
-		template: "#profile",
+		template: "#profile ",
 		created() {
 			console.log(this.loading);
 			var self = this
@@ -287,9 +370,49 @@
 					self.items = response.data
 				})
 				.catch(function (err) {
-					console.log("error")
+					console.log("error ")
 				})
 			console.log(this.loading);
+		}
+	});
+	const settings = Vue.component('settings', {
+		data: function () {
+			return {
+				items: [],
+				loading: false,
+				email: "",
+				password: "",
+				username: "",
+				descrip: "",
+				imageUrl: ''
+
+			}
+		},
+		template: "#settings ",
+		methods: {
+			handleAvatarSuccess(res, file) {
+				reader.addEventListener("load ", function () {
+					console.log("here ");
+					imageUrl = reader.result;
+				}, false);
+				if (file) {
+					reader.readAsDataURL(file);
+				}
+			},
+			beforeAvatarUpload(file) {
+				const isJPG = file.type === 'image/jpeg';
+				const isPNG = file.type === 'image/png';
+				console.log(isPNG);
+				const isLt2M = file.size / 1024 / 1024 < 2;
+
+				if (!isJPG && !isPNG) {
+					this.$message.error('Avatar picture must be JPG format!');
+				}
+				if (!isLt2M) {
+					this.$message.error('Avatar picture size can not exceed 2MB!');
+				}
+				return isJPG && isLt2M;
+			}
 		}
 	});
 
@@ -297,7 +420,8 @@
 	const router = new VueRouter({
 		routes: [
 			{ path: '/', component: results },
-			{ path: '/', component: ratingList }
+			{ path: '/', component: ratingList },
+			{ path: '/settings', component: settings },
 		]
 	})
 
