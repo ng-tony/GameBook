@@ -5,9 +5,9 @@
 
 1.  <b> Identified the main features which we agreed should be complete before sprint3 </b>
 
-2.  <b> Release Name and Theme: Information and Backend </b>
-	<p> This release will focus on creating the backend and implementing the features which
-    deal with the game information aspect of the website. The parts we expect to be finished
+2.  <b> Updated our product backlog with new goals in mind. Mainly slimming down our features and concentrating on the important ones.
+2.  <b> Release Name and Theme: Completion of features </b>
+	<p> This release will focus on completely integrating our code, and finalizing details on our current features. The parts we expect to be finished
     by the end of the sprint are: </p>
     <ul>
         <li>HomePage</li>
