@@ -3,7 +3,7 @@ new Vue({
 	data: {
 		topRatedGames: {},
 		test: "something",
-		loading: true
+		loading: true,
 	},
 	created() {
 			console.log(this.loading);
@@ -29,6 +29,29 @@ new Vue({
 		}
 })
 
+new Vue({
+	el: "#articles",
+	data: {
+		loading: true,
+		articles: {}
+	},
+	created() {
+			console.log(this.loading);
+			var self = this
+		
+			axios.get('https://newsapi.org/v1/articles?source=ign&sortBy=top&apiKey=1e641b65aa15478fb01b525d1d5d3063')
+				.then(function (response) {
+					console.log(response);
+					self.articles = response.data.articles;
+					console.log(self.articles[0]);
+				})
+				.catch(function (err) {
+					console.log("error")
+					console.log(err);
+				})
+			console.log(this.loading);
+		}
+})
 
 
 /* JQUERY TEST QUERY

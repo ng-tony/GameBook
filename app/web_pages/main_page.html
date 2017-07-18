@@ -104,25 +104,30 @@
 						<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
 						<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
 					</ol>
-					<div style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)" class="carousel-inner" role="listbox">
+					<div id="articles" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)" class="carousel-inner" role="listbox">
 						<div class="carousel-item active">
-							<img class="img-responsive" src="https://static4.gamespot.com/uploads/original/1197/11970954/2888187-xenobladechroniclesx_007.jpg"
-							 alt="Los Angeles">
+							<a :href="articles[0].url">
+							<img class="img-responsive" v-bind:src="articles[0].urlToImage" alt="Article 1" >
 							<div class="carousel-caption d-none d-md-block">
-								<h2 class="whiteWithBlackBorders">Captions?</h3>
+								<h2 class="whiteWithBlackBorders">{{articles[0].title}}</h3>
 							</div>
+							</a>
 						</div>
 						<div class="carousel-item">
-							<img src="https://s-media-cache-ak0.pinimg.com/originals/32/4c/e2/324ce26a7f7a880483bf7bc12574d6f0.jpg" alt="Chicago">
+							<a :href="articles[1].url">
+							<img v-bind:src="articles[1].urlToImage" alt="Article 2">
 							<div class="carousel-caption d-none d-md-block">
-								<h2 class="whiteWithBlackBorders">Captions</h3>
+								<h2 class="whiteWithBlackBorders">{{articles[1].title}}</h3>
 							</div>
+							</a>
 						</div>
 						<div class="carousel-item">
-							<img src="http://i.imgur.com/2shdwke.jpg" alt="New York">
+							<a :href="articles[2].url">
+							<img v-bind:src="articles[2].urlToImage" alt="Article 3">
 							<div class="carousel-caption d-none d-md-block">
-								<h2 class="whiteWithBlackBorders">Captions</h3>
+								<h2 class="whiteWithBlackBorders">{{articles[2].title}}</h3>
 							</div>
+							</a>
 						</div>
 					</div>
 					<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
