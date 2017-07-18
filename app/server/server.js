@@ -305,6 +305,24 @@ app.post("/reject_friend", function(req, res) {
   });
 });
 
+app.post("/mutual_friends", function(req, res) {
+  var data = " ";
+  req.on("data", function(chunk) {
+    data += chunk;
+  });
+  req.on("end", function() {
+    console.log("POST data received");
+    res.writeHead(200, {
+      "Content-Type": "text/json"
+    });
+    var parsed = JSON.parse(data);
+    var intersectSQL = "Select friend from Friends where user=? and status='Accepted' intersect Select friend from Friends where user=? and status='Accepted'";
+    db.all(intersectSQL, parsed.currUser, parsed.otherUser, function(err, rows) {
+      res.send(rows);
+    });
+  });
+});
+
 // add a user as a friend from that friend's profile
 function requestFromProfile(currentUser, friend) {
   var params = [currentUser, friend.trim()];
