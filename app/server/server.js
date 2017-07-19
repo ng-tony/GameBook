@@ -178,7 +178,13 @@ app.put("/updateUser", function(req, res) {
         }
       }
     }
-    res.end(JSON.stringify(parsed.email));
+    if (parsed.email == "") {
+      console.log("EMAIL NOT CHANGED");
+      console.log(parsed.user);
+      res.end(JSON.stringify(parsed.user));
+    } else {
+      res.end(JSON.stringify(parsed.email));
+    }
   });
 });
 
