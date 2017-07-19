@@ -98,12 +98,14 @@
 			
 			<div class="card-header">
 			<div class="form-group" style="margin-bottom:0px">
-			<label><h3>Most Popular Games</h3></label>
+			<label><h3>{{title}}</h3></label>
 			<div class="pull-right">
 			<label for="sortBy" class="col-form-label" style="padding-right:10px;">Sorted By:</label>
 			<select class="form-control pull-right" id="sortByDD" style="width:280px" v-model="sortBy" v-on:change=changeSortBy()>
 				<option>Rating</option>
 				<option>Likes</option>
+				<option>Recent Release</option>
+				<option>Recent Reviewed</option>
 			</select>
 			</div>
 			</div>
@@ -126,10 +128,13 @@
         },
         mounted: function () {
             console.log(this.$route.path);
+			//console.log(this.$route.query.sortby);
         }
     });
 	var likesUrl = 'http://localhost:8081/games/top/likes?limit=100';
 	var ratingUrl = 'http://localhost:8081/games/top/rating?limit=100';
+	var recentGameUrl = 'http://localhost:8081/games/recent?limit=100';
+	var recentReviewUrl = 'http://localhost:8081/games/recent/review?limit=100';
     var results = Vue.component('results', {
         data: function () {
             return {
@@ -139,6 +144,7 @@
 				sortBy: "Rating",
 				ratingItems:[],
 				likesItems:[],
+				title: "Most Popular Game"
             }
         },
         template: "#site-template",
@@ -162,6 +168,7 @@
                 .catch(function (err) {
                     console.log("error")
                 })*/
+			
 			axios.get(likesUrl)
                 .then(function (response) {
 					console.log("hello1")
@@ -174,7 +181,7 @@
 						self.likesItems[i].rank = i+1;
 						self.likesItems[i].ratingthing = self.likesItems[i].x;
 					}
-					
+					self.changeSortBy();
 					
                 })
                 .catch(function (err) {
@@ -192,12 +199,52 @@
 						self.ratingItems[i].rank = i+1;
 						self.ratingItems[i].ratingthing = self.ratingItems[i]["rating"];
 					}
+					self.changeSortBy();
 					self.loading = false;
-					self.items = self.ratingItems;
                 })
                 .catch(function (err) {
                     console.log("error")
                 })
+			axios.get(recentGameUrl)
+                .then(function (response) {
+					console.log("hello3")
+                    console.log(self.items);
+                    self.recentGameItems = response.data
+					console.log(self.recentGameItems);
+					console.log("hello2")
+					for(var i = 0; i < self.recentGameItems.length; i++){
+						console.log(self.recentGameItems[i]);
+						self.recentGameItems[i].rank = i+1;
+						self.recentGameItems[i].ratingthing = self.recentGameItems[i]["rating"];
+					}
+					self.changeSortBy();
+					self.loading = false;
+                })
+                .catch(function (err) {
+                    console.log("error")
+                })
+			axios.get(recentReviewUrl)
+                .then(function (response) {
+					console.log("hello1")
+                    console.log(self.items);
+                    self.recentReleaseItems = response.data
+					console.log(self.recentReleaseItems);
+					console.log("hello2")
+					for(var i = 0; i < self.recentReleaseItems.length; i++){
+						console.log(self.recentReleaseItems[i]);
+						self.recentReleaseItems[i].rank = i+1;
+						self.recentReleaseItems[i].ratingthing = self.recentReleaseItems[i]["rating"];
+					}
+					self.changeSortBy();
+					self.loading = false;
+                })
+                .catch(function (err) {
+                    console.log("error")
+                })
+			if(this.$route.query.sortby){
+				self.sortBy = this.$route.query.sortby;
+			}
+			self.changeSortBy();
             console.log(this.loading);
         },
 		methods: {
@@ -210,11 +257,23 @@
 				
 				if(self.sortBy == "Rating"){
 					console.log("sorting by rating");
+					self.title = "Top Rated Game";
 					self.items = self.ratingItems;
 				}
 				else if(self.sortBy == "Likes"){
 				console.log("sorting by likes");
+					self.title = "Most Liked Game";
 					self.items = self.likesItems;
+				}
+				else if(self.sortBy == "Recent Release"){
+				console.log("sorting by Recent Release");
+					self.title = "Recently Relased";
+					self.items = self.recentGameItems;
+				}
+				else if(self.sortBy == "Recent Reviewed"){
+				console.log("sorting by Recent Reviewed");
+					self.title = "Recently Reviewed";
+					self.items = self.recentReleaseItems;
 				}
 			}
 

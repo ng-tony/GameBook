@@ -44,6 +44,70 @@ new Vue({
 					console.log(response);
 					self.articles = response.data.articles;
 					console.log(self.articles[0]);
+					for (var i =0; i < self.articles.length; i++){
+						var article = self.articles[i];
+						article.title = article.title.substring(0, article.title.length - 6);
+					}
+				})
+				.catch(function (err) {
+					console.log("error")
+					console.log(err);
+				})
+			console.log(this.loading);
+		}
+})
+
+new Vue({
+	el: "#latestGames",
+	data: {
+		loading: true,
+		latestGames: {}
+	},
+	created() {
+			console.log(this.loading);
+			var self = this
+			axios.get('http://localhost:8081/games/recent?limit=3')
+				.then(function (response) {
+					console.log("hello");
+					self.loading = false;
+					self.latestGames = response.data
+					for(var i = 0; i < self.latestGames.length; i++){
+						console.log(self.latestGames[i]);
+						self.latestGames[i].href = "https://utsccscc01.github.io/final-project-team-8/app/web_pages/game_profile.html#/?gameid="
+						+ self.latestGames[i].GameID;
+					}
+					self.loading = false;
+					console.log(self.latestGames[0].href);
+				})
+				.catch(function (err) {
+					console.log("error")
+					console.log(err);
+				})
+			console.log(this.loading);
+		}
+})
+
+new Vue({
+	el: "#latestReviews",
+	data: {
+		loading: true,
+		latestGames: {}
+	},
+	created() {
+			console.log(this.loading);
+			var self = this
+			axios.get('http://localhost:8081/games/recent/review?limit=3')
+				.then(function (response) {
+					console.log("hello");
+					self.loading = false;
+					self.latestGames = response.data
+					for(var i = 0; i < self.latestGames.length; i++){
+						console.log(self.latestGames[i]);
+						self.latestGames[i].href = "https://utsccscc01.github.io/final-project-team-8/app/web_pages/game_profile.html#/?gameid="
+						+ self.latestGames[i].GameID;
+					}
+					self.loading = false;
+					console.log(self.latestGames[0].href);
 				})
 				.catch(function (err) {
 					console.log("error")
