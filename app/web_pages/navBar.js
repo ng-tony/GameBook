@@ -120,7 +120,8 @@ Vue.component("navbar", {
     console.log(this.signedIn, "SIGNED IN");
     const sign = this.signedIn;
     if (sign == "false") {
-      this.logOut();
+      this.signedIn = false;
+      sessionStorage.setItem("signedIn", false);
     }
   },
   methods: {
