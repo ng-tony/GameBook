@@ -116,10 +116,7 @@
             }
             var splitted = reader.result.split(',');
             file_submit.content = splitted[1];
-            console.log(file_submit.path);
-            console.log(file_submit.message);
-            console.log(file_submit.content.length);
-            axios.put('https://api.github.com/repos/UTSCCSCC01/final-project-team-8/contents/app/web_pages/Assets/Images/' + file.name + '?access_token=c0591659a276ff80d2bc4cd4e4c854d6b257b3f2', file_submit)
+            axios.put('https://api.github.com/repos/UTSCCSCC01/final-project-team-8/contents/app/web_pages/Assets/profile/' + file.name + '?access_token=c0591659a276ff80d2bc4cd4e4c854d6b257b3f2', file_submit)
                 .then(function (res) {
                     console.log("sucessfully posted");
                 })

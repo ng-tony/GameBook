@@ -146,6 +146,42 @@ app.post("/register", function(req, res) {
   });
 });
 
+function updateSQL(attr) {
+  return "UPDATE User SET " + attr + " = ?" + " WHERE EMAIL = ?";
+}
+
+app.put("/updateUser", function(req, res) {
+  var data = " ";
+  req.on("data", function(chunk) {
+    data += chunk;
+  });
+  req.on("end", function() {
+    console.log("POST data received");
+    res.writeHead(200, {
+      "Content-Type": "text/json"
+    });
+    var parsed = JSON.parse(data);
+    console.log(parsed);
+    console.log(updateSQL("EMAIL", parsed.email));
+    var update = {
+      PASSWORD: parsed.password,
+      PICTURE: parsed.picture,
+      DESCRIPTION: parsed.desc,
+      username: parsed.username,
+      EMAIL: parsed.email
+    };
+    for (var key in update) {
+      if (update.hasOwnProperty(key)) {
+        if (update[key] != "") {
+          console.log(key, "->", update[key]);
+          db.run(updateSQL(key), [update[key], parsed.user]);
+        }
+      }
+    }
+    res.end(JSON.stringify(parsed.email));
+  });
+});
+
 app.get("/gameinfo", function(req, res) {
   console.log("get gameinfo");
   var gameid = req.query.gameid;
@@ -316,8 +352,12 @@ app.post("/mutual_friends", function(req, res) {
       "Content-Type": "text/json"
     });
     var parsed = JSON.parse(data);
-    var intersectSQL = "Select friend from Friends where user=? and status='Accepted' intersect Select friend from Friends where user=? and status='Accepted'";
-    db.all(intersectSQL, parsed.currUser, parsed.otherUser, function(err, rows) {
+    var intersectSQL =
+      "Select friend from Friends where user=? and status='Accepted' intersect Select friend from Friends where user=? and status='Accepted'";
+    db.all(intersectSQL, parsed.currUser, parsed.otherUser, function(
+      err,
+      rows
+    ) {
       res.send(rows);
     });
   });

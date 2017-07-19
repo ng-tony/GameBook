@@ -288,7 +288,12 @@
 			<el-input type="password" placeholder="Please input" v-model="password">
 			</el-input>
 		</div>
-		<el-button type="primary">Submit</el-button>
+		<div class="row" style="margin-left:2px">
+			<router-link class="el-button" v-bind:to="backURL">Back</router-link>
+			<el-button v-if="submited" type="primary" :loading="true">Loading</el-button>
+			<el-button v-else @click="submit" type="primary">Submit</el-button>
+		</div>
+
 	</div>
 </script>
 
@@ -343,9 +348,12 @@
 			}
 		},
 		created: function () {
-			console.log(this.$route.path);
-			console.log(sessionStorage.getItem("username "), this.$route.query.email);
-			if (this.$route.query.email == sessionStorage.getItem("username ")) {
+			console.log("HERE", this.$route.query.email);
+			console.log("USER", sessionStorage.getItem("username"));
+			console.log(sessionStorage.getItem("username"), this.$route.query.email);
+			console.log(this.$route.query.email == sessionStorage.getItem("username"));
+			if (this.$route.query.email == sessionStorage.getItem("username")) {
+				console.log("ON ACCOUNT");
 				this.currentUser = true;
 			}
 		}
@@ -379,42 +387,103 @@
 		data: function () {
 			return {
 				items: [],
-				loading: false,
+				submited: false,
 				email: "",
 				password: "",
 				username: "",
 				descrip: "",
-				imageUrl: ''
+				imageUrl: '',
 
+			}
+		},
+		computed: {
+			backURL() {
+				return "/?email=" + sessionStorage.getItem("username");
 			}
 		},
 		template: "#settings ",
 		methods: {
-			handleAvatarSuccess(res, file) {
-				reader.addEventListener("load ", function () {
-					console.log("here ");
-					imageUrl = reader.result;
-				}, false);
-				if (file) {
-					reader.readAsDataURL(file);
+			submit() {
+				this.submited = true;
+				var pic = document.getElementById('file-input').files[0];
+				var pic_name = "";
+				if (pic != null) {
+					pic_name = pic.name
 				}
-			},
-			beforeAvatarUpload(file) {
-				const isJPG = file.type === 'image/jpeg';
-				const isPNG = file.type === 'image/png';
-				console.log(isPNG);
-				const isLt2M = file.size / 1024 / 1024 < 2;
+				this.uploadFile(pic);
+				var submit = {
+					"email": this.email,
+					"desc": this.descrip,
+					"picture": pic_name,
+					"username": this.username,
+					"password": this.password,
+					"user": sessionStorage.getItem("username")
+				}
+				var self = this;
+				axios.put('http://localhost:8081/updateUser', submit)
+					.then(function (res) {
+						console.log("sucessfully posted");
+						console.log(res.data);
+						console.log(sessionStorage.getItem("username"));
+						sessionStorage.setItem("username", res.data)
 
-				if (!isJPG && !isPNG) {
-					this.$message.error('Avatar picture must be JPG format!');
-				}
-				if (!isLt2M) {
-					this.$message.error('Avatar picture size can not exceed 2MB!');
-				}
-				return isJPG && isLt2M;
+						self.submited = false;
+						self.$message({
+							showClose: true,
+							message: 'Profile Updated.',
+							type: 'success'
+						});
+						setTimeout(function () {
+							window.location.reload();
+						}, 2000)
+					})
+					.catch(function (err) {
+						console.log("failed");
+						self.$message({
+							showClose: true,
+							message: 'An Error has Occured',
+							type: 'error'
+
+						})
+					});
+
+			},
+			uploadFile(file) {
+				var reader = new FileReader();
+				var content = ""
+				reader.readAsDataURL(file);
+				reader.onload = function () {
+					var file_submit = {
+						"path": file.name,
+						"message": "Upload Image",
+						"committer": {
+							"name": "shuyi56",
+							"email": "shuyi56@gmail.com"
+						},
+						"content": "",
+						"branch": "master"
+					}
+					var splitted = reader.result.split(',');
+					file_submit.content = splitted[1];
+					this.submited = "true";
+					var self = this;
+					axios.put('https://api.github.com/repos/UTSCCSCC01/final-project-team-8/contents/app/web_pages/Assets/profile/' + file.name + '?access_token=c0591659a276ff80d2bc4cd4e4c854d6b257b3f2', file_submit)
+						.then(function (res) {
+							console.log("sucessfully posted");
+							self.submited = "false";
+						})
+						.catch(function (err) {
+							console.log("failed");
+						});
+
+				};
+				reader.onerror = function (error) {
+					console.log('Error: ', error);
+				};
 			}
 		}
 	});
+
 
 
 	const router = new VueRouter({
