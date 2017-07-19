@@ -81,6 +81,10 @@
 		margin-left: 50px;
 	}
 
+	.list-group-flush {
+		margin-top: 25px;
+	}
+
 	.userBottom .col {
 		vertical-align: top;
 		margin-right: 32px;
@@ -127,7 +131,7 @@
 						<i class="fa fa-cog "></i> Settings</router-link>
 					<div id="header" class="card-header" style="border-color:black">
 						<h2 style="margin-left:25px" class="display-6">{{ username }}</h2>
-						<ul class="list-group list-group-flush" style="margin-top:30px">
+						<ul class="list-group list-group-flush">
 							<li class="list-group-items">
 								<p class="card-text" style="margin:5px 5px">{{ description }}</p>
 							</li>
@@ -141,30 +145,27 @@
 					<div id="friendsList" class="card col col-2">
 						<div class="card" id="sim_games">
 							<ul class="list-group list-group-flush">
-								<li class="list-group-item" id="info" style="height:15%;">
-									<a href="friends.html">Add Friend</a></a>
-								</li>
+								<a type="button" class="btn btn-outline-primary" href="friends.html"> <i style = "margin-right: 10px" class="fa fa-user-plus fa-lg" aria-hidden="true"></i>
+									My Friends</a>
 							</ul>
 							<ul class="list-group list-group-flush">
-								<li class="list-group-item" id="info" style="height:15%;">
-									<a href="#">History</a></a>
-								</li>
+								<a type="button" class="btn btn-outline-primary" href="friends.html"> <i style = "margin-right: 10px" class="fa fa-history fa-lg" aria-hidden="true"></i>
+									Recent Activity</a>
 							</ul>
 							<ul class="list-group list-group-flush">
-								<li class="list-group-item" id="info" style="height:15%;">
-									<a href="#">Send Message</a></a>
-								</li>
+								<a type="button" class="btn btn-outline-primary" href="friends.html"> <i style = "margin-right: 10px" class="fa fa-envelope fa-lg" aria-hidden="true"></i>
+									Send Message</button
 							</ul>
 						</div>
 					</div>
-					<div class="card col-6">
-						<div class="card-header">
+					<div class="card col-6" style = "margin-left: 40px">
+						<div class="card-header" style = "background-color: #5C6BC0; color:white">
 							Games List
 						</div>
 						<ratingList></ratingList>
 					</div>
 					<div class="card col-2">
-						<div class="card-header">
+						<div class="card-header" style = "background-color: #5C6BC0; color:white">
 							Mutual Friends
 						</div>
 						<div class="mutualFriends">
@@ -178,47 +179,47 @@
 										</div>
 										<div class="col-sm-2">
 											<a href="somewhere">bob1488</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="mutualFriends">
-							<div class="card" id="mutual_friends">
-								<div class="card-block">
-									<div class="row">
-										<div class="col-sm-5" id="avatar">
-											<div id="container">
-												<img class="img-thumbnail" src="Assets/Images/41699326_p0.jpg">
-											</div>
-										</div>
-										<div class="col-sm-5">
-											<a href="somewhere">bob1489</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="mutualFriends">
-							<div class="card" id="mutual_friends">
-								<div class="card-block">
-									<div class="row">
-										<div class="col-sm-5" id="avatar">
-											<div id="container">
-												<img class="img-thumbnail" src="Assets/Images/41699326_p0.jpg">
-											</div>
-										</div>
-										<div class="col-sm-2">
-											<a href="somewhere">bob1490</a>
-										</div>
-									</div>
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<div class="mutualFriends">
+			<div class="card" id="mutual_friends">
+				<div class="card-block">
+					<div class="row">
+						<div class="col-sm-5" id="avatar">
+							<div id="container">
+								<img class="img-thumbnail" src="Assets/Images/41699326_p0.jpg">
+							</div>
+						</div>
+						<div class="col-sm-5">
+							<a href="somewhere">bob1489</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="mutualFriends">
+			<div class="card" id="mutual_friends">
+				<div class="card-block">
+					<div class="row">
+						<div class="col-sm-5" id="avatar">
+							<div id="container">
+								<img class="img-thumbnail" src="Assets/Images/41699326_p0.jpg">
+							</div>
+						</div>
+						<div class="col-sm-2">
+							<a href="somewhere">bob1490</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+	</div>
+	</div>
 </script>
 
 <script type="text/x-template" id="profile">
