@@ -225,7 +225,8 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div>		
+	</div>
 	</div>
 	</div>
 	</div>
@@ -338,12 +339,46 @@
 				</form>
 			  </div>
 			  <div class="modal-footer">
-				<button type="button" v-on:click ="reset" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 				<button type="button" v-on:click="sendMsg" class="btn btn-primary">Send</button>
 			  </div>
 			</div>
 		  </div>
 		</div>
+	</div>
+</script>
+
+<script type="text/x-template" id="post">
+	<div class="post">
+		<div class="card">
+			<div class="card-block">
+				<div class="row">
+					<div class="col-sm-1" id="avatar">
+						<div id="container" style="width:100px">
+							<img class="img-thumbnail" src="Assets/Images/41699326_p0.jpg">
+						</div>
+					</div>
+					<div class="col-sm-1">
+						<a href="somewhere">{{sender}}</a>
+					</div>
+					<div class="col-sm-3 offset-md-6" id="review-info">
+						<p> {{date}} </p>
+					</div>
+				</div>
+				<hr>
+				<div class="card-block">
+					<p style="margin-left: 10px">
+						{{msg}}
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+
+<script type="text/x-template" id="wallPosts">
+	<div class="container">
+		<post v-for="post in wallposts" v-bind:sender="post.sender" v-bind:date="post.time_stamp" v-bind:msg="post.message"</post>
 	</div>
 </script>
 
@@ -363,6 +398,29 @@
 </script>
 
 <script>
+	var post = Vue.component('post', {
+		props: ['username', 'date', 'rating', 'text'],
+		template: '#post',
+	});
+	var wallPosts = Vue.component('wallPosts', {
+		template: '#wallPosts',
+		data() {
+			return {
+				wallposts: []
+			}
+		},
+		created() {
+			var self = this
+			axios.get('http://localhost:8081/getWallPostsTo?user=' + sessionStorage.getItem("username"))
+				.then(function (response) {
+					console.log(response);
+					self.wallposts = response.data;
+				})
+				.catch(function (err) {
+					console.log("error")
+				})
+		}
+	});
 	var sendMsg = Vue.component('sendMsg', {
 		template: '#sendMsg',
 		data() {
@@ -578,6 +636,7 @@
 			{ path: '/', component: results },
 			{ path: '/', component: ratingList },
 			{ path: '/', component: sendMsg },
+			{ path: '/', component: wallPosts },
 			{ path: '/settings', component: settings }
 		]
 	})
