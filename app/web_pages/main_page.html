@@ -65,7 +65,7 @@
 	}
 
 	.whiteWithBlackBorders {
-		font-size: 50px;
+		font-size: 30px;
 		font-weight: bold;
 		color: white;
 		text-shadow: -1px -1px 0 #000,
@@ -145,13 +145,15 @@
 			<div class="col-md-4">
 				<div class="card">
 					<div class="card-header ">
-						<h4 class="listHeader">RECENT POST</h4>
+						<a href="https://utsccscc01.github.io/final-project-team-8/app/web_pages/top_rated_games.html#/?sortby=Recent Reviewed"><h4 class="listHeader">LATEST REVIEWED</h4></a>
 					</div>
 					<div class="card-block no-padding">
-						<ul class="list-group">
+						<ul id="latestReviews" class="list-group">
+						<div v-for="item in latestGames"><a :href="item.href" class="list-group-item list-group-item-action">{{item.Title}}</a></div>
+						<!--
 							<a href="#" class="list-group-item list-group-item-action">Tic Tac Toe</a>
 							<a href="#" class="list-group-item list-group-item-action">Chess</a>
-							<a href="#" class="list-group-item list-group-item-action">Go</a>
+							<a href="#" class="list-group-item list-group-item-action">Go</a>-->
 						</ul>
 					</div>
 				</div>
@@ -159,7 +161,7 @@
 			<div class="col-md-4">
 				<div class="card">
 					<div class="card-header">
-						<a href="https://utsccscc01.github.io/final-project-team-8/app/web_pages/top_rated_games.html"><h4 class="listHeader"> POPULAR GAMES</h4></a>
+						<a href="https://utsccscc01.github.io/final-project-team-8/app/web_pages/top_rated_games.html#/?sortby=Likes"><h4 class="listHeader"> POPULAR GAMES</h4></a>
 					</div>
 					<div class="card-block no-padding">
 						<ul id="topRatedGamesList" v-if="!loading" class="list-group">
@@ -172,13 +174,14 @@
 			<div class="col-md-4">
 				<div class="card">
 					<div class="card-header">
-						<h4 class="listHeader"> NEW RELEASES</h4>
+						<a href="https://utsccscc01.github.io/final-project-team-8/app/web_pages/top_rated_games.html#/?sortby=Recent Release"><h4 class="listHeader"> NEW RELEASES</h4></a>
 					</div>
 					<div class="card-block no-padding">
-						<ul class="list-group">
-							<a href="#" class="list-group-item list-group-item-action">You won't believe what happens next...</a>
+						<ul id="latestGames" v-if="!loading" class="list-group">
+							<div v-for="item in latestGames"><a :href="item.href" class="list-group-item list-group-item-action">{{item.Title}}</a></div>
+							<!--<a href="#" class="list-group-item list-group-item-action">You won't believe what happens next...</a>
 							<a href="#" class="list-group-item list-group-item-action">10 Simple Tricks to increase...</a>
-							<a href="#" class="list-group-item list-group-item-action">I have a midterm today</a>
+							<a href="#" class="list-group-item list-group-item-action">I have a midterm today</a>-->
 						</ul>
 					</div>
 				</div>

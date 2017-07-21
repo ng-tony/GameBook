@@ -313,6 +313,26 @@ app.get("/games/top/likes", function(req, res) {
   });
 });
 
+app.get("/games/recent", function(req, res) {
+  console.log("getting recent games");
+  var limit = req.query.limit;
+  var selectSQL =
+	"select * from games order by RELEASE_DATE DESC limit ?";
+  db.all(selectSQL, limit, function(err, rows) {
+    res.send(rows);
+  });
+});
+
+app.get("/games/recent/review", function(req, res) {
+  console.log("getting recent reveiwed games");
+  var limit = req.query.limit;
+  var selectSQL =
+	"select * from games join Review on games.gameid = review.gameid order by time_stamp DESC limit ?";
+  db.all(selectSQL, limit, function(err, rows) {
+    res.send(rows);
+  });
+});
+
 var server = app.listen(8081, function() {
   var host = server.address().address;
   var port = server.address().port;
