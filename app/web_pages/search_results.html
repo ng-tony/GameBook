@@ -119,13 +119,13 @@
                     "beforeDate": this.$route.query.bd,
                     "afterDate": this.$route.query.ad,
                     "rating": this.$route.query.r,
-                    "s": this.$route.query.s
+                    "sort": this.$route.query.s
                 }
                 axios.get('http://localhost:8081/adv_search?search=' + encodeURIComponent(JSON.stringify(submit)))
                     .then(function (response) {
                         self.loading = false;
                         console.log(response.data);
-                        // self.items = response.data
+                        self.items = response.data
                     })
                     .catch(function (err) {
                         console.log("error")

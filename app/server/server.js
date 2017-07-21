@@ -100,7 +100,6 @@ app.get("/adv_search", function(req, res) {
     }
     if (data.genre != "") {
       const genres = data.genre.split(",");
-      console.log(genres.includes(rows[0].genre));
       _.remove(rows, function(o) {
         return !genres.includes(o.Genre);
       });
@@ -120,12 +119,23 @@ app.get("/adv_search", function(req, res) {
       });
     }
     if (data.afterDate != "") {
-      const rating = parseInt(data.rating);
+      const date = new Date(data.beforeDate);
       _.remove(rows, function(o) {
-        return o.rating < rating;
+        const compareDate = new Date(o.RELEASE_DATE);
+        return compareDate < date;
       });
     }
-    console.log("FILTERED", rows);
+    if (data.sort != "") {
+      console.log(data.sort);
+      var sorted = [];
+      if (data.sort == "Alphabetical") {
+        rows = _.orderBy(rows, [row => row.Title.toLowerCase()], ["asc"]);
+      }
+      if (data.sort == "Rating") {
+        rows = _.orderBy(rows, ["rating"], ["desc"]);
+      }
+      console.log(rows);
+    }
 
     res.send(rows);
   });
@@ -316,8 +326,7 @@ app.get("/games/top/likes", function(req, res) {
 app.get("/games/recent", function(req, res) {
   console.log("getting recent games");
   var limit = req.query.limit;
-  var selectSQL =
-	"select * from games order by RELEASE_DATE DESC limit ?";
+  var selectSQL = "select * from games order by RELEASE_DATE DESC limit ?";
   db.all(selectSQL, limit, function(err, rows) {
     res.send(rows);
   });
@@ -327,7 +336,7 @@ app.get("/games/recent/review", function(req, res) {
   console.log("getting recent reveiwed games");
   var limit = req.query.limit;
   var selectSQL =
-	"select * from games join Review on games.gameid = review.gameid order by time_stamp DESC limit ?";
+    "select * from games join Review on games.gameid = review.gameid order by time_stamp DESC limit ?";
   db.all(selectSQL, limit, function(err, rows) {
     res.send(rows);
   });
