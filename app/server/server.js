@@ -4,6 +4,7 @@ var path = require("path");
 var sqlite3 = require("sqlite3").verbose();
 var db = new sqlite3.Database("GameBook.db");
 var shortid = require("shortid");
+var _ = require("lodash");
 var insertSQL =
   "INSERT OR REPLACE INTO Games(GAMEID,TITLE,PUBLISHER,DEVELOPER,GENRE,PRICE,RELEASE_DATE,DESCRIPTION,PICTURE)" +
   "VALUES(?,?,?,?,?,?,?,?,?)";
@@ -77,6 +78,55 @@ app.get("/search", function(req, res) {
     err,
     rows
   ) {
+    res.send(rows);
+  });
+});
+
+app.get("/adv_search", function(req, res) {
+  console.log("advanced search request");
+  var data = JSON.parse(decodeURIComponent(req.query.search));
+  const selectSQL =
+    "Select * from Games left join Ratings on Games.gameID = Ratings.ID ";
+  db.all(selectSQL, function(err, rows) {
+    for (i = 0; i < rows.length; i++) {
+      if (rows[i].rating == null) {
+        rows[i].rating = 0;
+      }
+    }
+    if (data.name != "") {
+      _.remove(rows, function(o) {
+        return o.Publisher != data.name && o.Developer != data.name;
+      });
+    }
+    if (data.genre != "") {
+      const genres = data.genre.split(",");
+      console.log(genres.includes(rows[0].genre));
+      _.remove(rows, function(o) {
+        return !genres.includes(o.Genre);
+      });
+    }
+    if (data.rating != "") {
+      const rating = parseInt(data.rating);
+      _.remove(rows, function(o) {
+        return o.rating < rating;
+      });
+    }
+    if (data.beforeDate != "") {
+      console.log(data.beforeDate);
+      const date = new Date(data.beforeDate);
+      _.remove(rows, function(o) {
+        const compareDate = new Date(o.RELEASE_DATE);
+        return compareDate > date;
+      });
+    }
+    if (data.afterDate != "") {
+      const rating = parseInt(data.rating);
+      _.remove(rows, function(o) {
+        return o.rating < rating;
+      });
+    }
+    console.log("FILTERED", rows);
+
     res.send(rows);
   });
 });

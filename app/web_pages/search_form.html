@@ -1,0 +1,151 @@
+<html>
+
+<head>
+    <script src="https://unpkg.com/vue@2.3.4"></script>
+    <script src="https://unpkg.com/vue-router@2.5.3/dist/vue-router.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://use.fontawesome.com/d63932d1c4.js"></script>
+    <script src="navBar.js"></script>
+    <!-- import CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css">
+    <!-- import JavaScript -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <meta charset="UTF-8">
+</head>
+<div id="app">
+    <div id="navbar" style="margin-bottom:20px">
+        <navbar></navbar>
+    </div>
+    <search-form style="width:75%;margin-left:10%"></search-form>
+</div>
+
+<style>
+    .display-4 {
+        font-size: 24pt;
+        margin-bottom: 20px;
+        margin-left: 20px;
+    }
+
+    label {
+        margin-top: 20px;
+    }
+</style>
+
+<script type="text/x-template" id="search-form">
+    <form style="font-size:14pt" v-bind:action="URL">
+        <h1 class="display-4" style="font-size:24pt;margin-left:-3pt">Game Finder</h1>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Developer/Producer Name</label>
+            <input v-model="name" style="width:40%" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                placeholder="Enter name">
+        </div>
+        <label for="Genre">Genre</label>
+        <div class="form-group">
+            <div class="form-check form-check-inline">
+                <label class="form-check-label">
+    <input v-model = "genre" class="form-check-input" type="checkbox" id="inlineCheckbox1" value="Adventure"> Adventure
+  </label>
+            </div>
+            <div class="form-check form-check-inline">
+                <label class="form-check-label">
+    <input v-model = "genre" class="form-check-input" type="checkbox" id="inlineCheckbox2" value="Action"> Action
+  </label>
+            </div>
+            <div class="form-check form-check-inline">
+                <label class="form-check-label">
+    <input  v-model = "genre" class="form-check-input" type="checkbox" id="inlineCheckbox3" value="RPG"> RPG
+  </label>
+            </div>
+            <div class="form-check form-check-inline">
+                <label class="form-check-label">
+    <input v-model = "genre" class="form-check-input" type="checkbox" id="inlineCheckbox4" value="FPS"> FPS
+  </label>
+            </div>
+            <div class="form-check form-check-inline">
+                <label class="form-check-label">
+    <input v-model = "genre" class="form-check-input" type="checkbox" id="inlineCheckbox5" value="Puzzle"> Puzzle
+  </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Released Before</label>
+            <input v-model="beforeDate" style="width:40%" type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                placeholder="mm/dd/yyyy">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Released After</label>
+            <input v-model="afterDate" style="width:40%" type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                placeholder="mm/dd/yyyy">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Minimum Rating</label>
+            <input v-model="MinRating" type="number" min="1" max="10" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                style="width:5%">
+        </div>
+        <label for="select">Sort By</label>
+        <div class="form-group">
+            <select v-model="Sort" class="custom-select">
+            <option selected>Alphabetical</option>
+            <option>Rating</option>
+            <option>Likes</option>
+            </select>
+        </div>
+        <button @click="Search" class="btn btn-primary">Submit</button>
+    </form>
+</script>
+
+<script>
+    const form = Vue.component('search-form', {
+        template: '#search-form',
+        data() {
+            return {
+                name: '',
+                beforeDate: '',
+                afterDate: '',
+                Sort: '',
+                MinRating: '',
+                genre: [],
+                URL: ''
+
+            }
+        },
+        methods: {
+            Search() {
+                searchData = {
+                    "n": this.name,
+                    "bd": this.beforeDate,
+                    "ad": this.afterDate,
+                    "s": this.Sort,
+                    "r": this.MinRating,
+                    "g": this.genre
+                }
+                console.log(searchData);
+                this.URL = "search_results.html#/?" + this.encodeQueryData(searchData);
+
+            },
+            encodeQueryData(data) {
+                let ret = [];
+                for (let d in data)
+                    ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
+                return ret.join('&');
+            }
+        }
+    });
+    new Vue({
+        el: '#app',
+        data: function () {
+            return { visible: false }
+        }
+    })
+
+</script>
+
+</html>

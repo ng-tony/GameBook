@@ -110,18 +110,40 @@
         },
         template: "#site-template",
         created() {
-            console.log(this.loading);
+            console.log("HERE");
             var self = this
-            axios.get('http://localhost:8081/search?title=' + this.$route.query.title)
-                .then(function (response) {
-                    console.log(self.items);
-                    self.loading = false;
-                    self.items = response.data
-                })
-                .catch(function (err) {
-                    console.log("error")
-                })
-            console.log(this.loading);
+            if (this.title == null) {
+                var submit = {
+                    "name": this.$route.query.n,
+                    "genre": this.$route.query.g,
+                    "beforeDate": this.$route.query.bd,
+                    "afterDate": this.$route.query.ad,
+                    "rating": this.$route.query.r,
+                    "s": this.$route.query.s
+                }
+                axios.get('http://localhost:8081/adv_search?search=' + encodeURIComponent(JSON.stringify(submit)))
+                    .then(function (response) {
+                        self.loading = false;
+                        console.log(response.data);
+                        // self.items = response.data
+                    })
+                    .catch(function (err) {
+                        console.log("error")
+                    })
+
+            }
+            else {
+                axios.get('http://localhost:8081/search?title=' + this.$route.query.title)
+                    .then(function (response) {
+                        console.log(self.items);
+                        self.loading = false;
+                        self.items = response.data
+                    })
+                    .catch(function (err) {
+                        console.log("error")
+                    })
+                console.log(this.loading);
+            }
         }
     });
     const router = new VueRouter({

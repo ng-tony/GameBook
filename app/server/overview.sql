@@ -37,48 +37,6 @@ INSERT INTO Games VALUES('Hy9euz4QZ','abc','','','Action','','','','41699326_p0.
 INSERT INTO Games VALUES('ry3K_GVQb','abc','','','Action','','','','41379423_p0.png');
 INSERT INTO Games VALUES('ByEe8HE7W','Full Game','Someone','Person','RPG',51.999999999999999998,'2001-05-16','This a test for a game with all fields completed','Assets/Images/53188622_p0.jpg');
 INSERT INTO Games VALUES('Bk2BsrNQ-','Gam2','asdgas','asdgasgd','RPG',140.99999999999999999,'1992-02-06',replace('Some random\nInformation','\n',char(10)),'Assets/Images/41699326_p0.jpg');
-CREATE TABLE Likes(
-    userID CHAR(64),
-    gameID CHAR(64), 
-    timestamp DATETIME,
-    PRIMARY KEY(userID,gameID),
-    FOREIGN KEY(userID) REFERENCES User(EMAIL) ON UPDATE CASCADE,
-    FOREIGN KEY(gameID) REFERENCES Games(GameID) ON UPDATE CASCADE
-);
-INSERT INTO Likes VALUES('abc','Bk2BsrNQ-','2017-03-20 05:45:20');
-INSERT INTO Likes VALUES('abc32','Bk2BsrNQ-','2017-03-20 07:45:20');
-INSERT INTO Likes VALUES('abc@gmail.com','Bk2BsrNQ-','2017-03-20 09:45:20');
-INSERT INTO Likes VALUES('abc','ByEe8HE7W','2017-03-20 05:45:20');
-INSERT INTO Likes VALUES('abc32','ByEe8HE7W','2017-03-20 07:45:20');
-INSERT INTO Likes VALUES('abc@gmail.com','ByEe8HE7W','2017-03-20 09:45:20');
-INSERT INTO Likes VALUES('abcd','ByEe8HE7W','2017-03-20 05:45:20');
-CREATE TABLE Review(
-    userID CHAR(64),
-    gameID CHAR(64),
-    review_text TEXT,   
-    time_stamp DATE,
-    rating DOUBLE,
-    PRIMARY KEY(userID,gameID),
-    FOREIGN KEY(userID) REFERENCES User(EMAIL) ON UPDATE CASCADE,
-    FOREIGN KEY(gameID) REFERENCES Games(GameID) ON UPDATE CASCADE
-);
-INSERT INTO Review VALUES('abc32','ByEe8HE7W','a new review made by me','2017-07-02 06:50:50',8.0);
-INSERT INTO Review VALUES('test','SkWXPMV7W','a new review made by me','2017-07-02 06:50:50',2.0);
-INSERT INTO Review VALUES('test','ByEe8HE7W','and again','7/2/2017 22:55:37',5.0);
-INSERT INTO Review VALUES('abc@gmail.com','ByEe8HE7W','A new Review','7/3/2017 13:51:33',3.0);
-INSERT INTO Review VALUES('test','Bk2BsrNQ-','a new review to see if review gets updated','7/3/2017 15:51:42',6.0);
-CREATE TABLE IF NOT EXISTS "Friends" (
-	`user`	char(64),
-	`friend`	char(64),
-	`status`	char(64),
-	PRIMARY KEY(`user`,`friend`),
-	FOREIGN KEY(`user`) REFERENCES `User`(`EMAIL`) ON UPDATE CASCADE,
-	FOREIGN KEY(`friend`) REFERENCES `User`(`EMAIL`) ON UPDATE CASCADE
-);
-INSERT INTO Friends VALUES('abc@gmail.com','abc','Accepted');
-INSERT INTO Friends VALUES('abc','abc@gmail.com','Accepted');
-INSERT INTO Friends VALUES('test','abc','Accepted');
-INSERT INTO Friends VALUES('abc','test','Accepted');
 CREATE TABLE IF NOT EXISTS "User" (
 	`EMAIL`	CHAR(64) NOT NULL,
 	`PASSWORD`	TEXT NOT NULL,

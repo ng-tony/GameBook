@@ -69,7 +69,7 @@
             <input type="file" onchange="previewFile()" class="form-control-file" id="file-input" aria-describedby="fileHelp">
             <img class="img-thumbnail" id="preview" src="" height="150" alt="Image preview...">
         </div>
-        <button type="button" id="Submit" class="btn btn-primary">Submit</button>
+        <input value="submit" type="submit" id="Submit" class="btn btn-primary">
 
     </form>
 </body>
@@ -139,8 +139,15 @@
         var price = document.getElementById('price-input').value
         var date = document.getElementById('date-input').value
         var descrip = document.getElementById('descrip-input').value
-        var pic = document.getElementById('file-input').files[0];
-        var content = uploadFile(pic);
+        var pic = "";
+        var file = document.getElementById('file-input').files[0];
+        if (file != null) {
+            var content = uploadFile(file);
+            pic = file.name;
+        }
+        else {
+            pic = "default.png"
+        }
         var submit = {
             "title": title,
             "publisher": publisher,
@@ -149,7 +156,7 @@
             "price": price,
             "release_date": date,
             "description": descrip,
-            "picture": pic.name,
+            "picture": pic,
             "content": "something"
         }
         axios.post('http://127.0.0.1:8081/dbGUI', submit)
