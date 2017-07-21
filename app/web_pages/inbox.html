@@ -47,7 +47,7 @@
 </script>
 <script type="text/x-template" id="msg-card">
     <div class="message" style="margin-left:50px; margin-right:50px">
-		<p><b>From: {{sender}}</b> {{date}}</p>
+		<p><b>From: {{sender}}</b> &nbsp;&nbsp; {{date}}</p>
 		<p>{{msg}}</p>
     </div>
 </script>
@@ -59,7 +59,7 @@
 </script>
 <script type="text/x-template" id="sent-card">
     <div class="message" style="margin-left:50px; margin-right:50px">
-		<p><b>To: {{recipient}}</b> {{date}}</p>
+		<p><b>To: {{recipient}}</b> &nbsp;&nbsp; {{date}}</p>
 		<p>{{msg}}</p>
     </div>
 </script>
@@ -70,7 +70,7 @@
         template: '#inbox'
     })
     Vue.component('msg-card', {
-        props: ['sender', 'msg'],
+        props: ['sender', 'msg', 'date'],
         template: '#msg-card'
     })
 	Vue.component('sent', {
@@ -78,7 +78,7 @@
         template: '#inbox'
     })
     Vue.component('sent-card', {
-        props: ['recipient', 'msg'],
+        props: ['recipient', 'msg', 'date'],
         template: '#msg-card'
     })
 	
