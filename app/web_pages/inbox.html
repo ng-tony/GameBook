@@ -1,0 +1,140 @@
+<html>
+
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://unpkg.com/vue@2.3.4"></script>
+    <script src="https://unpkg.com/vue-router@2.5.3/dist/vue-router.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://use.fontawesome.com/d63932d1c4.js"></script>
+    <script src="navBar.js"></script>
+    <!-- import CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css">
+    <!-- import JavaScript -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+	<script src="jquery-3.2.1.min.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+        <div id="navbar">
+            <navbar></navbar>
+        </div>
+        <el-tabs v-model="activeName">
+            <el-tab-pane label="Inbox" name="first">
+                <inbox v-bind:message="messagesTo"></inbox>
+            </el-tab-pane>
+			<el-tab-pane label="Sent Messages" name="second">
+                <sent v-bind:message="messagesFrom"></sent>
+            </el-tab-pane>
+        </el-tabs>
+    </div>
+</body>
+<script type="text/x-template" id="inbox">
+    <div>
+        <msg-card v-for="m in message" v-bind:sender="m.sender" v-bind:msg="m.message" v-bind:date="m.time_stamp">
+        </msg-card>
+    </div>
+</script>
+<script type="text/x-template" id="msg-card">
+    <div class="message" style="margin-left:50px; margin-right:50px">
+		<p><b>From: {{sender}}</b> {{date}}</p>
+		<p>{{msg}}</p>
+    </div>
+</script>
+<script type="text/x-template" id="sent">
+    <div>
+        <sent-card v-for="m in message" v-bind:recipient="m.recipient" v-bind:msg="m.message" v-bind:date="m.time_stamp">
+        </sent-card>
+    </div>
+</script>
+<script type="text/x-template" id="sent-card">
+    <div class="message" style="margin-left:50px; margin-right:50px">
+		<p><b>To: {{recipient}}</b> {{date}}</p>
+		<p>{{msg}}</p>
+    </div>
+</script>
+
+<script>
+    Vue.component('inbox', {
+        props: ['message'],
+        template: '#inbox'
+    })
+    Vue.component('msg-card', {
+        props: ['sender', 'msg'],
+        template: '#msg-card'
+    })
+	Vue.component('sent', {
+        props: ['message'],
+        template: '#inbox'
+    })
+    Vue.component('sent-card', {
+        props: ['recipient', 'msg'],
+        template: '#msg-card'
+    })
+	
+    new Vue({
+        el: '#app',
+        data: function () {
+            return { activeName: 'first', visible: false, messagesFrom: [], messagesTo: [] }
+        },
+        created() {
+            var self = this
+            axios.get('http://localhost:8081/getMessagesTo?user=' + sessionStorage.getItem("username"))
+                .then(function (response) {
+                    for (i = 0; i < response.data.length; i++) {
+                        self.messagesTo.push(response.data[i])
+                    }
+                    console.log(self.messagesTo);
+
+                })
+                .catch(function (err) {
+                    console.log("error")
+                })
+			axios.get('http://localhost:8081/getMessagesFrom?user=' + sessionStorage.getItem("username"))
+                .then(function (response) {
+                    for (i = 0; i < response.data.length; i++) {
+                        self.messagesFrom.push(response.data[i])
+                    }
+                    console.log(self.messages);
+
+                })
+                .catch(function (err) {
+                    console.log("error")
+                })
+        }
+
+    })
+
+</script>
+
+<style>
+    #search {
+        width: 25%;
+    }
+
+    .message p {
+        margin-left: 7px;
+		margin-top: 5px;
+        font-size: 12pt;		
+    }
+	
+	.message{
+		border-radius: 15px 50px 30px 5px;
+		border: 2px solid #d9d9d9;
+		margin-bottom: 15px;
+		background-color: #f9f9f9;
+	}
+</style>
+
+
+</html>
