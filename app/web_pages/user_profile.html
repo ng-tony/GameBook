@@ -85,6 +85,11 @@
 		margin-top: 25px;
 	}
 
+	.btn-outline-primary {
+		text-align: left;
+		margin-bottom: 30px;
+	}
+
 	.userBottom .col {
 		vertical-align: top;
 		margin-right: 32px;
@@ -98,8 +103,8 @@
 	.userBottom .col-6 {
 		padding: 0;
 	}
-	
-	.wall{
+
+	.wall {
 		width: 50%;
 		margin: 0 auto;
 	}
@@ -134,48 +139,33 @@
 				<div id="gameCard" class="card col col-7">
 					<router-link to="/settings" v-show="currentUser" class="btn btn-primary btn-md" style="width:150px;position: absolute; right: 0;">
 						<i class="fa fa-cog "></i> Settings</router-link>
-					<div id="header" class="card-header" style="border-color:black">
-						<h2 style="margin-left:25px" class="display-6">{{ username }}</h2>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-items">
-								<p class="card-text" style="margin:5px 5px">{{ description }}</p>
-							</li>
-						</ul>
+					<div id="header" class="card-header">
+						<h2 style="font-size:24pt" class="display-4">{{ username }}</h2>
+					</div>
+					<div class="card-block">
+						<p class="card-text" style="margin:5px 5px">{{ description }}</p>
 					</div>
 				</div>
 			</div>
 			<br>
 			<div class="userBottom">
 				<div class="row">
-					<div id="friendsList" class="card col col-2">
-						<div class="card" id="sim_games">
-							<ul class="list-group list-group-flush">
-								<li class="list-group-item" id="info" style="height:15%;">
-									<a type="button" class="btn btn-outline-primary" href="friends.html"> <i style = "margin-right: 10px" class="fa fa-user-plus fa-lg" aria-hidden="true"></i>
-										My Friends</a>
-								</li>
-							</ul>
-							<ul class="list-group list-group-flush">
-								<li class="list-group-item" id="info" style="height:15%;">
-									<a type="button" class="btn btn-outline-primary" href="inbox.html"> <i style = "margin-right: 10px" class="fa fa-envelope-open-o" aria-hidden="true"></i>
+					<div id="friendsList" class="col col-2">
+						<p><a style="width:80%" class="btn btn-outline-primary" href="friends.html"> <i style = "margin-right: 10px" class="fa fa-user-plus fa-lg" aria-hidden="true"></i>
+										My Friends</a></p>
+
+						<a style="width:80%" class="btn btn-outline-primary" href="inbox.html"> <i style = "margin-right: 10px" class="fa fa-envelope-open-o" aria-hidden="true"></i>
 									Inbox</a>
-								</li>
-							</ul>
-							<ul class="list-group list-group-flush">
-								<li class="list-group-item" id="info" style="height:15%;">
-									<sendMsg></sendMsg>
-								</li>
-							</ul>
-						</div>
+						<sendMsg></sendMsg>
 					</div>
-					<div class="card col-6" style = "margin-left: 40px">
-						<div class="card-header" style = "background-color: #5C6BC0; color:white">
+					<div class="card col-6" style="margin-left: 40px">
+						<div class="card-header" style="background-color: #5C6BC0; color:white">
 							Games List
 						</div>
 						<ratingList></ratingList>
 					</div>
 					<div class="card col-2">
-						<div class="card-header" style = "background-color: #5C6BC0; color:white">
+						<div class="card-header" style="background-color: #5C6BC0; color:white">
 							Mutual Friends
 						</div>
 						<div class="mutualFriends">
@@ -189,47 +179,47 @@
 										</div>
 										<div class="col-sm-2">
 											<a href="somewhere">bob1488</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="mutualFriends">
+							<div class="card" id="mutual_friends">
+								<div class="card-block">
+									<div class="row">
+										<div class="col-sm-5" id="avatar">
+											<div id="container">
+												<img class="img-thumbnail" src="Assets/Images/41699326_p0.jpg">
+											</div>
+										</div>
+										<div class="col-sm-5">
+											<a href="somewhere">bob1489</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="mutualFriends">
+							<div class="card" id="mutual_friends">
+								<div class="card-block">
+									<div class="row">
+										<div class="col-sm-5" id="avatar">
+											<div id="container">
+												<img class="img-thumbnail" src="Assets/Images/41699326_p0.jpg">
+											</div>
+										</div>
+										<div class="col-sm-2">
+											<a href="somewhere">bob1490</a>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="mutualFriends">
-			<div class="card" id="mutual_friends">
-				<div class="card-block">
-					<div class="row">
-						<div class="col-sm-5" id="avatar">
-							<div id="container">
-								<img class="img-thumbnail" src="Assets/Images/41699326_p0.jpg">
-							</div>
-						</div>
-						<div class="col-sm-5">
-							<a href="somewhere">bob1489</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="mutualFriends">
-			<div class="card" id="mutual_friends">
-				<div class="card-block">
-					<div class="row">
-						<div class="col-sm-5" id="avatar">
-							<div id="container">
-								<img class="img-thumbnail" src="Assets/Images/41699326_p0.jpg">
-							</div>
-						</div>
-						<div class="col-sm-2">
-							<a href="somewhere">bob1490</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>		
-	</div>
-	</div>
-	</div>
-	</div>
 	</div>
 </script>
 
@@ -261,7 +251,7 @@
 </script>
 
 <script type="text/x-template" id="ratingList">
-	<div class="container" style="margin-right:20;padding:0">
+	<div class="container" style="margin-right:20;padding:0;">
 		<rating v-for="rating in ratings" v-bind:title="rating.Title" v-bind:game="rating.gameID" v-bind:date="rating.time_stamp"
 		 v-bind:rating="rating.rating" v-bind:text="rating.review_text"></rating>
 	</div>
@@ -311,39 +301,39 @@
 
 <script type="text/x-template" id="sendMsg">
 	<div>
-		<a type="button" class="btn btn-outline-primary" href="'#/?email=' + email" data-toggle="modal" data-target="#msgModal"> <i style = "margin-right: 10px" class="fa fa-share" aria-hidden="true"></i>
+		<a style="width:80%" class="btn btn-outline-primary" href="'#/?email=' + email" data-toggle="modal" data-target="#msgModal"> <i style = "margin-right: 10px" class="fa fa-share" aria-hidden="true"></i>
 									Send Message</a>
 		<div class="modal fade" id="msgModal" tabindex="-1" role="dialog" aria-labelledby="msgModalLabel" aria-hidden="true">
-		  <div class="modal-dialog" role="document">
-			<div class="modal-content">
-			  <div class="modal-header">
-				<h5 class="modal-title" id="msgModalLabel">Direct Messaging</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="msgModalLabel">Direct Messaging</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 			  <span aria-hidden="true">&times;</span>
 			</button>
-			  </div>
-			  <div class="modal-body">
-				<form>
-				  <div class="form-group">
-					<label for="sender-name" class="form-control-label">Sender:</label>
-					<input type="text" v-model="sender" class="form-control" id="sender" disabled="disabled">
-				  </div>
-				  <div class="form-group">
-					<label for="recipient-name" class="form-control-label">Recipient User:</label>
-					<input type="text" v-model="recipient" class="form-control" id="recipient">
-				  </div>
-				  <div class="form-group">
-					<label for="message-text" class="form-control-label">Message:</label>
-					<textarea v-model="msg" class="form-control" id="msg" rows="4"></textarea>
-				  </div>
-				</form>
-			  </div>
-			  <div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button type="button" v-on:click="sendMsg" class="btn btn-primary">Send</button>
-			  </div>
+					</div>
+					<div class="modal-body">
+						<form>
+							<div class="form-group">
+								<label for="sender-name" class="form-control-label">Sender:</label>
+								<input type="text" v-model="sender" class="form-control" id="sender" disabled="disabled">
+							</div>
+							<div class="form-group">
+								<label for="recipient-name" class="form-control-label">Recipient User:</label>
+								<input type="text" v-model="recipient" class="form-control" id="recipient">
+							</div>
+							<div class="form-group">
+								<label for="message-text" class="form-control-label">Message:</label>
+								<textarea v-model="msg" class="form-control" id="msg" rows="4"></textarea>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="button" v-on:click="sendMsg" class="btn btn-primary">Send</button>
+					</div>
+				</div>
 			</div>
-		  </div>
 		</div>
 	</div>
 </script>
@@ -378,7 +368,7 @@
 
 <script type="text/x-template" id="wallPosts">
 	<div class="container">
-		<post v-for="post in wallposts" v-bind:sender="post.sender" v-bind:date="post.time_stamp" v-bind:msg="post.message"</post>
+		<post v-for="post in wallposts" v-bind:sender="post.sender" v-bind:date="post.time_stamp" v-bind:msg="post.message" </post>
 	</div>
 </script>
 
