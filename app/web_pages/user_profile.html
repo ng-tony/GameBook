@@ -98,6 +98,11 @@
 	.userBottom .col-6 {
 		padding: 0;
 	}
+	
+	.wall{
+		width: 50%;
+		margin: 0 auto;
+	}
 
 	#gameCard {
 		padding: 0;
@@ -149,12 +154,14 @@
 									My Friends</a>
 							</ul>
 							<ul class="list-group list-group-flush">
-								<a type="button" class="btn btn-outline-primary" href="friends.html"> <i style = "margin-right: 10px" class="fa fa-history fa-lg" aria-hidden="true"></i>
-									Recent Activity</a>
+								<li class="list-group-item" id="info" style="height:15%;">
+									<a href="inbox.html">Inbox</a>
+								</li>
 							</ul>
 							<ul class="list-group list-group-flush">
-								<a type="button" class="btn btn-outline-primary" href="friends.html"> <i style = "margin-right: 10px" class="fa fa-envelope fa-lg" aria-hidden="true"></i>
-									Send Message</button
+								<li class="list-group-item" id="info" style="height:19%;">
+									<sendMsg></sendMsg>
+								</li>
 							</ul>
 						</div>
 					</div>
@@ -298,6 +305,44 @@
 	</div>
 </script>
 
+<script type="text/x-template" id="sendMsg">
+	<div>
+		<a href="'#/?email=' + email" data-toggle="modal" data-target="#msgModal">Send Message</a>
+		<div class="modal fade" id="msgModal" tabindex="-1" role="dialog" aria-labelledby="msgModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<h5 class="modal-title" id="msgModalLabel">Direct Messaging</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			  <span aria-hidden="true">&times;</span>
+			</button>
+			  </div>
+			  <div class="modal-body">
+				<form>
+				  <div class="form-group">
+					<label for="sender-name" class="form-control-label">Sender:</label>
+					<input type="text" v-model="sender" class="form-control" id="sender" disabled="disabled">
+				  </div>
+				  <div class="form-group">
+					<label for="recipient-name" class="form-control-label">Recipient User:</label>
+					<input type="text" v-model="recipient" class="form-control" id="recipient">
+				  </div>
+				  <div class="form-group">
+					<label for="message-text" class="form-control-label">Message:</label>
+					<textarea v-model="msg" class="form-control" id="msg" rows="4"></textarea>
+				  </div>
+				</form>
+			  </div>
+			  <div class="modal-footer">
+				<button type="button" v-on:click ="reset" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="button" v-on:click="sendMsg" class="btn btn-primary">Send</button>
+			  </div>
+			</div>
+		  </div>
+		</div>
+	</div>
+</script>
+
 <script>
 	function previewFile() {
 		var preview = document.getElementById('preview')
@@ -314,6 +359,42 @@
 </script>
 
 <script>
+	var sendMsg = Vue.component('sendMsg', {
+		template: '#sendMsg',
+		data() {
+			return {
+				recipient: "",
+				sender: sessionStorage.getItem("username"),
+				msg: ""
+			}
+		},
+		methods: {
+			sendMsg: function () {
+				var d = new Date,
+					dformat = [d.getMonth() + 1,
+					d.getDate(),
+					d.getFullYear()].join('/') + ' ' +
+						[d.getHours(),
+						d.getMinutes(),
+						d.getSeconds()].join(':');
+				var submit = {
+					"recipient": this.recipient,
+					"sender": sessionStorage.getItem("username"),
+					"message": this.msg,
+					"date": dformat
+				}
+				console.log(submit);
+				axios.post('http://localhost:8081/addMessage', submit)
+					.then(function (res) {
+						console.log("sucessfully posted");
+						window.location.reload();
+					})
+					.catch(function (err) {
+						console.log("failed");
+					});
+			},
+		}
+	});
 	var rating = Vue.component('rating', {
 		props: ['game', 'date', 'rating', 'text', 'title'],
 		template: '#rating',
@@ -492,7 +573,8 @@
 		routes: [
 			{ path: '/', component: results },
 			{ path: '/', component: ratingList },
-			{ path: '/settings', component: settings },
+			{ path: '/', component: sendMsg },
+			{ path: '/settings', component: settings }
 		]
 	})
 
