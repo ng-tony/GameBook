@@ -150,16 +150,19 @@
 					<div id="friendsList" class="card col col-2">
 						<div class="card" id="sim_games">
 							<ul class="list-group list-group-flush">
-								<a type="button" class="btn btn-outline-primary" href="friends.html"> <i style = "margin-right: 10px" class="fa fa-user-plus fa-lg" aria-hidden="true"></i>
-									My Friends</a>
-							</ul>
-							<ul class="list-group list-group-flush">
 								<li class="list-group-item" id="info" style="height:15%;">
-									<a href="inbox.html">Inbox</a>
+									<a type="button" class="btn btn-outline-primary" href="friends.html"> <i style = "margin-right: 10px" class="fa fa-user-plus fa-lg" aria-hidden="true"></i>
+										My Friends</a>
 								</li>
 							</ul>
 							<ul class="list-group list-group-flush">
-								<li class="list-group-item" id="info" style="height:19%;">
+								<li class="list-group-item" id="info" style="height:15%;">
+									<a type="button" class="btn btn-outline-primary" href="inbox.html"> <i style = "margin-right: 10px" class="fa fa-envelope-open-o" aria-hidden="true"></i>
+									Inbox</a>
+								</li>
+							</ul>
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item" id="info" style="height:15%;">
 									<sendMsg></sendMsg>
 								</li>
 							</ul>
@@ -307,7 +310,8 @@
 
 <script type="text/x-template" id="sendMsg">
 	<div>
-		<a href="'#/?email=' + email" data-toggle="modal" data-target="#msgModal">Send Message</a>
+		<a type="button" class="btn btn-outline-primary" href="'#/?email=' + email" data-toggle="modal" data-target="#msgModal"> <i style = "margin-right: 10px" class="fa fa-share" aria-hidden="true"></i>
+									Send Message</a>
 		<div class="modal fade" id="msgModal" tabindex="-1" role="dialog" aria-labelledby="msgModalLabel" aria-hidden="true">
 		  <div class="modal-dialog" role="document">
 			<div class="modal-content">
