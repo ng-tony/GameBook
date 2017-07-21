@@ -23,7 +23,13 @@ Vue.component("navbar", {
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item active "><a class=" nav-item nav-link " href="https://utsccscc01.github.io/final-project-team-8/app/web_pages/main_page.html"><i class="fa fa-gamepad" style="font-size:48px;" aria-hidden="true"></i></a></li>
         <li style = "font-size:20pt;margin-left:20px; margin-top:10px" class="nav-item active "><a class=" nav-item nav-link " href=" # ">Forum</a></li>
-        <li style = "font-size:20pt;margin-left:20px;margin-top:10px" class="nav-item active "><a class=" nav-item nav-link " href="https://utsccscc01.github.io/final-project-team-8/app/web_pages/top_rated_games.html#/ ">Games</a></li>
+        <li style = "font-size:20pt;margin-left:20px;margin-top:10px" class="nav-item active ">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown">Games </a>
+          <div class="dropdown-menu" style = "margin-left:12%" aria-labelledby="navbarDropdownMenuLink">
+            <a href = "https://utsccscc01.github.io/final-project-team-8/app/web_pages/top_rated_games.html#/" class="dropdown-item">Top Rated Games</a>
+            <a href = "search_form.html" class="dropdown-item">Game Finder</a>
+          </div>
+        </li>
         <li style = "font-size:20pt;margin-left:20px;margin-top:10px" class="nav-item active "><a class=" nav-item nav-link " href="# ">About Us</a></li>
       </ul>
       <form class="form-inline pull-xs-right" v-bind:action="url + title">
