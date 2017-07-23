@@ -1,11 +1,15 @@
-CREATE TABLE Games(
-   GameID          CHAR(64)    PRIMARY KEY     NOT NULL,
-   Title          TEXT    NOT NULL,
-   Publisher         TEXT     ,
-   Developer        TEXT NOT NULL,
-   Genre            TEXT,
-   Price            REAL,
-   RELEASE_DATE     DATE,
-   DESCRIPTION      TEXT,
-   PICTURE          TEXT
+CREATE TABLE Review(
+    userID CHAR(64) REFERENCES User(EMAIL) ON UPDATE CASCADE,
+    gameID CHAR(64) REFERENCES Games(GameID) ON UPDATE CASCADE,
+    review_text TEXT,   
+    time_stamp DATE,
+    rating DOUBLE,
+    PRIMARY KEY(userID,gameID)
+);
+
+CREATE TABLE Likes(
+    userID CHAR(64) REFERENCES User(EMAIL) ON UPDATE CASCADE,
+    gameID CHAR(64) REFERENCES Games(GameID) ON UPDATE CASCADE, 
+    timestamp DATETIME,
+    PRIMARY KEY(userID,gameID)
 );
