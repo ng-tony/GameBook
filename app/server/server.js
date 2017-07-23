@@ -36,6 +36,29 @@ app.post("/dbGUI", function(req, res) {
     res.end();
   });
 });
+app.post("/addMessage", function(req, res) {
+  const addMessage = "INSERT or REPLACE into Messages values(?,?,?,?)";
+  var data = " ";
+  req.on("data", function(chunk) {
+    data += chunk;
+  });
+  req.on("end", function() {
+    console.log("POST data received");
+    res.writeHead(200, {
+      "Content-Type": "text/json"
+    });
+    var parsed = JSON.parse(data);
+    var params = [
+      parsed.recipient.trim(),
+      parsed.sender.trim(),
+      parsed.message.trim(),
+      parsed.date.trim()
+    ];
+    console.log(params);
+    db.run(addMessage, params);
+    res.end();
+  });
+});
 app.post("/addReview", function(req, res) {
   const addReview = "INSERT or REPLACE into review values(?,?,?,?,?)";
   var data = " ";
@@ -297,6 +320,24 @@ app.get("/getFriends", function(req, res) {
   var user = req.query.user;
   console.log(user);
   var selectSQL = "select * from Friends where user = ?";
+  db.all(selectSQL, user, function(err, rows) {
+    console.log("THE ROWS: ", rows);
+    res.send(rows);
+  });
+});
+app.get("/getMessagesTo", function(req, res) {
+  var user = req.query.user;
+  console.log(user);
+  var selectSQL = "select * from Messages where recipient = ?";
+  db.all(selectSQL, user, function(err, rows) {
+    console.log("THE ROWS: ", rows);
+    res.send(rows);
+  });
+});
+app.get("/getMessagesFrom", function(req, res) {
+  var user = req.query.user;
+  console.log(user);
+  var selectSQL = "select * from Messages where sender = ?";
   db.all(selectSQL, user, function(err, rows) {
     console.log("THE ROWS: ", rows);
     res.send(rows);
