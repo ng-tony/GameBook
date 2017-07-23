@@ -1,4 +1,4 @@
-PRAGMA foreign_keys=OFF;
+PRAGMA foreign_keys=On;
 BEGIN TRANSACTION;
 CREATE TABLE Games(
    GameID          CHAR(64)    PRIMARY KEY     NOT NULL,
