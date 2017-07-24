@@ -59,6 +59,24 @@ app.post("/addMessage", function(req, res) {
     res.end();
   });
 });
+app.post("/like", function(req, res) {
+  const addReview = "INSERT into likes values(?,?,?)";
+  var data = " ";
+  req.on("data", function(chunk) {
+    data += chunk;
+  });
+  req.on("end", function() {
+    console.log("POST data received");
+    res.writeHead(200, {
+      "Content-Type": "text/json"
+    });
+    var parsed = JSON.parse(data);
+    var params = [parsed.user.trim(), parsed.game.trim(), parsed.date.trim()];
+    console.log(params);
+    db.run(addReview, params);
+    res.end();
+  });
+});
 app.post("/addReview", function(req, res) {
   const addReview = "INSERT or REPLACE into review values(?,?,?,?,?)";
   var data = " ";
@@ -105,6 +123,21 @@ app.get("/search", function(req, res) {
   console.log(selectSQL);
   db.all(selectSQL, function(err, rows) {
     res.send(rows);
+  });
+});
+app.get("/userLike", function(req, res) {
+  console.log("a get request");
+  var user = req.query.email;
+  var title = req.query.title;
+  console.log(user);
+  var selectSQL = "Select * from Likes where userID = ? and gameID = ?";
+  var params = [user, title];
+  db.all(selectSQL, params, function(err, rows) {
+    if (rows.length == 0) {
+      res.send("false");
+    } else {
+      res.send("true");
+    }
   });
 });
 

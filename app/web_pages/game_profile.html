@@ -361,16 +361,57 @@
 		},
 		created: function () {
 			console.log(this.$route.path);
-			this.signedIn = sessionStorage.getItem("signedIn") == "true"
+			this.signedIn = sessionStorage.getItem("signedIn") == "true";
+			var self = this;
+			if (this.signedIn) {
+				console.log("SIGNEDIN");
+				axios.get('http://localhost:8081/userLike?email=' + sessionStorage.getItem("username")
+					+ '?title=' + this.$route.query.gameid)
+					.then(function (response) {
+						console.log("RESPONSE RECIEVED");
+						console.log("DATA", typeof response.data);
+						self.liked = response.data;
+					})
+					.catch(function (err) {
+						console.log("error")
+					})
+			}
 		},
 		methods: {
 			like() {
 				console.log("like");
 				this.liked = true;
+				var d = new Date,
+					dformat = [d.getMonth() + 1,
+					d.getDate(),
+					d.getFullYear()].join('/') + ' ' +
+						[d.getHours(),
+						d.getMinutes(),
+						d.getSeconds()].join(':');
+				var submit = {
+					"user": sessionStorage.getItem("username"),
+					"game": this.$route.query.gameid,
+					"date": dformat
+				}
+				axios.post('http://127.0.0.1:8081/like', submit)
+					.then(function (res) {
+						console.log("sucessfully posted");
+					})
+					.catch(function (err) {
+						console.log("failed");
+					});
 			},
 			unlike() {
 				console.log("dislike");
 				this.liked = false;
+				axios.delete('http://localhost:8081/dislike?email=' + sessionStorage.getItem("username")
+					+ '?title=' + this.$route.query.gameid)
+					.then(function (response) {
+						console.log("DISLIKE APPROVEED");
+					})
+					.catch(function (err) {
+						console.log("error")
+					})
 			}
 		}
 	});
