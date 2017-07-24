@@ -543,10 +543,8 @@
 				this.submited = true;
 				var pic = document.getElementById('file-input').files[0];
 				var pic_name = "";
-				if (pic != null) {
-					pic_name = pic.name
-					this.uploadFile(pic);
-				}
+				pic_name = pic.name;
+				this.uploadFile(pic);
 				var submit = {
 					"email": this.email,
 					"desc": this.descrip,
