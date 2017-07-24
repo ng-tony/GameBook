@@ -127,7 +127,6 @@ app.get("/recommend", function(req, res) {
       "Select GameID,title,genre,Developer,PICTURE from games limit 10",
       function(err, gameRows) {
         console.log(gameRows);
-        console.log(refGames[1]);
         res.send(gameRows);
       }
     );

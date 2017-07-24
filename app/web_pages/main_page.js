@@ -115,7 +115,13 @@ Vue.component("rec-slide", {
 });
 
 new Vue({
-  el: "#rec-list"
+  el: "#rec-list",
+  data: {
+    signedIn: false
+  },
+  created() {
+    this.signedIn = sessionStorage.getItem("signedIn") == "true";
+  }
 });
 
 new Vue({

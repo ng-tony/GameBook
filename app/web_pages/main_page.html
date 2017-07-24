@@ -142,8 +142,8 @@
 				</div>
 			</div>
 		</div>
-		<h1 class="display-4">Recommended Games</h1>
-		<div id="rec-list">
+		<div v-show="signedIn" id="rec-list">
+			<h1 class="display-4">Recommended Games</h1>
 			<rec-slide></rec-slide>
 		</div>
 		<div class="row">
