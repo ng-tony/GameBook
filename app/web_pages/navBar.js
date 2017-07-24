@@ -27,7 +27,7 @@ Vue.component("navbar", {
         <li style = "font-size:20pt;margin-left:20px; margin-top:10px" class="nav-item active "><a class=" nav-item nav-link " href=" # ">Forum</a></li>
         <li style = "font-size:20pt;margin-left:20px;margin-top:10px" class="nav-item active ">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown">Games </a>
-          <div class="dropdown-menu" style = "margin-left:12%" aria-labelledby="navbarDropdownMenuLink">
+          <div class="dropdown-menu" style = "margin-left:25%" aria-labelledby="navbarDropdownMenuLink">
             <a href = "https://utsccscc01.github.io/final-project-team-8/app/web_pages/top_rated_games.html#/" class="dropdown-item">Top Rated Games</a>
             <a href = "search_form.html" class="dropdown-item">Game Finder</a>
           </div>
