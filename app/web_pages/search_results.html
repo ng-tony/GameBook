@@ -49,7 +49,7 @@
 
     #info p {
         margin-top: 10px;
-        font-size: 20pt
+        font-size: 15pt
     }
 
     #info a {
@@ -131,6 +131,10 @@
                             self.loading = false;
                             console.log(response.data);
                             self.items = response.data
+                            for(var i = 0; i < self.items.length; i++){
+                                self.items[i].DESCRIPTION = self.items[i].DESCRIPTION.substring(0,300);
+                                self.items[i].DESCRIPTION = self.items[i].DESCRIPTION.substring(0,self.items[i].DESCRIPTION.lastIndexOf(" "))+ "...";
+                            }
                         })
                         .catch(function (err) {
                             console.log("error")
@@ -143,6 +147,10 @@
                             console.log(self.items);
                             self.loading = false;
                             self.items = response.data
+                            for(var i = 0; i < self.items.length; i++){
+                                self.items[i].DESCRIPTION = self.items[i].DESCRIPTION.substring(0,300);
+                                self.items[i].DESCRIPTION = self.items[i].DESCRIPTION.substring(0,self.items[i].DESCRIPTION.lastIndexOf(" "))+ "...";
+                            }
                         })
                         .catch(function (err) {
                             console.log("error")
