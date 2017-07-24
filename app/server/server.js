@@ -111,6 +111,28 @@ app.get("/listReviews", function(req, res) {
     res.send(rows);
   });
 });
+app.get("/recommend", function(req, res) {
+  console.log("a get request");
+  var user = req.query.email;
+  console.log(user);
+  var selectSQL =
+    "Select * from review join user on  review.userID = user.email join games on review.gameID = games.GameID where userID = ?";
+  db.all(selectSQL, user, function(err, rows) {
+    var recGames = [];
+    rows = _.orderBy(rows, ["rating"], ["desc"]);
+    if (rows.length >= 3) {
+      var refGames = [rows[0], rows[1], rows[2]];
+    }
+    db.all("Select title,genre,Developer,PICTURE from games limit 10", function(
+      err,
+      gameRows
+    ) {
+      console.log(gameRows);
+      console.log(refGames[1]);
+      res.send(gameRows);
+    });
+  });
+});
 app.get("/search", function(req, res) {
   console.log("a get request");
   var title = req.query.title;

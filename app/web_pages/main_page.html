@@ -17,10 +17,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.0/vue.js"></script>
 	<script src="https://use.fontawesome.com/d63932d1c4.js"></script>
 	<script src="navBar.js"></script>
-	<script
-			  src="https://code.jquery.com/jquery-3.2.1.js"
-			  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
-			  crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
 </head>
 
 
@@ -81,6 +78,13 @@
 	.list-group-item {
 		background-color: #F2F2F2
 	}
+
+	.recommend {
+		width: 350px;
+		margin-left: 30px;
+		margin-top: 30px;
+		margin-bottom: 30px;
+	}
 </style>
 </head>
 
@@ -104,7 +108,8 @@
 						<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
 						<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
 					</ol>
-					<div id="articles" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)" class="carousel-inner" role="listbox">
+					<div id="articles" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)" class="carousel-inner"
+					 role="listbox">
 						<div class="carousel-item active">
 							<a :href="articles[0].url">
 							<img class="img-responsive" v-bind:src="articles[0].urlToImage" alt="Article 1" >
@@ -141,16 +146,22 @@
 				</div>
 			</div>
 		</div>
+		<h1 class="display-4">Recommended Games</h1>
+		<div id="rec-list">
+			<rec-slide></rec-slide>
+		</div>
 		<div class="row">
 			<div class="col-md-4">
 				<div class="card">
 					<div class="card-header ">
-						<a href="https://utsccscc01.github.io/final-project-team-8/app/web_pages/top_rated_games.html#/?sortby=Recent Reviewed"><h4 class="listHeader">LATEST REVIEWED</h4></a>
+						<a href="https://utsccscc01.github.io/final-project-team-8/app/web_pages/top_rated_games.html#/?sortby=Recent Reviewed">
+							<h4 class="listHeader">LATEST REVIEWED</h4>
+						</a>
 					</div>
 					<div class="card-block no-padding">
 						<ul id="latestReviews" class="list-group">
-						<div v-for="item in latestGames"><a :href="item.href" class="list-group-item list-group-item-action">{{item.Title}}</a></div>
-						<!--
+							<div v-for="item in latestGames"><a :href="item.href" class="list-group-item list-group-item-action">{{item.Title}}</a></div>
+							<!--
 							<a href="#" class="list-group-item list-group-item-action">Tic Tac Toe</a>
 							<a href="#" class="list-group-item list-group-item-action">Chess</a>
 							<a href="#" class="list-group-item list-group-item-action">Go</a>-->
@@ -161,20 +172,24 @@
 			<div class="col-md-4">
 				<div class="card">
 					<div class="card-header">
-						<a href="https://utsccscc01.github.io/final-project-team-8/app/web_pages/top_rated_games.html#/?sortby=Likes"><h4 class="listHeader"> POPULAR GAMES</h4></a>
+						<a href="https://utsccscc01.github.io/final-project-team-8/app/web_pages/top_rated_games.html#/?sortby=Likes">
+							<h4 class="listHeader"> POPULAR GAMES</h4>
+						</a>
 					</div>
 					<div class="card-block no-padding">
 						<ul id="topRatedGamesList" v-if="!loading" class="list-group">
 							<div v-for="item in topRatedGames"><a :href="item.href" class="list-group-item list-group-item-action">{{item.Title}}</a></div>
 						</ul>
-						
+
 					</div>
 				</div>
 			</div>
 			<div class="col-md-4">
 				<div class="card">
 					<div class="card-header">
-						<a href="https://utsccscc01.github.io/final-project-team-8/app/web_pages/top_rated_games.html#/?sortby=Recent Release"><h4 class="listHeader"> NEW RELEASES</h4></a>
+						<a href="https://utsccscc01.github.io/final-project-team-8/app/web_pages/top_rated_games.html#/?sortby=Recent Release">
+							<h4 class="listHeader"> NEW RELEASES</h4>
+						</a>
 					</div>
 					<div class="card-block no-padding">
 						<ul id="latestGames" v-if="!loading" class="list-group">
