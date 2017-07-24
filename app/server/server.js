@@ -125,6 +125,17 @@ app.get("/search", function(req, res) {
     res.send(rows);
   });
 });
+app.delete("/dislike", function(req, res) {
+  console.log("a delete request");
+  var title = req.query.title;
+  var email = req.query.email;
+  var deleteSQL = "delete from likes where gameID = ? and userID = ?";
+  console.log(title);
+  console.log(email);
+  var params = [title, email];
+  db.run(deleteSQL, params);
+  res.send("done");
+});
 app.get("/userLike", function(req, res) {
   console.log("a get request");
   var user = req.query.email;

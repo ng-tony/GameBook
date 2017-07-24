@@ -366,7 +366,7 @@
 			if (this.signedIn) {
 				console.log("SIGNEDIN");
 				axios.get('http://localhost:8081/userLike?email=' + sessionStorage.getItem("username")
-					+ '?title=' + this.$route.query.gameid)
+					+ '&title=' + this.$route.query.gameid)
 					.then(function (response) {
 						console.log("RESPONSE RECIEVED");
 						console.log("DATA", typeof response.data);
@@ -405,9 +405,9 @@
 				console.log("dislike");
 				this.liked = false;
 				axios.delete('http://localhost:8081/dislike?email=' + sessionStorage.getItem("username")
-					+ '?title=' + this.$route.query.gameid)
+					+ '&title=' + this.$route.query.gameid)
 					.then(function (response) {
-						console.log("DISLIKE APPROVEED");
+						console.log("DISLIKE APPROVED");
 					})
 					.catch(function (err) {
 						console.log("error")
