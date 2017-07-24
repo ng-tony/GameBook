@@ -66,17 +66,17 @@
             <div class="row">
                 <div class="col-sm-1" id="avatar">
                     <div id="container" style="width:100">
-                        <img class="img-thumbnail" src="Assets/Images/41699326_p0.jpg">
+                        <img class="img-thumbnail" :src="picURL">
                     </div>
                 </div>
                 <div class="col-sm-2">
-                    <a href="somewhere">{{username}}</a>
+                    <a :href="friendURL">{{username}}</a>
                 </div>
                 <div class="col-sm-3" id="review-info">
-                    <el-form ref="form" :model="form" label-width="120px">
+                    <el-form ref="form" label-width="120px">
                         <el-form-item>
                             <el-button type="success" @click="accept">Accept</el-button>
-                            <el-button type="danger" @click="reject">Reject</el-button>
+                            <el-button type="danger" @click="decline">Reject</el-button>
                         </el-form-item>
                     </el-form>
                 </div>
@@ -101,7 +101,7 @@
 </script>
 <script type="text/x-template" id="Pending">
     <div>
-        <pending-card v-for="p in pending" v-bind:username="p.friend">
+        <pending-card v-for="p in pending" v-bind:username="p.friend" :link="p.EMAIL" :src="p.PICTURE">
         </pending-card>
     </div>
 </script>
@@ -172,7 +172,13 @@
     })
     Vue.component('pending-card', {
         template: '#pending-card',
-        props: ['username'],
+        props: ['username', 'src', 'link'],
+        data() {
+            return {
+                "picURL": "Assets/profile/" + this.src,
+                "friendURL": "user_profile.html#/?email=" + this.link
+            }
+        },
         methods: {
             accept: function () {
                 var currUser = sessionStorage.getItem("username");

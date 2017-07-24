@@ -389,7 +389,7 @@ app.get("/getFriends", function(req, res) {
   var user = req.query.user;
   console.log(user);
   var selectSQL =
-    "select PICTURE,friend,email from Friends join User on Friends.friend = User.email where user = ?";
+    "select PICTURE,friend,email,friends.status from Friends join User on Friends.friend = User.email where user = ?";
   db.all(selectSQL, user, function(err, rows) {
     console.log("THE ROWS: ", rows);
     res.send(rows);
