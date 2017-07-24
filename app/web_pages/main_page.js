@@ -67,7 +67,8 @@ Vue.component("rec-slide", {
       games: [],
       splitGames: [],
       activeGames: [],
-      expand: false
+      expand: false,
+      avail: true
     };
   },
 
@@ -80,15 +81,19 @@ Vue.component("rec-slide", {
             sessionStorage.getItem("username")
         )
         .then(function(response) {
-          self.games = response.data;
-          const size = 3;
-          while (self.games.length > 0) {
-            self.splitGames.push(self.games.splice(0, size));
+          if (response.data != false) {
+            self.games = response.data;
+            const size = 3;
+            while (self.games.length > 0) {
+              self.splitGames.push(self.games.splice(0, size));
+            }
+            self.activeGames.push(self.splitGames[0]);
+            console.log("ACTIVE GAMES", self.activeGames[0]);
+            self.splitGames.splice(0, 1);
+            self.expand = self.splitGames.length > 1;
+          } else {
+            self.avail = false;
           }
-          self.activeGames.push(self.splitGames[0]);
-          console.log("ACTIVE GAMES", self.activeGames[0]);
-          self.splitGames.splice(0, 1);
-          self.expand = self.splitGames.length > 1;
         })
         .catch(function(err) {
           console.log("error");
@@ -96,7 +101,7 @@ Vue.component("rec-slide", {
     }
   },
   template: `
-  <div id="rec-carousel" class="carousel slide" data-ride="carousel">
+  <div v-show = "avail" id="rec-carousel" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner" role="listbox">
       <div class="carousel-item active">
         <rec-list :game = "activeGames[0]"></rec-list>

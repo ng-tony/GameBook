@@ -122,14 +122,28 @@ app.get("/recommend", function(req, res) {
     rows = _.orderBy(rows, ["rating"], ["desc"]);
     if (rows.length >= 3) {
       var refGames = [rows[0], rows[1], rows[2]];
+      db.all("Select GameID,title,genre,Developer,PICTURE from games", function(
+        err,
+        gameRows
+      ) {
+        console.log("IM HERE", refGames[1]);
+        for (i = 0; i < 3; i++) {
+          var list = _.filter(gameRows, function(game) {
+            return (
+              game.Genre == refGames[i].Genre &&
+              game.GameID != refGames[i].GameID
+            );
+          });
+          console.log("LIST", list);
+          recGames = recGames.concat(list);
+          console.log("REC", recGames);
+        }
+        console.log("GAMES RECOMMENDED", recGames);
+        res.send(recGames);
+      });
+    } else {
+      res.send(false);
     }
-    db.all(
-      "Select GameID,title,genre,Developer,PICTURE from games limit 10",
-      function(err, gameRows) {
-        console.log(gameRows);
-        res.send(gameRows);
-      }
-    );
   });
 });
 app.get("/search", function(req, res) {
