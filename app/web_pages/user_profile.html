@@ -561,15 +561,15 @@
 						console.log(sessionStorage.getItem("username"));
 						sessionStorage.setItem("username", res.data)
 
-						self.submited = false;
-						self.$message({
-							showClose: true,
-							message: 'Profile Updated.',
-							type: 'success'
-						});
+						self.submited = true;
 						setTimeout(function () {
-							window.location.reload();
-						}, 2000)
+							self.$message({
+								showClose: true,
+								message: 'Profile Updated.',
+								type: 'success'
+							});
+							self.submited = false;
+						}, 5000)
 					})
 					.catch(function (err) {
 						console.log("failed");
