@@ -156,7 +156,17 @@
 				</div>
 				<div id="gameCard" class="card col col-7">
 					<div id="header" class="card-header" style="border-color:black">
-						<h2 class="display-6">{{ title }}</h2>
+						<div class="row gameTitle">
+							<h2 class="display-6">{{ title }}</h2>
+							<div v-show="signedIn" class="likeButton" style="position: absolute; right: 0;">
+								<button @click="unlike" v-show="liked" class="btn btn-outline-warning">
+									<i class="fa fa-star" aria-hidden="true"></i>
+								</button>
+								<button @click="like" v-show="!liked" class="btn btn-outline-warning">
+									<i class="fa fa-star-o" aria-hidden="true"></i>
+								</button>
+							</div>
+						</div>
 					</div>
 					<ul class="list-group list-group-flush">
 						<li class="list-group-items" id="info">
@@ -221,9 +231,9 @@
 </script>
 <script type="text/x-template" id="addReview">
 	<div class="container">
-		<button class="btn btn-outline-primary float-right" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
-		 aria-controls="collapseExample" style="margin-bottom:50px">
-    Write a Review
+		<button v-show="signedIn" class="btn btn-outline-primary float-right" type="button" data-toggle="collapse" data-target="#collapseExample"
+		 aria-expanded="false" aria-controls="collapseExample" style="margin-bottom:50px">
+    		Write a Review
 		</button>
 		<div class="collapse" id="collapseExample">
 			<div class="form-group" id='write_review'>
@@ -280,8 +290,12 @@
 			return {
 				user_rating: 0.0,
 				text: "",
-				gameid: this.$route.query.gameid
+				gameid: this.$route.query.gameid,
+				signedIn: false
 			}
+		},
+		created() {
+			this.signedIn = sessionStorage.getItem("signedIn") == "true"
 		},
 		methods: {
 			addReview: function () {
@@ -340,11 +354,24 @@
 		template: '#info',
 		data() {
 			return {
-				path: this.$route.path
+				path: this.$route.path,
+				liked: false,
+				signedIn: false
 			}
 		},
-		mounted: function () {
+		created: function () {
 			console.log(this.$route.path);
+			this.signedIn = sessionStorage.getItem("signedIn") == "true"
+		},
+		methods: {
+			like() {
+				console.log("like");
+				this.liked = true;
+			},
+			unlike() {
+				console.log("dislike");
+				this.liked = false;
+			}
 		}
 	});
 	var results = Vue.component('results', {
