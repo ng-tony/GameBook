@@ -96,11 +96,14 @@ app.get("/search", function(req, res) {
   console.log("a get request");
   var title = req.query.title;
   console.log(title);
-  var selectSQL = "Select * from Games where title=? COLLATE NOCASE";
-  db.all("Select * from Games where title=? COLLATE NOCASE", title, function(
-    err,
-    rows
-  ) {
+  var selectSQL =
+    "Select * from Games where title LIKE" +
+    "'%" +
+    title +
+    "%'" +
+    "COLLATE NOCASE";
+  console.log(selectSQL);
+  db.all(selectSQL, function(err, rows) {
     res.send(rows);
   });
 });

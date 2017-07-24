@@ -44,6 +44,10 @@
     #main .col-10 .card-block {
         width: 100%;
         height: 100%;
+        ;
+        overflow: hidden;
+        display: inline-block;
+        text-overflow: ellipsis;
     }
 
     #info p {
@@ -61,7 +65,7 @@
         <div id='main' class="card card-outline-secondary mb-3 text-center">
             <div class="row">
                 <div class="col-2">
-                    <img height="200" width="200" :src="image" class="img-thumbnail" onerror="this.src='Assets/Images/zelda.jpg'" alt="Responsive image">
+                    <img height="200" width="200" :src="image" class="img-thumbnail" alt="Responsive image">
                 </div>
                 <div class="col-10">
                     <div class="card-block">
@@ -110,40 +114,48 @@
         },
         template: "#site-template",
         created() {
-            console.log("HERE");
-            var self = this
-            if (this.title == null) {
-                var submit = {
-                    "name": this.$route.query.n,
-                    "genre": this.$route.query.g,
-                    "beforeDate": this.$route.query.bd,
-                    "afterDate": this.$route.query.ad,
-                    "rating": this.$route.query.r,
-                    "sort": this.$route.query.s
-                }
-                axios.get('http://localhost:8081/adv_search?search=' + encodeURIComponent(JSON.stringify(submit)))
-                    .then(function (response) {
-                        self.loading = false;
-                        console.log(response.data);
-                        self.items = response.data
-                    })
-                    .catch(function (err) {
-                        console.log("error")
-                    })
+            this.getResults();
+        },
+        methods: {
+            getResults() {
+                console.log("HERE");
+                var self = this
+                if (this.title == null) {
+                    var submit = {
+                        "name": this.$route.query.n,
+                        "genre": this.$route.query.g,
+                        "beforeDate": this.$route.query.bd,
+                        "afterDate": this.$route.query.ad,
+                        "rating": this.$route.query.r,
+                        "sort": this.$route.query.s
+                    }
+                    axios.get('http://localhost:8081/adv_search?search=' + encodeURIComponent(JSON.stringify(submit)))
+                        .then(function (response) {
+                            self.loading = false;
+                            console.log(response.data);
+                            self.items = response.data
+                        })
+                        .catch(function (err) {
+                            console.log("error")
+                        })
 
+                }
+                else {
+                    axios.get('http://localhost:8081/search?title=' + this.$route.query.title)
+                        .then(function (response) {
+                            console.log(self.items);
+                            self.loading = false;
+                            self.items = response.data
+                        })
+                        .catch(function (err) {
+                            console.log("error")
+                        })
+                    console.log(this.loading);
+                }
             }
-            else {
-                axios.get('http://localhost:8081/search?title=' + this.$route.query.title)
-                    .then(function (response) {
-                        console.log(self.items);
-                        self.loading = false;
-                        self.items = response.data
-                    })
-                    .catch(function (err) {
-                        console.log("error")
-                    })
-                console.log(this.loading);
-            }
+        },
+        beforeRouteUpdate(to, from, next) {
+            this.getResults();
         }
     });
     const router = new VueRouter({

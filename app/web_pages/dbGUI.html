@@ -69,7 +69,7 @@
             <input type="file" onchange="previewFile()" class="form-control-file" id="file-input" aria-describedby="fileHelp">
             <img class="img-thumbnail" id="preview" src="" height="150" alt="Image preview...">
         </div>
-        <input value="submit" type="submit" id="Submit" class="btn btn-primary">
+        <input value="submit" id="Submit" class="btn btn-primary">
 
     </form>
 </body>
@@ -116,7 +116,7 @@
             }
             var splitted = reader.result.split(',');
             file_submit.content = splitted[1];
-            axios.put('https://api.github.com/repos/UTSCCSCC01/final-project-team-8/contents/app/web_pages/Assets/profile/' + file.name + '?access_token=c0591659a276ff80d2bc4cd4e4c854d6b257b3f2', file_submit)
+            axios.put('https://api.github.com/repos/UTSCCSCC01/final-project-team-8/contents/app/web_pages/Assets/Images/' + file.name + '?access_token=c0591659a276ff80d2bc4cd4e4c854d6b257b3f2', file_submit)
                 .then(function (res) {
                     console.log("sucessfully posted");
                 })
@@ -141,13 +141,8 @@
         var descrip = document.getElementById('descrip-input').value
         var pic = "";
         var file = document.getElementById('file-input').files[0];
-        if (file != null) {
-            var content = uploadFile(file);
-            pic = file.name;
-        }
-        else {
-            pic = "default.png"
-        }
+        var content = uploadFile(file);
+        pic = file.name;
         var submit = {
             "title": title,
             "publisher": publisher,
