@@ -105,7 +105,8 @@ app.get("/listReviews", function(req, res) {
   console.log("a get request");
   var id = req.query.gameid;
   console.log(id);
-  var selectSQL = "Select * from review where gameID=? COLLATE NOCASE";
+  var selectSQL =
+    "Select * from review join user on review.userID = user.email where gameID=? COLLATE NOCASE";
   db.all(selectSQL, id, function(err, rows) {
     res.send(rows);
   });

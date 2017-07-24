@@ -253,7 +253,7 @@
 				<div class="row">
 					<div class="col-sm-1" id="avatar">
 						<div id="container" style="width:100px">
-							<img class="img-thumbnail" src="Assets/Images/41699326_p0.jpg">
+							<img class="img-thumbnail" v-bind:src="pictureURL">
 						</div>
 					</div>
 					<div class="col-sm-1">
@@ -278,8 +278,8 @@
 
 <script type="text/x-template" id="reviewList">
 	<div class="container">
-		<review v-for="review in reviews" v-bind:username="review.userID" v-bind:date="review.time_stamp" v-bind:rating="review.rating"
-		 v-bind:text="review.review_text"></review>
+		<review v-for="review in reviews" v-bind:avatar="review.PICTURE" v-bind:username="review.userID" v-bind:date="review.time_stamp"
+		 v-bind:rating="review.rating" v-bind:text="review.review_text"></review>
 	</div>
 </script>
 
@@ -326,8 +326,13 @@
 		}
 	});
 	var review = Vue.component('review', {
-		props: ['username', 'date', 'rating', 'text'],
+		props: ['username', 'date', 'rating', 'text', 'avatar'],
 		template: '#review',
+		data() {
+			return {
+				pictureURL: "Assets/profile/" + this.avatar
+			}
+		}
 	});
 	var reviewList = Vue.component('reviewList', {
 		template: '#reviewList',

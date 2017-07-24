@@ -150,7 +150,7 @@
 			<br>
 			<div class="userBottom">
 				<div class="row">
-					<div id="friendsList" class="col col-2">
+					<div v-show="currentUser" id="friendsList" class="col col-2">
 						<p><a style="width:80%" class="btn btn-outline-primary" href="friends.html"> <i style = "margin-right: 10px" class="fa fa-user-plus fa-lg" aria-hidden="true"></i>
 										My Friends</a></p>
 
@@ -487,7 +487,8 @@
 			console.log("USER", sessionStorage.getItem("username"));
 			console.log(sessionStorage.getItem("username"), this.$route.query.email);
 			console.log(this.$route.query.email == sessionStorage.getItem("username"));
-			if (this.$route.query.email == sessionStorage.getItem("username")) {
+			if (this.$route.query.email == sessionStorage.getItem("username") &&
+				sessionStorage.getItem("signedIn") == "true") {
 				console.log("ON ACCOUNT");
 				this.currentUser = true;
 			}
