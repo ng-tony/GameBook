@@ -32,10 +32,11 @@ new Vue({
 });
 
 Vue.component("rec-card", {
-  props: ["Title", "Dev", "Picture"],
+  props: ["Title", "Dev", "Picture", "ID"],
   data() {
     return {
-      imageURL: this.Picture
+      imageURL: this.Picture,
+      URL: "game_profile.html#/?gameid=" + this.ID
     };
   },
   created() {
@@ -45,7 +46,7 @@ Vue.component("rec-card", {
 			<div class="card recommend">
 				<img class="card-img-top" :src="imageURL" height="300 " alt="Card image cap ">
         <div class="card-block ">
-          <h4 class="card-title">{{Title}}</h4>
+          <a :href = "URL"><h4 class="card-title">{{Title}}</h4></a>
 					<p class="card-text ">{{Dev}}</p>
 				</div>
 			</div> `
@@ -57,7 +58,7 @@ Vue.component("rec-list", {
   },
   template: `
       <div class="row">
-        <rec-card v-for = "g in game" :Picture = "g.PICTURE" :Title = "g.Title" :Dev = "g.Developer"></rec-card>
+        <rec-card v-for = "g in game" :ID = "g.GameID" :Picture = "g.PICTURE" :Title = "g.Title" :Dev = "g.Developer"></rec-card>
 			</div> `
 });
 Vue.component("rec-slide", {
@@ -72,7 +73,6 @@ Vue.component("rec-slide", {
 
   created() {
     if (sessionStorage.getItem("signedIn") == "true") {
-      console.log("ATTEMPT TO GET RECOMMEND GAMES");
       var self = this;
       axios
         .get(
@@ -80,14 +80,13 @@ Vue.component("rec-slide", {
             sessionStorage.getItem("username")
         )
         .then(function(response) {
-          console.log("RESPONSE RECIEVED", response.data);
           self.games = response.data;
-          console.log("IS MUTATED", self.games);
           const size = 3;
           while (self.games.length > 0) {
             self.splitGames.push(self.games.splice(0, size));
           }
           self.activeGames.push(self.splitGames[0]);
+          console.log("ACTIVE GAMES", self.activeGames[0]);
           self.splitGames.splice(0, 1);
           self.expand = self.splitGames.length > 1;
         })

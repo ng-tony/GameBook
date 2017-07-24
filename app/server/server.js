@@ -123,14 +123,14 @@ app.get("/recommend", function(req, res) {
     if (rows.length >= 3) {
       var refGames = [rows[0], rows[1], rows[2]];
     }
-    db.all("Select title,genre,Developer,PICTURE from games limit 10", function(
-      err,
-      gameRows
-    ) {
-      console.log(gameRows);
-      console.log(refGames[1]);
-      res.send(gameRows);
-    });
+    db.all(
+      "Select GameID,title,genre,Developer,PICTURE from games limit 10",
+      function(err, gameRows) {
+        console.log(gameRows);
+        console.log(refGames[1]);
+        res.send(gameRows);
+      }
+    );
   });
 });
 app.get("/search", function(req, res) {
