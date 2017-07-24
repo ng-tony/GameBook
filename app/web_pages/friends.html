@@ -45,16 +45,16 @@
 </body>
 <script type="text/x-template" id="myFriends">
     <div>
-        <friend-card v-for="f in friend" v-bind:username="f.friend">
+        <friend-card v-for="f in friend" :link="f.EMAIL" v-bind:username="f.friend" :src="f.PICTURE">
         </friend-card>
     </div>
 </script>
 <script type="text/x-template" id="friend-card">
     <div class="friend" style="margin-left:50px; margin-right:50px">
         <a href="">
-            <img style="height:170px; width:160px" class="img-thumbnail" src="Assets/Images/41699326_p0.jpg">
+            <img style="height:170px; width:160px" class="img-thumbnail" :src = "imageURL">
         </a>
-        <a href=" ">
+        <a :href="friendURL">
             <p><b>{{username}}</b></p>
         </a>
         <p style="margin-top:-15">3 minutes ago</p>
@@ -111,7 +111,13 @@
         template: '#myFriends'
     })
     Vue.component('friend-card', {
-        props: ['username'],
+        props: ['username', 'src', "link"],
+        data() {
+            return {
+                "imageURL": "Assets/profile/" + this.src,
+                "friendURL": "user_profile.html#/?email=" + this.link
+            }
+        },
         template: '#friend-card'
     })
     Vue.component('addfriends', {
